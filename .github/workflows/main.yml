@@ -1,0 +1,64 @@
+# .github/workflows/flogo-build.yml
+#
+# This GitHub Actions workflow automates the build process for a Flogo application.
+# It installs Oracle drivers, uses build tools from a 'flogo-ci' directory,
+# builds the application, and places the binary in a 'build' directory.
+
+name: Build Flogo Application
+
+# This workflow triggers on pushes to the 'main' branch.
+# You can change this to 'master' or add other branches and triggers like pull requests.
+on:
+  push:
+    branches:
+      - main
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    # The type of runner that the job will run on.
+    # 'ubuntu-latest' is a good choice for this task.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out your repository code
+      # This action checks-out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Oracle Instant Client
+      # This action installs the required Oracle ODBC drivers for the build.
+      - name: Set up Oracle Instant Client
+        uses: iamazeem/setup-oracle-instant-client-action@v2
+
+      # Step 3: Make the Flogo CLI executable
+      # This step is necessary to ensure the runner has permission to execute the CLI tool.
+      - name: Make CLI executable
+        run: chmod +x flogo-ci/flogo-vscode-cli
+
+      # Step 4: Verify the CLI is working
+      # This is an optional but recommended step to ensure the CLI is correctly set up.
+      - name: Verify Flogo CLI
+        run: ./flogo-ci/flogo-vscode-cli --version
+
+      # Step 5: Create the build directory
+      # This creates a '/build' directory to store the compiled application binary.
+      # This must be done before the build step, as the build command targets this directory.
+      - name: Create build directory
+        run: mkdir -p build
+
+      # Step 6: Build the Flogo application
+      # This command executes the detailed build process using tools from the 'flogo-ci' directory.
+      # IMPORTANT: It assumes 'oracle-demo.flogo' is in your repository root.
+      - name: Build Flogo app
+        run: ./flogo-ci/flogo-vscode-cli app build -f oracle-demo.flogo -c ./flogo-ci/contributions/ -b ./flogo-ci/flogo-runtime -n Oracle_Demo -p linux/amd64 -o build
+
+      # Step 7: Upload the build artifact (optional)
+      # This step uploads the 'build' directory as an artifact, which you can
+      # download from the GitHub Actions run summary page.
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flogo-app-binary
+          path: build/
