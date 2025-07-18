@@ -19,7 +19,6 @@ vendor/
 
 # Flogo build artifacts
 bin/
-build/
 dist/
 
 
