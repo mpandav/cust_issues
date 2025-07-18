@@ -1,0 +1,73 @@
+{
+  "name": "azurestorage-create",
+  "title": "Microsoft Azure Storage Create",
+  "version": "1.1.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "Azurestorage",
+    "visible": true,
+    "description": "Performs azurestorage Create operation",
+    "smallIcon": "icons/azstorage-create@2x.png",
+    "largeIcon": "icons/azstorage-create@3x.png"
+  },
+  "ref": "github.com/tibco/wi-azstorage/src/app/Azurestorage/activity/create",
+  "inputs": [
+    {
+      "name": "Connection",
+      "type": "connection",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Connection",
+        "description": "Select an Azure Storage Connection",
+        "type": "connection",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "service",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service",
+        "type": "dropdown",
+        "selection": "single",
+        "description": "Select Storage Service",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "operation",
+      "type": "string",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Operation",
+        "type": "dropdown",
+        "selection": "single",
+        "description": "Select operation you want to perform. For connection with OAuth authentication create share is not supported.",
+        "visible": true
+      }
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "title": "Invoke Lambda Function",
+  "version": "1.3.1",
+  "type": "flogo:activity",
+  "name": "flogo-lambda-invoke-sync",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "visible": true,
+    "description": "Invoke Lambda Function",
+    "category": "Lambda",
+    "smallIcon": "icons/ic-flogo-lambda-invoke-sync.png",
+    "largeIcon": "icons/ic-flogo-lambda-invoke-sync-@2x.png"
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/flogo-lambda/src/app/Lambda/activity/invokesync",
+  "inputs": [
+    {
+      "name": "ConnectionName",
+      "required": true,
+      "type": "connection",
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "arn",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Function Name or ARN",
+        "description": "The name of the Lambda function or ARN",
+        "type": "string",
+        "appPropertySupport": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "payload",
+      "type": "object",
+      "required": true,
+      "display": {
+        "name": "Payload Schema",
+        "description": "An example JSON data of the request payload to invoke the Lambda function",
+        "type": "texteditor",
+        "syntax": "json",
+        "mappable": true,
+        "visible": true
+      }
+    },
+    {
+      "name": "LambdaARN",
+      "type": "string"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "result",
+      "type": "object",
+      "display": {
+        "name": "Result Schema",
+        "description": "An example JSON data of the expected result return from the Lambda function invoked",
+        "type": "texteditor",
+        "syntax": "json"
+      }
+    },
+    {
+      "name": "status",
+      "type": "integer"
+    }
+  ]
+}

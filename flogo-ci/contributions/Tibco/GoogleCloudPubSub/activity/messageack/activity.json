@@ -1,0 +1,28 @@
+{
+  "name": "gcp-message-ack",
+  "type": "flogo:activity",
+  "title": "Message Acknowledgement Activity",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "GoogleCloudPubSub",
+    "smallIcon": "cloud_pub-sub_ack@2x.png",
+    "largeIcon": "cloud_pub-sub_ack@3x.png",
+    "description": "This activity acknowledges message received by the subscriber. When not configured, message will be acknowledged when flow is successfully completed."
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }
+  },
+  "ref": "github.com/tibco/flogo-google-pubsub/src/app/GoogleCloudPubSub/activity/messageack",
+  "inputs": [
+  ],
+  "outputs": [
+  ]
+}

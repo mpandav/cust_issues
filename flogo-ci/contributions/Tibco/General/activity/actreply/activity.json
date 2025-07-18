@@ -1,0 +1,38 @@
+{
+    "title": "Reply To Trigger",
+    "name": "flogo-actreply",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "version": "1.0.1",
+    "display": {
+        "visible": true,
+        "description": "Reply back to the trigger and continue flow execution, it must be used only in the flow with the trigger configured.",
+        "category": "General",
+        "smallIcon": "icons/ic-reply.png",
+        "largeIcon": "icons/ic-reply@2x.png"
+    },
+    "ref": "github.com/tibco/flogo-general/src/app/General/activity/actreply",
+    "feature": {
+        "iterator": {
+            "type": "iterator",
+            "enabled": false
+        },
+        "repeater": {
+            "type": "repeater",
+            "enabled": false
+        }
+    },
+    "return": true,
+    "inputs": [
+        {
+            "name": "reply",
+            "type": "any",
+            "required": true,
+            "display": {
+                "mappable": true,
+                "settings": false
+            }
+        }
+    ],
+    "output": []
+}

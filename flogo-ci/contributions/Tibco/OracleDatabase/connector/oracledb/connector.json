@@ -1,0 +1,153 @@
+
+{
+  "name": "oracledb",
+  "version": "1.2.2",
+  "author": "Cloud Software Group Inc.",
+  "type": "flogo:connector",
+  "title": "Oracle Database Connector",
+  "display": {
+      "category": "OracleDatabase",
+      "description": "Connector for Oracle database",
+      "visible": true,
+      "smallIcon": "icons/oracledb-connection.png",
+      "largeIcon": "icons/oracledb-connection.png",
+      "connectionsupport": true
+  },
+  "ref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/connector/oracledb",
+  "keyfield": "name",
+  "settings": [{
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "visible": true
+      }
+    },
+    {
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Host",
+        "description": "Oracle Database Host name",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "value": 1521,
+      "display": {
+        "name": "Port",
+        "description": "Oracle Database Port",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User",
+        "description": "Name of the Oracle Database User",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "description": "Oracle Database Password",
+        "type": "password",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "allowed": [
+        "SID",
+        "Service Name"
+      ],
+      "display": {
+        "name": "Database Instance",
+        "description": "Choose the Database Instance",
+        "visible": true
+      },
+      "value": "SID"
+    },
+    {
+      "name": "SID",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Database Instance value",
+        "description": "SID or Service Name for the Database Instance",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "SetMaxOpenConns",
+      "type": "integer",
+      "required": false,
+      "value": 50,
+      "display": {
+          "name": "Max Open Connections",
+          "description": "Maximum number of open connections to the database",
+          "type": "integer",
+          "visible": true,
+          "appPropertySupport": true
+      }
+  },
+  {
+      "name": "SetMaxIdleConns",
+      "type": "integer",
+      "required": false,
+      "value": 10,
+      "display": {
+          "name": "Max Idle Connections",
+          "description": "Maximum number of idle connections in the pool",
+          "type": "integer",
+          "visible": true,
+          "appPropertySupport": true
+      }
+  },
+  {
+      "name": "SetConnMaxLifetime",
+      "type": "string",
+      "required": false,
+      "value": "180s",
+      "display": {
+          "name": "Connection Max Lifetime",
+          "description": "Maximum amount of time a connection may be reused (in seconds). Valid time units are ns, us (or µs), ms, s, m, h. Example: 60s, 60m or 6h45m.",
+          "type": "string",
+          "visible": true,
+          "appPropertySupport": true
+      }
+  }
+],
+  "actions": [{
+      "name": "Connect"
+  }]
+}

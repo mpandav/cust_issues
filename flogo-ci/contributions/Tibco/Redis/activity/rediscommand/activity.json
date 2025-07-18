@@ -1,0 +1,79 @@
+{
+  "name": "redis-command",
+  "title": "Redis Command",
+  "version": "1.1.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "ref": "github.com/tibco/wi-redis/src/app/Redis/activity/rediscommand",
+  "description": "Redis Query activity",
+  "display": {
+    "category": "Redis",
+    "visible": true,
+    "smallIcon": "icons/command@2x.png",
+    "largeIcon": "icons/command@3x.png",
+    "description": "This activity executes Redis query on Redis backend"
+  },
+  "inputs": [
+    {
+      "name": "Connection",
+      "type": "connection",    
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Connection",
+        "description": "Select a Redis Connection",
+        "type": "connection",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "Group",
+      "type": "string",
+      "required": true,
+      "allowed": [
+        "Strings",
+        "Lists",
+        "Sets",
+        "Sorted Sets",
+        "Hashes",
+        "JSON"
+      ],
+      "display": {
+        "name": "Group",
+        "description": "Select Redis command group",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "Command",
+      "type": "string",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Command",
+        "type": "dropdown",
+        "selection": "single",
+        "description": "Select the Command you want to execute on the Redis",
+        "visible": true
+      }
+    },
+    
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],"feature": {
+    "retry": {
+      "enabled": true
+    }
+  },
+  "outputs": [
+    {
+      "name": "Output",
+      "type": "object"
+    }
+  ]
+}

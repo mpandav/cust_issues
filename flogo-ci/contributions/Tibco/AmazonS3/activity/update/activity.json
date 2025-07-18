@@ -1,0 +1,67 @@
+{
+  "name": "update",
+  "title": "Update",
+  "version": "1.2.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon S3 Update Activity",
+    "category": "AmazonS3",
+    "smallIcon": "icons/update@2x.png",
+    "largeIcon": "icons/update@3x.png"
+  },
+  "ref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/update",
+  "inputs": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "serviceName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service Name",
+        "description": "Select one service name from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "updateType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Update Type",
+        "description": "Select one update type from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    },
+    {
+      "name": "error",
+      "type": "object"
+    }
+  ]
+}

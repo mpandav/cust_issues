@@ -1,0 +1,9 @@
+{
+  "name": "TIBCO Flogo Connector for SFTP",
+  "version": "1.0.1",
+  "category": "SFTP",
+  "description": "TIBCO Flogo® Connector for SFTP allows you to perform get, put, rename, delete, make directory, and list operations on SFTP server.",
+  "image": "connector/connection/icons/sftp-connection.png",
+"tag": "1.0.1-b02",
+  "signature": "KBpPdnJpjlkluL7KTrdoEiLuT2g38vmGTLlvsIpCGkJAtUDRmoZietRPu56gzg2GhgSfyKD39XrTl3Kngs5GYq/y"
+}

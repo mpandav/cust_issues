@@ -1,0 +1,21 @@
+{
+  "name": "TIBCO Flogo connector for Microsoft Azure Data Factory",
+  "version": "1.1.1",
+  "category": "AzureDataFactory",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "azdatafactory-trigger",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azdatafactory.git/src/app/AzureDataFactory/activity/dftrigger",
+        "newref": "github.com/tibco/wi-azdatafactory/src/app/AzureDataFactory/activity/dftrigger"
+      },
+      {
+        "activity": "azdatafactory-pipeline",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azdatafactory.git/src/app/AzureDataFactory/activity/dfpipeline",
+        "newref": "github.com/tibco/wi-azdatafactory/src/app/AzureDataFactory/activity/dfpipeline"
+      }
+    ]
+  },
+"tag": "1.1.1-b03",
+  "signature": "mPOPAtOTewrQDTtll0OLDjo3m+LvWyOu0FxJXHY+nmKQfVD/CnnTLWofbDHwvtBJyP6USpzxNzgIAabgQ63S790eBb2mTdzB7KmFIy20ZgZjTdWzBK+nJEk7O8hmRg67dmJyzprr"
+}

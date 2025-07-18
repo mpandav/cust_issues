@@ -1,0 +1,110 @@
+{
+  "type": "flogo:activity",
+  "description": "Websocket Client to make connection and send data to Websocket Server",
+  "ref": "github.com/project-flogo/websocket/activity/ws",
+  "display": {
+    "category": "websocket",
+    "visible": true,
+    "smallIcon": "icons/ws_activity@2x.png",
+    "largeIcon": "icons/ws_activity@3x.png"
+  },
+  "settings": {
+    "modelAttributes": {
+      "uri": {
+        "display": {
+          "name": "URI",
+          "description": "Backend websocket uri to connect",
+          "required": true,
+          "type": "string",
+          "appPropertySupport": true
+        }
+      },
+      "allowInsecure": {
+        "display": {
+          "name": "Allow Insecure Connection",
+          "visible": false,
+          "type": "boolean",
+          "appPropertySupport": true,
+          "description": "Enable to support self signed CA's"
+        }
+      },
+      "caCert": {
+        "display": {
+          "name": "Server CA",
+          "description": "Select the PEM encoded certificate authority file used to sign the server's certificate",
+          "visible": false,
+          "type": "fileselector",
+          "fileExtensions": [
+            ".crt",
+            ".cert",
+            ".pem",
+            ".cer"
+          ],
+          "appPropertySupport": false
+        }
+      }
+    },
+    "newAttributes": [
+      {
+        "name": "format",
+        "type": "string",
+        "required": true,
+        "value": "String",
+        "allowed": [
+          "String",
+          "JSON"
+        ],
+        "display": {
+          "name": "Message Format",
+          "description": "Select the format for the message body",
+          "visible": true
+        }
+      },
+      {
+        "name": "jsonSchema",
+        "type": "object",
+        "required": false,
+        "value": "",
+        "display": {
+          "name": "Schema for JSON value",
+          "description": "The JSON schema for the websocket message",
+          "type": "texteditor",
+          "syntax": "json",
+          "visible": false
+        }
+      }
+    ]
+  },
+  "input": {
+    "modelAttributes": {
+      "queryParams": {
+        "display": {
+          "name": "Query Params",
+          "description": "The query parameters for request",
+          "type": "params",
+          "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}",
+          "mappable": true
+        }
+      },
+      "pathParams": {
+        "display": {
+          "name": "Path Params",
+          "description": "The path parameters for request",
+          "type": "params",
+          "readonly": true,
+          "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\",\"number\",\"boolean\"]}}}}}",
+          "mappable": true
+        }
+      },
+      "headers": {
+        "display": {
+          "name": "Request Headers",
+          "description": "The headers you want to send",
+          "type": "params",
+          "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}",
+          "mappable": true
+        }
+      }
+    }
+  }
+}

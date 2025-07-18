@@ -1,0 +1,111 @@
+{
+  "title": "Microsoft Azure Connection",
+  "name": "AzureAD",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "1.0.1",
+  "display": {
+    "description": "Establish connection to your Azure account",
+    "category": "AzureAD",
+    "visible": true,
+    "smallIcon": "icons/azure-connection@3x.png",
+    "largeIcon": "icons/azure-connection@3x.png",
+    "connectionsupport":true
+  },
+  "ref": "github.com/tibco/wi-azadconnection/src/app/AzureAD/connector/connection",
+  "keyfield": "name",
+  "settings": [{
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "visible": true
+      }
+    },
+    {
+      "name": "tenantId",
+      "type": "password",
+      "required": true,
+      "display": {
+        "name": "Tenant ID",
+        "visible": true,
+        "encryptable": true
+      }
+    },    
+    {
+      "name": "clientID",
+      "type": "password",
+      "required": true,
+      "display": {
+        "name": "Client ID",
+        "visible": true,
+        "encryptable": true
+      }
+    },      
+    {
+      "name": "userName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "password",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "visible": true,
+        "encryptable": true
+      }      
+    }, 
+    {
+      "name": "resourceURL",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Resource URL",
+        "visible": true        
+      }
+    },
+    {
+      "name": "grantType",
+      "type": "string",
+      "required": false,
+      "display": {
+        "visible": false
+      },
+      "value":"password"
+    },
+    {
+      "name": "WI_STUDIO_OAUTH_CONNECTOR_INFO",
+      "type": "string",
+      "required": true,
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "configProperties",
+      "type": "string",
+      "required": true,
+      "display": {
+        "visible": false
+      }
+    }
+  ],
+  "actions": [{
+    "name": "Login"
+  }]
+}

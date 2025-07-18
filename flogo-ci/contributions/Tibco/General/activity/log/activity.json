@@ -1,0 +1,54 @@
+{
+	"title": "Log Message",
+	"name": "tibco-wi-log",
+	"author": "TIBCO Software Inc.",
+	"type": "flogo:activity",
+	"version": "1.1.2",
+	"display": {
+		"visible": true,
+		"description": "Simple Log Message Activity",
+		"category": "General",
+		"smallIcon": "icons/ic-tibco-wi-log.svg",
+		"largeIcon": "icons/ic-tibco-wi-log@2x.png"
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/activity/log",
+	"inputs": [
+		{
+			"name": "Log Level",
+			"type": "string",
+			"required": true,
+			"value": "INFO",
+			"display": {
+				"description": "Set log level",
+				"name": "Log Level",
+				"type": "dropdown",
+				"selection": "single",
+				"appPropertySupport": true
+			},
+			"allowed": [
+				"INFO",
+				"WARN",
+				"ERROR",
+				"DEBUG"
+			]
+
+		},
+		{
+			"name": "flowInfo",
+			"type": "boolean",
+			"value": false,
+			"display": {
+				"description": "Append Flow Instance ID, Flow Name and Activity Name to the message",
+				"name": "Add Flow Details",
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "message",
+			"type": "string"
+		},{
+			"name": "logLevel",
+			"type": "string"
+		}
+	]
+}

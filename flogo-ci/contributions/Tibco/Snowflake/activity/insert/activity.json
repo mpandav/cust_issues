@@ -1,0 +1,85 @@
+
+{
+    "name": "insert",
+    "version": "1.2.0",
+    "type": "flogo:activity",
+    "title": "Snowflake Insert",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "Snowflake",
+        "visible": true,
+        "description": "This activity executes insert statement on Snowflake",
+        "smallIcon": "icons/snowflake-insert@2x.png",
+		"largeIcon": "icons/snowflake-insert@3x.png"
+    },
+    "ref": "github.com/tibco/wi-snowflake/src/app/Snowflake/activity/insert",
+    "inputs": [
+        {
+            "name": "Snowflake Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "Snowflake Connection",
+                "description": "Select Snowflake Connection",
+                "type": "connection",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "Query",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Query",
+                "description": "Enter an SQL Insert statement that you want to execute, terminated by a semi-colon. In case the query fails to retrieve table metadata automatically due to parsing errors, fetch metadata manually using 'Manually Configure Metadata' option",
+                "inputSettingsOnly": true,
+                "type": "texteditor"
+            }
+        },
+        {
+            "name": "manualmode",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Manually Configure Metadata",
+                "description": "Enable to use separate queries to acquire the fields metadata",
+                "inputSettingsOnly": true,
+                "visible": true
+            }
+        },
+        {
+            "name": "Fields",
+            "type": "array",
+            "required": false,
+            "display": {
+                "name": "Table Schema",
+                "description": "Displays input and output fields",
+                "type": "table",
+                "inputSettingsOnly": true,
+                "readonly": true,
+                "enableClear": true,
+                "manualFetch": true,
+                "schema": "{\"items\":{\"properties\":{\"FieldName\":{\"type\":\"string\",\"isEditable\":true},\"Type\":{\"type\":\"string\",\"isEditable\":true},\"Selected\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":true},\"Parameter\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":true},\"Value\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":true}},\"type\":\"object\"},\"type\":\"array\"}"
+            }
+        },
+        {
+			"name": "State",
+			"type": "string",
+			"display": {
+				"visible": false
+			}
+		},
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "output",
+            "type": "object"
+         }
+    ]
+}

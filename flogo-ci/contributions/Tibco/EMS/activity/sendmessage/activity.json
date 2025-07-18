@@ -1,0 +1,92 @@
+{
+  "name": "tibco-ems-sendmessage",
+  "title": "EMS Send Message",
+  "version": "1.0.2",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "EMS",
+    "visible": true,
+    "description": "This activity sends message to the specified EMS destination",
+    "smallIcon": "icons/flogo-ems-sendmessage.png",
+    "largeIcon": "icons/flogo-ems-sendmessage@2x.png"
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": true
+    }
+  },
+  "ref": "github.com/tibco/flogo-ems/src/app/EMS/activity/sendmessage",
+  "settings": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "EMS Connection",
+        "description": "Ems Connection Configuration",
+        "type": "connection"
+      },
+      "allowed": []
+    },
+    {
+      "name": "destinationType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Destination Type",
+        "description": "A destination type can be queue or topic",
+        "appPropertySupport": true
+      },
+      "allowed": ["Queue", "Topic"],
+      "value": "Queue"
+    },
+    {
+      "name": "settingDestination",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Destination",
+        "description": "The destination where the message is sent",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "deliveryDelay",
+      "type": "integer",
+      "display": {
+        "name": "Delivery Delay",
+        "description": "Minimum time in milliseconds that must elapse before delivering message to consumer",
+        "type": "integer",
+        "appPropertySupport": true
+      },
+      "value": 0
+    }
+  ],
+  "inputs": [
+    {
+      "name": "message",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "destination",
+      "type": "string"
+    },
+    {
+      "name": "headers",
+      "type": "object"
+    },
+    {
+      "name": "messageProperties",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "messageId",
+      "type": "string"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+    "title": "OData Query",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "name": "tibco-odata-query",
+    "author": "TIBCO Software Inc.",
+    "display": {
+        "visible": true,
+        "description": "OData Query Activity",
+        "category": "OData",
+        "smallIcon": "icons/OData_Query_64px.png",
+        "largeIcon": "icons/OData_Query_96px.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/flogo-odata/src/app/OData/activity/query",
+    "settings": [
+        {
+            "name": "oDataConnection",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "description": "OData service connections",
+                "name": "OData Connection",
+                "type": "connection",
+                "visible": true
+            },
+            "allowed": []
+        }
+    ],
+    "inputs": [
+        {
+            "name": "oDataURI",
+            "type": "string"
+        },
+        {
+            "name": "parameters",
+            "type": "object",
+            "display": {
+                "name": "Parameters",
+                "description": "The parameters is used in place of literal values in the odata request URI",
+                "type": "params",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\"]}},\"required\":{\"type\":{\"enum\":[\"true\"]}}}}}",
+                "mappable": true
+            }
+        },
+        {
+            "name": "queryOptions",
+            "type": "object",
+            "value": "{ \"type\": \"object\", \"required\": [], \"properties\": { \"$select\": { \"type\": \"string\" }, \"$filter\": { \"type\": \"string\" }, \"$orderby\": { \"type\": \"string\" }, \"$expands\": { \"type\": \"string\" }, \"$count\": { \"type\": \"string\" }, \"$skip\": { \"type\": \"string\" }, \"$top\": { \"type\": \"string\" } } }"
+        },
+        {
+            "name": "headers",
+            "type": "object",
+            "display": {
+                "name": "Request Headers",
+                "description": "The headers you want to send",
+                "type": "params",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}",
+                "mappable": true
+            },
+            "value": {
+                "metadata": "",
+                "value": "[ { \"parameterName\": \"Accept\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false }, { \"parameterName\": \"Accept-Charset\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false }, { \"parameterName\": \"Accept-Encoding\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false }, { \"parameterName\": \"Content-Type\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false }, { \"parameterName\": \"Content-Length\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false }, { \"parameterName\": \"Connection\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false }, { \"parameterName\": \"Cookie\", \"type\": \"string\", \"repeating\": \"false\", \"required\": \"false\", \"visible\": false } ]"
+            }
+        }
+    ],
+    "outputs": [
+        {
+            "name": "responseType",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The response content-type of the odata service",
+                "name": "Response Type",
+                "type": "dropdown",
+                "selection": "single",
+                "outputSettingsOnly": true
+            },
+            "allowed": [
+                "application/json"
+            ],
+            "value": "application/json"
+        },
+        {
+            "name": "responseBody",
+            "type": "object",
+            "display": {
+                "name": "Response Schema",
+                "description": "Sample JSON data or JSON schema for the response that you expect back from the odata service",
+                "type": "texteditor",
+                "syntax": "json"
+            }
+        },
+        {
+            "name": "responseHeaders",
+            "type": "object",
+            "display": {
+                "name": "Response Headers",
+                "description": "The headers you expect to receive",
+                "type": "params",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"integer\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}"
+            },
+            "value": {
+                "metadata": "",
+                "value": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Set-Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+            }
+        }
+    ]
+}

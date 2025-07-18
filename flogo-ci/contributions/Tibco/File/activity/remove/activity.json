@@ -1,0 +1,39 @@
+
+{
+    "name": "remove",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Remove File",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity removes the specified file or directory",
+        "smallIcon": "icons/file-remove@2x.png",
+		"largeIcon": "icons/file-remove@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/remove",
+    "inputs": [
+        {
+            "name": "removeRecursive",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Remove Directory Recursively",
+                "description": "When set to true, the activity deletes a directory and its contents recursively",
+                "visible": true
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

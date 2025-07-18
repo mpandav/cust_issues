@@ -1,0 +1,277 @@
+{
+  "name": "tibco-kafka-consumer-trigger",
+  "type": "flogo:trigger",
+  "title": "Kafka Consumer",
+  "version": "1.3.1",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "Kafka",
+    "smallIcon": "icons/consumer_trigger.png",
+    "largeIcon": "icons/consumer_trigger@2x.png",
+    "connector": ["Kafka/tibco-kafka"],
+    "wizard": [
+      "Choose Connection"
+    ]
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/trigger/consumer",
+  "settings": [
+    {
+      "name": "kafkaConnection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Kafka Client Configuration",
+        "description": "Kafka client configuration to be used",
+        "type": "connection"
+      },
+      "wizard": {
+        "type": "dropdown",
+        "selection": "single",
+        "step": "Choose Connection"
+      },
+      "allowed": []
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "topic",
+        "type": "string",
+        "display": {
+          "name": "Topic",
+          "description": "Comma separated list of topics subscribe to. Optional if whitelist is specified.",
+          "appPropertySupport": true
+        }
+      },
+      {
+        "name": "customPartition",
+        "type": "boolean",
+			  "value": false,
+        "display": {
+          "name": "Assign Custom Partition",
+          "description": "Enable to assign custom partition. Default is false, to keep Kafka's default consumer group model.",
+          "appPropertySupport": true
+        }
+      },
+      {
+        "name": "partitionId",
+        "type": "integer",
+        "display": {
+          "name": "Partition Id",
+          "description": "Enter the partition Id to consume messages from.",
+          "appPropertySupport": true
+        },
+        "visible": false,
+        "value":0
+      },
+      {
+        "name": "topicPattern",
+        "type": "string",
+        "display": {
+          "name": "Topic Whitelist",
+          "description": "Optional whitelist of topics subscribe to. You can use pattern matching. e.g. mytopic*",
+          "appPropertySupport": true,
+          "visible": false
+        }
+      },
+      {
+        "name": "consumerGroup",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Consumer Group ID",
+          "description": "Consumer group ID to join",
+          "appPropertySupport": true
+        }
+      },
+      {
+        "name": "valueType",
+        "type": "string",
+        "display": {
+          "name": "Value Deserializer",
+          "description": "Type of record value to be received"
+        },
+        "allowed": [
+          "String",
+          "JSON",
+          "Avro"
+        ],
+        "value": "String"
+      },
+      {
+        "name": "subjects",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Subject",
+          "description": "List of subjects registered on Schema Registry",
+          "visible": false
+        },
+        "allowed": [],
+        "value": "String"
+      },
+      {
+        "name": "versions",      
+        "type": "integer",    
+        "display": {
+          "name": "Version",
+          "description": "Version of selected subject",
+          "visible": false
+        },
+        "allowed": [],
+        "value": 1
+      },
+      {
+        "name": "commitInterval",
+        "type": "integer",
+        "display": {
+          "name": "Commit Interval",
+          "description": "Interval in milliseconds in which the consumer offsets are committed to Kafka",
+          "appPropertySupport": true
+        },
+        "value": 5000
+      },
+      {
+        "name": "initialOffset",
+        "type": "string",
+        "display": {
+          "name": "Initial Offset",
+          "description": "The initial offset to use if no offset was previously committed"
+        },
+        "allowed": [
+          "Newest",
+          "Oldest",
+          "Seek By Offset",
+          "Seek By Timestamp"
+        ],
+        "value": "Oldest"
+      },
+      {
+        "name": "seekOffset",
+        "type": "integer",
+        "display": {
+          "name": "Offset",
+          "description": "Seek messages starting from specified integer offset",
+          "visible": false,
+          "appPropertySupport": true
+        },
+        "visible": false,
+        "value": 0
+      },
+      {
+        "name": "timeStamp",
+        "type": "string",
+        "display": {
+          "name": "Timestamp",
+          "type": "string",
+          "visible": false,
+          "description": "Seek messages starting from specified RFC3339 timestamp",
+          "appPropertySupport": true
+        },
+        "visible": false
+      },
+      {
+        "name": "fetchMinBytes",
+        "type": "integer",
+        "display": {
+          "name": "Fetch Min Bytes",
+          "description": "Minimum amount of data that the server would send on receiving a fetch request",
+          "appPropertySupport": true
+        },
+        "value": 1
+      },
+      {
+        "name": "fetchMaxWait",
+        "type": "integer",
+        "display": {
+          "name": "Fetch Max Wait",
+          "description": "Maximum amount of time in milliseconds that the server would block before answering a fetch request if there is not sufficient data to immediately satisfy the minimum bytes configured above.",
+          "appPropertySupport": true
+        },
+        "value": 500
+      },
+      {
+        "name": "heartbeatInterval",
+        "type": "integer",
+        "display": {
+          "name": "Heartbeat Interval",
+          "description": "Interval in milliseconds to send heartbeats to the group coordinator. It should be no more than 1/3rd of the session time value.",
+          "appPropertySupport": true
+        },
+        "value": 3000
+      },
+      {
+        "name": "sessionTimeout",
+        "type": "integer",
+        "display": {
+          "name": "Session Timeout",
+          "description": "Amount of time in milliseconds that the server should wait after no heartbeat is received before removing this consumer from the group.",
+          "appPropertySupport": true
+        },
+        "value": 30000
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "topic",
+      "type": "string"
+    },
+    {
+      "name": "partition",
+      "type": "integer"
+    },
+    {
+      "name": "offset",
+      "type": "integer"
+    },
+    {
+      "name": "key",
+      "type": "string"
+    },    
+    {
+      "name": "stringValue",
+      "type": "string",
+      "visible": false
+    },
+    {
+      "name": "jsonValue",
+      "type": "object",
+      "display": {
+        "name": "Schema for JSON value",
+        "description": "The JSON schema for the Kafka record value",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false
+      }
+    },
+    {
+      "name": "avroData",
+      "type": "object",      
+      "required": true,
+      "display": {
+        "name": "Schema for Avro value",
+        "description": "The JSON schema for the Kafka record value",
+        "type": "texteditor",
+        "syntax": "avro",
+        "visible": false,
+        "mappable": true
+      }
+    },
+    {
+      "name": "headers",
+      "type": "object",
+      "display": {
+        "name": "Headers",
+        "description": "Record headers to be received",
+        "type": "params",
+        "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

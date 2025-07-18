@@ -1,0 +1,337 @@
+{
+  "name": "connection",
+  "version": "1.2.0",
+  "type": "flogo:connector",
+  "title": "Snowflake Connector",
+  "author": "Cloud Software Group Inc.",
+  "display": {
+    "category": "Snowflake",
+    "description": "Snowflake Connector",
+    "visible": true,
+    "smallIcon": "icons/snowflake-connection.png",
+    "largeIcon": "icons/snowflake-connection.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/wi-snowflake/src/app/Snowflake/connector/connection",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "description": "Name of the connection"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "description": "Description of the connection"
+      }
+    },
+    {
+      "name": "account",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Account Name",
+        "description": "Snowflake Account Name",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "warehouse",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Warehouse",
+        "description": "Name of the Virtual Warehouse",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "database",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Database",
+        "description": "Name of the Database",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "schema",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Schema",
+        "description": "Name of the Database Schema",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "authType",
+      "type": "string",
+      "required": true,
+      "allowed": [
+        "Basic Authentication",
+        "OAuth"
+      ],
+      "value": "Basic Authentication",
+      "display": {
+        "name": "Authentication Type",
+        "description": "Select Authentication Type",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "provider",
+      "type": "string",
+      "required": true,
+      "allowed": [
+        "Snowflake",
+        "Okta with PKCE"
+      ],
+      "value": "Snowflake",
+      "display": {
+        "name": "Provider",
+        "description": "Select Authentication Provider",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User Name",
+        "description": "User Name of the Snowflake Account",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "description": "Password of the Snowflake Account",
+        "type": "password",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client ID",
+        "description": "Client ID for the Integration Object",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientSecret",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client Secret",
+        "description": "Secret key of Client",
+        "type": "password",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "oktaTokenEndpoint",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Okta Token Endpoint",
+        "description": "Okta Token Endpoint",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Scope",
+        "description": "Scope",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "authCode",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Authorization Code",
+        "description": "Authorization Code",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "redirectURI",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Redirect URI",
+        "description": "Redirect URI used in the Integration Object",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "oktaCodeVerifier",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Code Verifier",
+        "description": "Random URL-safe string with a minimum length of 43 characters",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "oktaCodeChallenge",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Code Challenge",
+        "description": "Base64URL-encoded SHA-256 hash of the code verifier",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "oktaAccessToken",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Okta Access Token",
+        "type": "password",
+        "visible": false
+      }
+    },
+    {
+      "name": "oktaAccessTokenExpiry",
+      "type": "integer",
+      "required": true,
+      "value": 0,
+      "display": {
+        "name": "oktaAccessTokenExpiry",
+        "type": "integer",
+        "visible": false
+      }
+    },
+    {
+      "name": "accessToken",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Access Token",
+        "type": "password",
+        "visible": false
+      }
+    },
+    {
+      "name": "accessTokenExpiry",
+      "type": "integer",
+      "required": true,
+      "value": 0,
+      "display": {
+        "name": "accessTokenExpiry",
+        "type": "integer",
+        "visible": false
+      }
+    },
+    {
+      "name": "refreshToken",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Refresh Token",
+        "type": "password",
+        "visible": false
+      }
+    },
+    {
+      "name": "oktaRefreshToken",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "oktaRefreshToken",
+        "type": "string",
+        "visible": false
+      }
+    },
+    {
+      "name": "refreshTokenExpiry",
+      "type": "integer",
+      "required": true,
+      "value": 0,
+      "display": {
+        "name": "refreshTokenExpiry",
+        "type": "integer",
+        "visible": false
+      }
+    },
+    {
+      "name": "role",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Role",
+        "description": "User Role for the connection",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "loginTimeout",
+      "type": "integer",
+      "required": true,
+      "value": 10,
+      "display": {
+        "name": "Login Timeout",
+        "description": "Snowflake connection login timeout",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "codeCheck",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "codeCheck",
+        "description": "store old authorization code",
+        "visible": false
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Connect"
+    },
+    {
+      "name": "Generate Access Token"
+    }
+  ]
+}

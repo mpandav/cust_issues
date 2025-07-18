@@ -1,0 +1,64 @@
+
+{
+    "name": "get",
+    "type": "flogo:activity",
+    "title": "Kinesis Get Activity",
+    "display": {
+        "category": "AWSKINESIS",
+        "smallIcon": "icons/get.png",
+        "largeIcon": "icons/get@2x.png"
+    },
+    "ref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/get",
+    "inputs": [
+        {
+            "name": "awsConnection",
+            "type": "connection",
+            "required": "true",
+            "display":{
+                "name": "AWS Connection",
+                "description": "Select AWS Connection",
+                "type": "connection"
+            },
+            "allowed":[]
+        },
+        {
+            "name": "streamType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Stream Type",
+                "description" : "Choose the Type of Stream",
+                "type" : "dropdown",
+                "selection" : "single"
+            },
+            "allowed":["DataStream"]
+        },
+        {
+            "name" : "getType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Get Type",
+                "description" : "Select Get Type",
+                "type" : "dropdown",
+                "visible" : "true",
+                "selection" : "single"
+            },
+            "allowed":["Records","ShardIterator"]
+        },
+        {
+            "name" : "input",
+            "type" : "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name" : "Message",
+            "type" : "object"
+        },
+        {
+            "name" : "Error",
+            "type" : "object"
+        }
+    ]
+}

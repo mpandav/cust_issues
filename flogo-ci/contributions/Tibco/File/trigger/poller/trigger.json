@@ -1,0 +1,123 @@
+{
+  "name": "flogo-file-poller",
+  "type": "flogo:trigger",
+  "title": "File Poller",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "The File Poller trigger polls for files or directories with the specified name when a change (Create, Write, Rename, Remove, Move file event) is detected.",
+    "category": "File",
+    "smallIcon": "icons/poller@2x.png",
+    "largeIcon": "icons/poller@3x.png",
+    "wizard": [
+      "Configurations"
+    ],
+    "tags": ["File"]
+  },
+  "ref": "github.com/tibco/flogo-files/src/app/File/trigger/poller",
+  "handler": {
+    "settings": [
+     {
+        "name": "pollingDir",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Polling Directory",
+          "description": "The directory to watch for the file events",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Configurations"
+        }
+      },
+      {
+        "name": "recursive",
+        "type": "boolean",
+        "required": true,
+        "value": false,
+        "display": {
+            "name": "Include Sub-Directories",
+            "description": "When set to true, includes all sub-directories in the Polling Directory to watch for the file events",
+            "visible": true
+        },
+        "wizard": {
+          "step": "Configurations"
+        }
+      },
+      {
+        "name": "fileFilter",
+        "type": "string",
+        "required": false,
+        "display": {
+          "name": "File Filter",
+          "description": "Files that match the regular expression will be watched. For e.g. enter ^abc[a-zA-Z0-9]*.xml$ to poll the xml files starting with abc",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Configurations"
+        }
+      },
+      {
+        "name": "pollingInterval",
+        "type": "integer",
+        "required": true,
+        "display": {
+          "name": "Polling Interval (in milliseconds)",
+          "description": "The polling interval (in milliseconds) to check for the specified file",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Configurations"
+        },
+        "value": 5000
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "required": true,
+        "allowed": [
+            "Only Files",
+            "Only Directories",
+            "Files and Directories"
+        ],
+        "value": "Files and Directories",
+        "display": {
+            "name": "Mode",
+            "description": "Select the type of the mode - only track files for specified events, only track directories for specified events or track both files and directories for specified events",
+            "type": "dropdown",
+            "selection": "single"
+        },
+        "wizard": {
+          "step": "Configurations"
+        }
+      },
+      {
+        "name": "fileEvents",
+        "type": "string",
+        "required": false,
+        "value" : "[\"Create\",\"Write\",\"Rename\",\"Remove\",\"Move\"]",
+        "allowed": ["Create","Write","Rename","Remove","Move"],
+        "display": {
+          "name": "Poll File Events",
+          "description": "Select the checbox to poll for Create, Write, Rename, Remove, Move events",
+          "visible": true,
+          "type": "checkbox"
+        },
+        "wizard": {
+          "step": "Configurations"
+        }
+      }
+    ]
+  },
+  "outputs": [
+     {
+        "name": "output",
+        "type": "object"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

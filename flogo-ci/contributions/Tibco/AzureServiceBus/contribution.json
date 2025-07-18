@@ -1,0 +1,33 @@
+{
+  "name": "TIBCO Flogo connector for Microsoft Azure Service Bus",
+  "version": "1.4.3",
+  "category": "AzureServiceBus",
+  "description": "TIBCO Flogo® Connector for AzureServiceBus allows you to perform actions on service bus Queue and Topic.",
+  "image": "connector/connection/icons/azure_service_bus.png",
+  "compatibility": {
+    "refs": [
+      {
+        "connection": "connection",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azservicebus.git/src/app/AzureServiceBus/connector/connection",
+        "newref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/connector/connection"
+      },
+      {
+        "activity": "publish",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azservicebus.git/src/app/AzureServiceBus/activity/publish",
+        "newref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/activity/publish"
+      },
+      {
+        "trigger": "queuereceiver",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azservicebus.git/src/app/AzureServiceBus/trigger/queuereceiver",
+        "newref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/trigger/queuereceiver"
+      },
+      {
+        "trigger": "topicsubscriber",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azservicebus.git/src/app/AzureServiceBus/trigger/topicsubscriber",
+        "newref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/trigger/topicsubscriber"
+      }
+    ]
+  },
+"tag": "1.4.3-b02",
+  "signature": "CiQSDDEGXydp3kNXLVkVjXvmvSaBHiuCyvT1a9Pcc6/wyHvOJpXlFrEf9m6nK8rO/JavHdnjnjrIfOErzDxYcd1X1GmP98XHRClTwTpgNVBcR+l5Zx+DMiIL50AP5z6SV+MOwA=="
+}

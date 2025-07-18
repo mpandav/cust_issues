@@ -1,0 +1,427 @@
+{
+    "imports": [
+        "github.com/project-flogo/flow",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/log",
+        "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/rest",
+        "github.com/project-flogo/contrib/activity/actreturn",
+        "rest_1 git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/rest",
+        "github.com/project-flogo/contrib/function/coerce"
+    ],
+    "name": "clientApp",
+    "description": "",
+    "version": "1.0.0",
+    "type": "flogo:app",
+    "appModel": "1.1.1",
+    "tags": [],
+    "triggers": [
+        {
+            "ref": "#rest_1",
+            "name": "tibco-wi-rest",
+            "description": "Simple REST Trigger",
+            "settings": {
+                "port": 9999,
+                "APISpecUpdate": false,
+                "swagger": "",
+                "swaggerVersion": "v2",
+                "secureConnection": false,
+                "serverKey": "",
+                "caCertificate": ""
+            },
+            "id": "ReceiveHTTPMessage",
+            "handlers": [
+                {
+                    "description": "",
+                    "settings": {
+                        "Method": "GET",
+                        "Path": "/test",
+                        "OutputValidation": false
+                    },
+                    "action": {
+                        "ref": "github.com/project-flogo/flow",
+                        "settings": {
+                            "flowURI": "res://flow:asdasd"
+                        },
+                        "output": {
+                            "code": "=$.code",
+                            "data": "=$.data"
+                        }
+                    },
+                    "reply": {
+                        "code": 200,
+                        "configureResponseCodes": false,
+                        "message": {}
+                    },
+                    "schemas": {
+                        "reply": {
+                            "data": {
+                                "type": "json",
+                                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"string\"}}}",
+                                "fe_metadata": "{\"result\":\"\"}"
+                            },
+                            "responseBody": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+                            }
+                        },
+                        "output": {
+                            "headers": {
+                                "type": "json",
+                                "value": "{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}",
+                                "fe_metadata": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+                            }
+                        }
+                    },
+                    "name": "asdasd"
+                }
+            ]
+        }
+    ],
+    "resources": [
+        {
+            "id": "flow:asdasd",
+            "data": {
+                "name": "asdasd",
+                "description": "",
+                "links": [
+                    {
+                        "id": 1,
+                        "from": "LogMessage",
+                        "to": "InvokeRESTService",
+                        "type": "default"
+                    },
+                    {
+                        "id": 2,
+                        "from": "InvokeRESTService",
+                        "to": "LogMessage1",
+                        "type": "default"
+                    },
+                    {
+                        "id": 3,
+                        "from": "LogMessage1",
+                        "to": "Return",
+                        "type": "default"
+                    }
+                ],
+                "tasks": [
+                    {
+                        "id": "LogMessage",
+                        "name": "LogMessage",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "Start log"
+                            }
+                        }
+                    },
+                    {
+                        "id": "InvokeRESTService",
+                        "name": "InvokeRESTService",
+                        "description": "Simple REST Activity",
+                        "settings": {
+                            "retryOnError": {
+                                "count": 0,
+                                "interval": 0
+                            }
+                        },
+                        "activity": {
+                            "ref": "#rest",
+                            "input": {
+                                "enableASR": true,
+                                "asrDialog": {
+                                    "gsbc": "01EYXNQ6XNNC36C1TBBZAKHZE7",
+                                    "operation": "get",
+                                    "path": "/books/{name}",
+                                    "service": {
+                                        "serviceId": "tciv-bG1ycG9seWIzZjVtcDRndHh1NGRhMm5ocHJrNTV0bGMvR2V0UG9zdEhUVFBNZXNzYWdl",
+                                        "title": "serviceApp-GetPostHTTPMessage",
+                                        "description": "Simple REST Trigger",
+                                        "swaggerChecksum": "78786763b101e66b53210cd7dc151ce6712dda7658cd3b21afa1a9f5b105a83d",
+                                        "extAuthz": [
+                                            "tenant-basic"
+                                        ],
+                                        "assurance": "draft",
+                                        "baseURL": "https://localdev-integration.cloud.tibcoapps.com",
+                                        "path": "/gsbc/01EYXNQ6XNNC36C1TBBZAKHZE7/tci/lmrpolyb3f5mp4gtxu4da2nhprk55tlc/GetPostHTTPMessage",
+                                        "apiSpec": {
+                                            "definitions": {
+                                                "schema1": {
+                                                    "properties": {
+                                                        "Available": {
+                                                            "default": true,
+                                                            "type": "boolean"
+                                                        },
+                                                        "ISBN": {
+                                                            "default": 23232323,
+                                                            "type": "integer"
+                                                        },
+                                                        "bookName": {
+                                                            "default": "sddsd",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "info": {
+                                                "description": "Simple REST Trigger",
+                                                "title": "serviceApp-GetPostHTTPMessage",
+                                                "version": "1.0.0"
+                                            },
+                                            "paths": {
+                                                "/books/{name}": {
+                                                    "get": {
+                                                        "description": "Flow with Get method",
+                                                        "operationId": "get_books_name",
+                                                        "parameters": [
+                                                            {
+                                                                "description": "Request parameter",
+                                                                "in": "query",
+                                                                "name": "id",
+                                                                "required": true,
+                                                                "type": "number"
+                                                            },
+                                                            {
+                                                                "description": "Request parameter",
+                                                                "in": "path",
+                                                                "name": "name",
+                                                                "required": true,
+                                                                "type": "string"
+                                                            },
+                                                            {
+                                                                "description": "Request parameter",
+                                                                "in": "header",
+                                                                "name": "available",
+                                                                "required": true,
+                                                                "type": "boolean"
+                                                            }
+                                                        ],
+                                                        "responses": {
+                                                            "200": {
+                                                                "description": "",
+                                                                "headers": {
+                                                                    "available": {
+                                                                        "type": "boolean"
+                                                                    },
+                                                                    "id": {
+                                                                        "type": "integer"
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "schema": {
+                                                                    "$ref": "#/definitions/schema1"
+                                                                }
+                                                            }
+                                                        },
+                                                        "summary": "getBooks_name_GET"
+                                                    },
+                                                    "post": {
+                                                        "description": "Flow with Post method",
+                                                        "operationId": "post_books_name",
+                                                        "parameters": [
+                                                            {
+                                                                "description": "Request parameter",
+                                                                "in": "query",
+                                                                "name": "id",
+                                                                "required": true,
+                                                                "type": "number"
+                                                            },
+                                                            {
+                                                                "description": "Request parameter",
+                                                                "in": "path",
+                                                                "name": "name",
+                                                                "required": true,
+                                                                "type": "string"
+                                                            },
+                                                            {
+                                                                "description": "request body parameter",
+                                                                "in": "body",
+                                                                "name": "body",
+                                                                "required": true,
+                                                                "schema": {
+                                                                    "$ref": "#/definitions/schema1"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "responses": {
+                                                            "201": {
+                                                                "description": "",
+                                                                "schema": {
+                                                                    "$ref": "#/definitions/schema1"
+                                                                }
+                                                            }
+                                                        },
+                                                        "summary": "postBooks_name_POST"
+                                                    }
+                                                }
+                                            },
+                                            "swagger": "2.0",
+                                            "host": "localdev-integration.cloud.tibcoapps.com",
+                                            "schemes": [
+                                                "https"
+                                            ],
+                                            "basePath": "/gsbc/01EYXNQ6XNNC36C1TBBZAKHZE7/tci/lmrpolyb3f5mp4gtxu4da2nhprk55tlc/GetPostHTTPMessage"
+                                        },
+                                        "intercom": true,
+                                        "intercomRegion": "vagrant"
+                                    }
+                                },
+                                "swagger": "",
+                                "authorization": false,
+                                "authorizationConn": "",
+                                "serviceName": "",
+                                "resourcePath": "/books/{name}",
+                                "Method": "GET",
+                                "Uri": "/gsbc/01EYXNQ6XNNC36C1TBBZAKHZE7/tci/lmrpolyb3f5mp4gtxu4da2nhprk55tlc/GetPostHTTPMessage",
+                                "Timeout": 0,
+                                "requestType": "application/json",
+                                "Use certificate for verification": false,
+                                "Server Certificate": "",
+                                "proxy": "",
+                                "host": "",
+                                "queryParams": {
+                                    "mapping": {
+                                        "id": 1111
+                                    }
+                                },
+                                "pathParams": {
+                                    "mapping": {
+                                        "name": "name"
+                                    }
+                                },
+                                "headers": {
+                                    "mapping": {
+                                        "available": true
+                                    }
+                                }
+                            },
+                            "output": {
+                                "configureResponseCodes": true,
+                                "responseType": "application/json",
+                                "responseOutput": "JSON Object"
+                            },
+                            "schemas": {
+                                "input": {
+                                    "serviceMetadata": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"serviceId\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"swaggerChecksum\":{\"type\":\"string\"},\"extAuthz\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"assurance\":{\"type\":\"string\"},\"baseURL\":{\"type\":\"string\"},\"path\":{\"type\":\"string\"},\"apiSpec\":{\"type\":\"object\",\"properties\":{\"definitions\":{\"type\":\"object\",\"properties\":{\"schema1\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"Available\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"boolean\"},\"type\":{\"type\":\"string\"}}},\"ISBN\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}}},\"bookName\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}},\"info\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"title\":{\"type\":\"string\"},\"version\":{\"type\":\"string\"}}},\"paths\":{\"type\":\"object\",\"properties\":{\"/books/{name}\":{\"type\":\"object\",\"properties\":{\"get\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"operationId\":{\"type\":\"string\"},\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"in\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"required\":{\"type\":\"boolean\"},\"type\":{\"type\":\"string\"}},\"required\":[\"description\",\"in\",\"name\",\"required\",\"type\"]}},\"responses\":{\"type\":\"object\",\"properties\":{\"200\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"headers\":{\"type\":\"object\",\"properties\":{\"available\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"id\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}},\"name\":{\"type\":\"object\",\"properties\":{\"type\":{\"type\":\"string\"}}}}},\"schema\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"Available\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"boolean\"},\"type\":{\"type\":\"string\"}}},\"ISBN\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}}},\"bookName\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}}}},\"summary\":{\"type\":\"string\"}}},\"post\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"operationId\":{\"type\":\"string\"},\"parameters\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"in\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"required\":{\"type\":\"boolean\"},\"type\":{\"type\":\"string\"},\"schema\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"Available\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"boolean\"},\"type\":{\"type\":\"string\"}}},\"ISBN\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}}},\"bookName\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}},\"required\":[\"description\",\"in\",\"name\",\"required\",\"type\"]}},\"responses\":{\"type\":\"object\",\"properties\":{\"201\":{\"type\":\"object\",\"properties\":{\"description\":{\"type\":\"string\"},\"schema\":{\"type\":\"object\",\"properties\":{\"properties\":{\"type\":\"object\",\"properties\":{\"Available\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"boolean\"},\"type\":{\"type\":\"string\"}}},\"ISBN\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"number\"},\"type\":{\"type\":\"string\"}}},\"bookName\":{\"type\":\"object\",\"properties\":{\"default\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"}}}}},\"type\":{\"type\":\"string\"}}}}}}},\"summary\":{\"type\":\"string\"}}}}}}},\"swagger\":{\"type\":\"string\"},\"host\":{\"type\":\"string\"},\"schemes\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}},\"basePath\":{\"type\":\"string\"}}},\"intercom\":{\"type\":\"boolean\"},\"intercomRegion\":{\"type\":\"string\"},\"asrPath\":{\"type\":\"string\"},\"asrOperation\":{\"type\":\"string\"}}}",
+                                        "fe_metadata": "{\"serviceId\":\"tciv-bG1ycG9seWIzZjVtcDRndHh1NGRhMm5ocHJrNTV0bGMvR2V0UG9zdEhUVFBNZXNzYWdl\",\"title\":\"serviceApp-GetPostHTTPMessage\",\"description\":\"Simple REST Trigger\",\"swaggerChecksum\":\"78786763b101e66b53210cd7dc151ce6712dda7658cd3b21afa1a9f5b105a83d\",\"extAuthz\":[\"tenant-basic\"],\"assurance\":\"draft\",\"baseURL\":\"https://localdev-integration.cloud.tibcoapps.com\",\"path\":\"/gsbc/01EYXNQ6XNNC36C1TBBZAKHZE7/tci/lmrpolyb3f5mp4gtxu4da2nhprk55tlc/GetPostHTTPMessage\",\"apiSpec\":{\"definitions\":{\"schema1\":{\"properties\":{\"Available\":{\"default\":true,\"type\":\"boolean\"},\"ISBN\":{\"default\":23232323,\"type\":\"integer\"},\"bookName\":{\"default\":\"sddsd\",\"type\":\"string\"}},\"type\":\"object\"}},\"info\":{\"description\":\"Simple REST Trigger\",\"title\":\"serviceApp-GetPostHTTPMessage\",\"version\":\"1.0.0\"},\"paths\":{\"/books/{name}\":{\"get\":{\"description\":\"Flow with Get method\",\"operationId\":\"get_books_name\",\"parameters\":[{\"description\":\"Request parameter\",\"in\":\"query\",\"name\":\"id\",\"required\":true,\"type\":\"number\"},{\"description\":\"Request parameter\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"type\":\"string\"},{\"description\":\"Request parameter\",\"in\":\"header\",\"name\":\"available\",\"required\":true,\"type\":\"boolean\"}],\"responses\":{\"200\":{\"description\":\"\",\"headers\":{\"available\":{\"type\":\"boolean\"},\"id\":{\"type\":\"integer\"},\"name\":{\"type\":\"string\"}},\"schema\":{\"properties\":{\"Available\":{\"default\":true,\"type\":\"boolean\"},\"ISBN\":{\"default\":23232323,\"type\":\"integer\"},\"bookName\":{\"default\":\"sddsd\",\"type\":\"string\"}},\"type\":\"object\"}}},\"summary\":\"getBooks_name_GET\"},\"post\":{\"description\":\"Flow with Post method\",\"operationId\":\"post_books_name\",\"parameters\":[{\"description\":\"Request parameter\",\"in\":\"query\",\"name\":\"id\",\"required\":true,\"type\":\"number\"},{\"description\":\"Request parameter\",\"in\":\"path\",\"name\":\"name\",\"required\":true,\"type\":\"string\"},{\"description\":\"request body parameter\",\"in\":\"body\",\"name\":\"body\",\"required\":true,\"schema\":{\"properties\":{\"Available\":{\"default\":true,\"type\":\"boolean\"},\"ISBN\":{\"default\":23232323,\"type\":\"integer\"},\"bookName\":{\"default\":\"sddsd\",\"type\":\"string\"}},\"type\":\"object\"}}],\"responses\":{\"201\":{\"description\":\"\",\"schema\":{\"properties\":{\"Available\":{\"default\":true,\"type\":\"boolean\"},\"ISBN\":{\"default\":23232323,\"type\":\"integer\"},\"bookName\":{\"default\":\"sddsd\",\"type\":\"string\"}},\"type\":\"object\"}}},\"summary\":\"postBooks_name_POST\"}}},\"swagger\":\"2.0\",\"host\":\"localdev-integration.cloud.tibcoapps.com\",\"schemes\":[\"https\"],\"basePath\":\"/gsbc/01EYXNQ6XNNC36C1TBBZAKHZE7/tci/lmrpolyb3f5mp4gtxu4da2nhprk55tlc/GetPostHTTPMessage\"},\"intercom\":true,\"intercomRegion\":\"vagrant\",\"asrPath\":\"/books/{name}\",\"asrOperation\":\"get\"}"
+                                    },
+                                    "queryParams": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"id\":{\"type\":\"number\"}},\"required\":[\"id\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"id\",\"repeating\":\"false\",\"type\":\"number\",\"required\":\"true\"}]"
+                                    },
+                                    "pathParams": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"}},\"required\":[\"name\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"name\",\"type\":\"string\",\"required\":true}]"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"available\":{\"type\":\"boolean\"}},\"required\":[\"available\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"available\",\"repeating\":\"false\",\"type\":\"boolean\",\"required\":\"true\"}]"
+                                    }
+                                },
+                                "output": {
+                                    "responseCodes": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"200\":{\"properties\":{\"Available\":{\"default\":true,\"type\":\"boolean\"},\"ISBN\":{\"default\":23232323,\"type\":\"integer\"},\"bookName\":{\"default\":\"sddsd\",\"type\":\"string\"}},\"type\":\"object\"},\"200_headers\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"available\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}}}}}",
+                                        "fe_metadata": "{\"type\":\"object\",\"properties\":{\"200\":{\"properties\":{\"Available\":{\"default\":true,\"type\":\"boolean\"},\"ISBN\":{\"default\":23232323,\"type\":\"integer\"},\"bookName\":{\"default\":\"sddsd\",\"type\":\"string\"}},\"type\":\"object\"},\"200_headers\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"available\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"name\":{\"type\":\"string\"}}}}}"
+                                    },
+                                    "responseCodesSchema": {
+                                        "type": "json",
+                                        "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"},\"responseHeaders\":{\"type\":\"string\"}}}}",
+                                        "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"properties\\\":{\\\"Available\\\":{\\\"default\\\":true,\\\"type\\\":\\\"boolean\\\"},\\\"ISBN\\\":{\\\"default\\\":23232323,\\\"type\\\":\\\"integer\\\"},\\\"bookName\\\":{\\\"default\\\":\\\"sddsd\\\",\\\"type\\\":\\\"string\\\"}},\\\"type\\\":\\\"object\\\"}\",\"responseHeaders\":\"{\\\"available\\\":\\\"\\\",\\\"id\\\":\\\"\\\",\\\"name\\\":\\\"\\\"}\"}]"
+                                    },
+                                    "headers": {
+                                        "type": "json",
+                                        "value": "{\"type\":\"object\",\"properties\":{\"available\":{\"type\":\"boolean\"}},\"required\":[\"available\"]}",
+                                        "fe_metadata": "[{\"parameterName\":\"available\",\"repeating\":\"false\",\"type\":\"boolean\",\"required\":\"true\"}]"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "id": "LogMessage1",
+                        "name": "LogMessage1",
+                        "description": "Simple Log Message Activity",
+                        "activity": {
+                            "ref": "#log",
+                            "input": {
+                                "Log Level": "INFO",
+                                "flowInfo": false,
+                                "message": "=coerce.toString($activity[InvokeRESTService].responseCodes)"
+                            }
+                        }
+                    },
+                    {
+                        "id": "Return",
+                        "name": "Return",
+                        "description": "Simple Return Activity",
+                        "activity": {
+                            "ref": "#actreturn",
+                            "settings": {
+                                "mappings": {
+                                    "code": 200,
+                                    "data": {
+                                        "mapping": {
+                                            "result": "=coerce.toString($activity[InvokeRESTService].responseCodes)"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "input": [
+                        {
+                            "name": "headers",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}}"
+                            }
+                        }
+                    ],
+                    "output": [
+                        {
+                            "name": "code",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "data",
+                            "type": "object",
+                            "schema": {
+                                "type": "json",
+                                "value": "{\"result\":{\"type\":\"string\"}}"
+                            }
+                        }
+                    ],
+                    "fe_metadata": {
+                        "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"headers\":{\"type\":\"object\",\"properties\":{\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[]}}}",
+                        "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"data\":{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"result\":{\"type\":\"string\"}}}},\"required\":[]}"
+                    }
+                },
+                "explicitReply": true
+            }
+        }
+    ],
+    "properties": [
+        {
+            "name": "InvokeRESTService_mesh_serviceapp_id",
+            "type": "string",
+            "value": "r5bgx7fed3wrcio4xrrxsuv6lahzn5qf"
+        }
+    ],
+    "connections": {},
+    "contrib": "W3sicmVmIjoiZ2l0LnRpYmNvLmNvbS9naXQvcHJvZHVjdC9pcGFhcy93aS1jb250cmliLmdpdC9jb250cmlidXRpb25zL0dlbmVyYWwiLCJzM2xvY2F0aW9uIjoiVGliY28vR2VuZXJhbCJ9XQ==",
+    "fe_metadata": "UEsDBAoAAAAIANaUU1KrqSRGFQAAABMAAAAIAAAAYXBwLmpzb26rViopykxPTy1yy8kvL1ayio6tBQBQSwECFAAKAAAACADWlFNSq6kkRhUAAAATAAAACAAAAAAAAAAAAAAAAAAAAAAAYXBwLmpzb25QSwUGAAAAAAEAAQA2AAAAOwAAAAAA"
+}

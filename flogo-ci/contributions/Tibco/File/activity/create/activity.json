@@ -1,0 +1,50 @@
+
+{
+    "name": "create",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Create File",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity creates a new file or directory",
+        "smallIcon": "icons/file-create@2x.png",
+		"largeIcon": "icons/file-create@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/create",
+    "inputs": [
+        {
+            "name": "isDir",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Is a Directory",
+                "description": "When set to true, the activity creates a directory instead of a file",
+                "visible": true
+            }
+        },
+        {
+            "name": "createNonExistingDir",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Create Non-Existing Directories",
+                "description": "When set to true, the activity creates all directories in the specified path, if they do not already exist",
+                "visible": true
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

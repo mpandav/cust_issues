@@ -1,0 +1,170 @@
+{
+  "name": "receivemessage",
+  "title": "Receive EMS Message",
+  "version": "1.0.2",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:trigger",
+  "display": {
+    "category": "EMS",
+    "visible": true,
+    "smallIcon": "icons/receivemessage.png",
+    "largeIcon": "icons/receivemessage@96.png",
+    "description": "This trigger receives messages from the EMS destination",
+    "wizard": ["Configuration"]
+  },
+  "ref": "github.com/tibco/flogo-ems/src/app/EMS/trigger/receivemessage",
+  "settings": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "EMS Connection",
+        "description": "Ems Connection Configuration",
+        "type": "connection"
+      },
+      "wizard": {
+        "type": "dropdown",
+        "selection": "single",
+        "step": "Configuration"
+      },
+      "allowed": []
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "processingMode",
+        "type": "string",
+        "display": {
+          "name": "Processing Mode",
+          "description": "Determines how messages are received by the handler. In `Sync` mode, handler will receive and process at-most one message. This mode guarantees the order of processing. In `Async` mode, handler will receive messages concurrently at the same time. This mode does not guarantee the order of processing.",
+          "appPropertySupport": false
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Configuration"
+        },
+        "allowed": ["Sync", "Async"],
+        "value": "Sync"
+      },
+      {
+        "name": "destinationType",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Destination Type",
+          "description": "A destination type can be queue or topic",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Configuration"
+        },
+        "allowed": ["Queue", "Topic"],
+        "value": "Queue"
+      },
+      {
+        "name": "destination",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Destination",
+          "description": "The destination where the message is sent",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Configuration"
+        }
+      },
+      {
+        "name": "durableSubscriber",
+        "type": "boolean",
+        "required": false,
+        "display": {
+          "name": "Durable Subscriber",
+          "description": "Enable Durble Subscriber for Destination Type as Topic",
+          "appPropertySupport": true,
+          "visible": true
+        },
+        "value": false,
+        "wizard": {
+          "type": "boolean",
+          "step": "Configuration"
+        }
+      }, 
+      {
+        "name": "sharedDurableSubscriber",
+        "type": "boolean",
+        "required": false,
+        "display": {
+          "name": "Shared Durable Subscriber",
+          "description": "Enable Shared Durable Subscriber for Destination Type as Topic",
+          "appPropertySupport": true, 
+          "visible": true
+        },
+        "value": false,
+        "wizard": {
+          "type": "boolean",
+          "step": "Configuration"
+        }
+      },     
+      {
+        "name": "subscriptionName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Subscription Name",
+          "description": "Specifies a durable subscription name. This is only applicable for Destination Type as Topic",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Configuration"
+        }
+      },
+      {
+        "name": "ackMode",
+        "type": "string",
+        "display": {
+          "name": "Acknowledge Mode",
+          "description": "The acknowledge mode for incoming messages",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Configuration"
+        },
+        "allowed": ["Auto", "Explicit client", "Explicit Client Dups OK"],
+        "value": "Auto"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "message",
+      "type": "string"
+    },
+    {
+      "name": "headers",
+      "type": "object"
+    },
+    {
+      "name": "messageProperties",
+      "type": "object"
+    }
+  ],
+  "feature": {
+    "sequenceKey": {
+      "enabled": true
+    }
+  },
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

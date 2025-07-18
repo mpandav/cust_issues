@@ -1,0 +1,11 @@
+{
+  "name": "TIBCO Flogo connector for TIBCO Data Virtualization",
+  "version": "1.1.2",
+  "category": "TDV",
+  "description": "TIBCO Flogo Connector for TDV allows you to query and invoke call procedures.",
+  "image": "connector/connection/icons/ic-tibco-data-virtualization-connector.png",
+  "supplement": true,
+  "supplementType": "internal",
+"tag": "1.1.2-b05",
+  "signature": "d7cZCM7hkKho7uTgYhalzpAkVgZd5gvo1yNenDQfKSQ3Vs9Xjftzqq1IocbzU5DUqorVWcjwQs4IOAp77SmQYvLwL98ytRJOqkOg1dgIsG0/AvLVgGs="
+}

@@ -1,0 +1,89 @@
+{
+  "name": "sqssendmessage",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "title": "Send SQS Message",
+
+  "display": {
+    "category": "AmazonSQS",
+    "visible": true,
+    "smallIcon": "sqssendmessage.png",
+    "description": "This activity sends a message to the Amazon Queue Service"
+  },
+
+  "ref": "github.com/tibco/flogo-aws-sqs/src/app/AmazonSQS/activity/sqssendmessage",
+  "settings": [
+    {
+      "name": "awsConnection",
+      "type": "connection",
+      "required": true,
+      "display":{
+        "name": "AWS Connection",
+        "description": "Select AWS Connection",
+        "type": "connection"
+      },
+      "allowed":[]
+    },
+    {
+      "name": "queueUrl",
+      "type": "string",
+      "required": true,
+      "display":{
+        "name": "Queue URL",
+        "description": "Select Queue URL for Sending Messages",
+        "appPropertySupport": true
+      },
+      "allowed":[]
+    },
+    {
+      "name": "DelaySeconds",
+      "type": "integer",
+      "display":{
+        "name":"Delivery Delay(seconds)",
+        "description":"Delay Delivery of Message to the queue ranges between 0 - 900(seconds)"
+      },
+      "value" : 0
+    }
+  ],
+  "inputs": [
+    {
+      "name": "MessageAttributeNames",
+      "type": "array",
+      "required": false,
+      "display": {
+        "name": "Message Attributes",
+        "description": "Set message attributes",
+        "type": "table",
+        "schema": "{\r\n    \"$schema\": \"http:\/\/json-schema.org\/draft-04\/schema#\",\r\n    \"definitions\": {},\r\n    \"id\": \"http:\/\/example.com\/example.json\",\r\n    \"items\": {\r\n        \"id\": \"\/items\",\r\n        \"properties\": {\r\n            \"Name\": {\r\n                \"id\": \"\/items\/properties\/Name\",\r\n                \"type\": \"string\"\r\n            },\r\n            \"Type\": {\r\n                \"id\": \"\/items\/properties\/Type\",\r\n                \"type\": {\"enum\":[\"String\", \"Number\"]}\r\n            }\r\n        },\r\n        \"type\": \"object\"\r\n    },\r\n    \"type\": \"array\"\r\n}",
+        "inputSettingsOnly":true
+      }
+    },
+    {
+      "name": "MessageAttributes",
+      "type": "object",
+      "required": false
+    },
+    {
+      "name": "MessageBody",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "MessageDeduplicationId",
+      "type": "string"
+    },
+    {
+      "name": "MessageGroupId",
+      "type": "string",
+      "required": true
+    }
+  ],
+
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    }
+  ]
+}

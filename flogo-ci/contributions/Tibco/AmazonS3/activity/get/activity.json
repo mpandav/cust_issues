@@ -1,0 +1,67 @@
+{
+  "name": "get",
+  "title": "Get",
+  "version": "1.2.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon S3 Get Activity",
+    "category": "AmazonS3",
+    "smallIcon": "icons/get@2x.png",
+    "largeIcon": "icons/get@3x.png"
+  },
+  "ref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/get",
+  "inputs": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "operationType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Operation Type",
+        "description": "Select one operation type from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "outputType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Output Type",
+        "description": "Select one output type from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    },
+    {
+      "name": "error",
+      "type": "object"
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "type": "flogo:connector",
+  "display": {
+    "category": "pulsar",
+    "name": "Pulsar Connection",
+    "description": "Pulsar Connection",
+    "visible": true,
+    "smallIcon": "icons/pulsar.png",
+    "largeIcon": "icons/pulsar.png",
+    "connectionsupport": true,
+    "keyfield": "name"
+  },
+  "ref": "github.com/project-flogo/messaging-contrib/pulsar/connection",
+  "settings": {
+    "modelAttributes": {
+      "name": {
+        "display": {
+          "name": "Name",
+          "description": "The connection name"
+        }
+      },
+      "description": {
+        "display": {
+          "name": "Description",
+          "description": "The description of the connection"
+        }
+      },
+      "url": {
+        "display": {
+          "name": "Broker URL",
+          "visible": true,
+          "appPropertySupport": true,
+          "description": "Enter a broker URL in the form '<pulsar[+ssl]>://<host>:<port>'"
+        },
+        "appPropertySupport": true
+      },
+      "auth": {
+        "display": {
+          "name": "Authorization Type",
+          "appPropertySupport": false,
+          "description": "Select the type of authorization used by the broker",
+          "visible": true
+        }
+      },
+      "allowInsecure": {
+        "display": {
+          "name": "Allow Insecure Connection",
+          "visible": false,
+          "type": "boolean",
+          "appPropertySupport": true,
+          "description": "Enable to support self signed CA's"
+        },
+        "appPropertySupport": true
+      },
+      "caCert": {
+        "display": {
+          "name": "Broker CA",
+          "description": "Select the certificate authority file used to sign the broker's certificate",
+          "visible": false,
+          "type": "fileselector",
+          "fileExtensions": [
+            ".crt",
+            ".cert",
+            ".pem"
+          ],
+          "appPropertySupport": true
+        }
+      },
+      "certFile": {
+        "display": {
+          "name": "Client Cert",
+          "description": "Select the client certificate file if using TLS",
+          "visible": false,
+          "type": "fileselector",
+          "fileExtensions": [
+            ".crt",
+            ".cert",
+            ".pem"
+          ],
+          "appPropertySupport": true
+        }
+      },
+      "keyFile": {
+        "display": {
+          "name": "Client Key",
+          "description": "Select the client key file if using TLS",
+          "visible": false,
+          "type": "fileselector",
+          "fileExtensions": [
+            ".crt",
+            ".cert",
+            ".pem"
+          ],
+          "appPropertySupport": true
+        }
+      },
+      "athenzAuth": {
+        "display": {
+          "name": "Athenz auth info",
+          "description": "Athenz auth params: {providerDomain:string,tenantDomain:string,tenantService:string,privateKey:string,keyId:string,principalHeader:string,ztsUrl:string}",
+          "visible": false,
+          "type": "params",
+          "appPropertySupport": true
+        }
+      },
+      "jwt": {
+        "display": {
+          "name": "JSON Web Token",
+          "description": "Paste the token in this field",
+          "visible": false,
+          "type": "password",
+          "appPropertySupport": true
+        }
+      },
+      "privateKey":{
+        "display":{
+          "name": "Private Key",
+          "description": "Select JSON credentials file",
+          "visible":false,
+          "type": "fileselector",
+          "fileExtensions": [
+            ".json"
+          ],
+          "appPropertySupport": true
+        }
+      },
+      "issuerUrl":{
+        "display":{
+          "name":"Issuer URL",
+          "description":"URL of the authentication provider which allows the Pulsar client to obtain an access token",
+          "visible":false,
+          "type":"string",
+          "appPropertySupport":true
+        }
+      },
+      "audience":{
+        "display":{
+          "name":"Audience",
+          "description":"An OAuth 2.0 resource server identifier for the Pulsar cluster",
+          "visible":false,
+          "type":"string",
+          "appPropertySupport":true
+        }
+      },
+      "scope":{
+        "display":{
+          "name":"Scope",
+          "description":"Scope of an access request separated by spaces",
+          "visible":false,
+          "type":"string",
+          "appPropertySupport":true
+        }
+      },
+      "connTimeout": {
+        "display": {
+          "name": "Connection Timeout",
+          "description": "Connection Timeout in Seconds. Timeout for the establishment of a TCP connection",
+          "visible": true,
+          "appPropertySupport": true
+      } 
+      },
+      "opTimeout": {
+        "display": {
+          "name": "Operation Timeout",
+          "description": "Operation Timeout in Seconds. Operations like Producer-create, Subscribe will be retried until this interval",
+          "visible": true,
+          "appPropertySupport": true
+      }
+      }
+    },
+    "newAttributes": []
+  },
+  "actions": {
+    "newAttributes": [
+      {
+        "name": "Save"
+      }
+    ]
+  }
+}

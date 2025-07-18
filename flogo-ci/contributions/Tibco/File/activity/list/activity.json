@@ -1,0 +1,45 @@
+
+{
+    "name": "list",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "List Files",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity lists all the files or directories in the specified directory",
+        "smallIcon": "icons/file-list@2x.png",
+		"largeIcon": "icons/file-list@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/list",
+    "inputs": [
+        {
+            "name": "mode",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "Only Files",
+                "Only Directories",
+                "Files and Directories"
+            ],
+            "value": "Files and Directories",
+            "display": {
+                "name": "Mode",
+                "description": "The type of listing you want to retrieve. You can select - Only Files, Only Directories, Files and Directories",
+                "type": "dropdown",
+                "selection": "single"
+            }
+          },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

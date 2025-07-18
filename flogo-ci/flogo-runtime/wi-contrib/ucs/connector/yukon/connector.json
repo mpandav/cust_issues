@@ -1,0 +1,66 @@
+{
+    "name": "yukonconnector-connector",
+    "title": "Yukon Connector",
+    "version": "0.0.1",
+    "type": "flogo:connector",
+    "author": "ecole",
+    "display": {
+      "description": "The Yukon Connector",
+      "category": "yukon",
+      "visible": true,
+      "smallIcon": "yukon.png"
+    },
+    "ref": "github.com/tibco/ucs/poc/flogo-yukon-connector/src/app/yukon/connector/yukon",
+    "keyfield": "name",
+    "settings": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Connection Name"
+        }
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "display": {
+          "name": "Description"
+        }
+      },
+      {
+        "name": "url",
+        "type": "string",
+        "required": true,
+        "display": {
+          "visible": false
+        }
+      },
+      {
+        "name": "connectorName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Connector Name",
+          "readonly": true
+        }
+      },
+      {
+        "name": "connectorProps",
+        "type": "object",
+        "required": true,
+        "display": {
+          "name": "Connection Properties",
+          "description": "Connection properties to be used for the connection"
+        }
+      }
+    ],
+    "actions": [
+      {
+        "name": "Connect",
+        "display": {
+          "readonly": true
+        }
+      }
+    ]
+  }

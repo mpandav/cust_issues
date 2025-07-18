@@ -1,0 +1,9 @@
+{
+  "name": "TIBCO Flogo Connector for File",
+  "version": "1.0.0",
+  "category": "File",
+  "description": "Trigger in File category allows you to watch the directory to poll the file events like Create, Write, Rename, Remove, Move. Activities in this category allows you to perform create, read, write, copy, remove, rename, and list files operation. It also provides activities to archive and unarchive files.",
+  "image": "icons/flogo-files.png",
+"tag": "1.0.0-b14",
+  "signature": "2QPREvHf1mJ63T/O5lvIwK1mAtF24bV23J9IoWj+XQ7glfcYAvos627nQ8Q+Ws0bwcq+z3x49HVpK13NZxCA8b+J"
+}

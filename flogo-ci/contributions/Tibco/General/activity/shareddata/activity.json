@@ -1,0 +1,84 @@
+{
+  "name": "flogo-shareddata",
+  "type": "flogo:activity",
+  "version": "1.0.1",
+  "title": "Shared Data",
+  "description": "Enable sharing of data within or across flows in the application",
+  "display": {
+    "visible": true,
+    "description": "Enable sharing of data within or across flows in the application",
+    "category": "General",
+    "smallIcon": "icons/ic-datastore-flow.png",
+    "largeIcon": "icons/ic-datastore-flow@2x.png"
+  },
+  "ref": "github.com/tibco/flogo-general/src/app/General/activity/shareddata",
+  "settings":[
+    {
+      "name": "scope",
+      "type": "string",
+      "allowed" : ["Flow", "Application"],
+      "display": {
+        "description": "'Application' indicates the data can be shared across flow instances within application instance. 'Flow' indicates the data can be shared only within flow instance and it's subflow instances",
+        "name": "Scope",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "value": "Flow"
+    },
+    {
+      "name": "operation",
+      "type": "string",
+      "allowed" : ["GET", "SET", "DELETE"],
+      "display": {
+        "description": "The operation (GET or SET)",
+        "name": "Operation",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "description": "The operation (GET or SET), 'GET' is the default",
+      "value": "GET"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "allowed" : ["string", "integer", "number","object"],
+      "description": "The data type of shared data",
+      "value": "string",
+      "display": {
+        "description": "The data type of shared data",
+        "name": "Data Type",
+        "type": "dropdown",
+        "selection": "single"
+      }
+    },
+    {
+      "name": "objectSchema",
+      "type": "any",
+      "display": {
+        "description": "A JSON data or schema for the object",
+        "type": "texteditor",
+        "syntax": "json",
+        "name": "Object Schema",
+        "visible": false
+      }
+    }
+  ],
+  "input": [
+    {
+      "name": "key",
+      "type": "string",
+      "required": true,
+      "description": "The name of the shared attribute"
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "output": [
+    {
+      "name": "output",
+      "type": "object"
+    }
+  ]
+}

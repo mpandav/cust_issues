@@ -1,0 +1,41 @@
+{
+  "name": "tibco-xmltojson-activity",
+  "type": "flogo:activity",
+  "ref": "github.com/tibco/flogo-general/src/app/General/activity/xmltojson",
+  "version": "1.0.0",
+  "title": "XMLToJSON",
+  "description": "Converts XML string into JSON object",
+  "display": {
+    "visible": true,
+    "description": "Simple XMLToJSON Activity",
+    "category": "General",
+    "smallIcon": "xml-to-json.png",
+    "largeIcon": "xml-to-json@2x.png"
+  },
+  "input": [
+    {
+      "name": "xmlString",
+      "type": "string"
+    },
+    {
+      "name": "ordered",
+      "type": "boolean"
+    },
+    {
+      "name": "typeCast",
+      "type": "boolean"
+    }
+  ],
+  "output": [
+    {
+      "name": "jsonObject",
+      "type": "any",
+      "display": {
+        "name": "Schema",
+        "description": "Configure expected object structure using JSON schema or JSON sample",
+        "type": "texteditor",
+        "syntax": "json"
+      }
+    }
+  ]
+}

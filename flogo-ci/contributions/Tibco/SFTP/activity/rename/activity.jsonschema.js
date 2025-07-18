@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var Schema=function(){return function(){}}();Schema.INPUT={properties:{"Old Remote File Name":{type:"string"},"New Remote File Name":{type:"string"}},required:["Old Remote File Name","New Remote File Name"],type:"object"},Schema.OUTPUT={properties:{"New Remote File Name":{type:"string"}},type:"object"},exports.Schema=Schema;
+//# sourceMappingURL=activity.jsonschema.js.map

@@ -1,0 +1,70 @@
+{
+    "type": "flogo:trigger",
+    "ref": "github.com/project-flogo/datastore-contrib/mongodb/trigger/mongodb",
+    "display": {
+      "category": "mongodb",
+      "smallIcon": "icons/trigger_32.png",
+      "largeIcon": "icons/trigger_48.png",
+      "wizard": [
+        "Choose Connection"
+      ],
+      "tags":["Database","NoSQL","MongoDB"]
+    },
+    "settings": {
+      "modelAttributes": {
+        "connection": {
+          "display": {
+            "name": "Connection",
+            "description": "Choose a Mongodb Connection",
+            "type": "connection"
+          },
+          "wizard": {
+            "type": "dropdown",
+            "selection": "single",
+            "step": "Choose Connection"
+          }
+        }
+      },
+      "newAttributes": []
+    },
+    "handlers": {
+        "modelAttributes": {
+          "databaseName": {
+            "display": {
+              "name": "Database Name",
+              "description": "Name of Databse that you want the EventListener to listen for changes",
+              "appPropertySupport": true
+            }
+          },
+          "collectionName": {
+            "display": {
+              "name": "Collection",
+              "description": "Name for the collection that you want the EventListener to listen for",
+              "appPropertySupport": true
+            }
+          },
+          "listenInsert": {
+            "display": {
+              "name": "Listen for Insert Event",
+              "description": "Set true if you want to listen for insert events in the specified collection.",
+              "appPropertySupport": true
+            }
+          },
+          "listenUpdate": {
+            "display": {
+              "name": "Listen for Update Event",
+              "description": "Set true if you want to listen for update events in the specified collection.",
+              "appPropertySupport": true
+            }
+          },
+          "listenRemove": {
+            "display": {
+              "name": "Listen for Remove Event",
+              "description": "Set true if you want to listen for remove events in the specified collection.",
+              "appPropertySupport": true
+            }
+          }
+        },
+        "newAttributes": []
+    }
+  }

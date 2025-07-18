@@ -1,0 +1,462 @@
+{
+    "title": "Invoke REST Service",
+    "version": "1.1.9",
+    "type": "flogo:activity",
+    "name": "tibco-wi-restinvoke",
+    "author": "TIBCO Software Inc.",
+    "display": {
+        "visible": true,
+        "description": "Simple REST Activity",
+        "category": "General",
+        "smallIcon": "icons/ic-tibco-wi-restinvoke@2x.png",
+        "largeIcon": "icons/ic-tibco-wi-restinvoke@2x.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/flogo-general/src/app/General/activity/rest",
+    "inputs": [
+        {
+            "name": "enableASR",
+            "type": "boolean",
+            "required": true,
+            "display": {
+                "description": "Using TIBCO Cloud Mesh service",
+                "name": "Discover services from TIBCO Cloud Mesh"
+            },
+            "value": false
+        },
+        {
+            "name": "asrDialog",
+            "type": "string",
+            "required": false,
+            "display": {
+                "description": "Open TIBCO Cloud Mesh Service",
+                "name": "Browse TIBCO Cloud Mesh Service",
+                "type": "asrDialog",
+                "visible": false
+            }
+        },
+        {
+            "name": "swagger",
+            "type": "string",
+            "display": {
+                "name": "API Spec",
+                "description": "Configure REST Invoke using API Spec",
+                "type": "specselector",
+                "visible": false,
+                "supportedSpecTypes": [
+                    "OpenAPI"
+                ]
+            },
+            "value": ""
+        },
+        {
+            "name": "authorization",
+            "type": "boolean",
+            "required": true,
+            "display": {
+                "description": "Need Authorization",
+                "name": "Enable Authentication"
+            },
+            "value": false
+        },
+        {
+            "name": "authorizationConn",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "description": "All Authentication connections",
+                "name": "Authentication Connection",
+                "type": "connection",
+                "visible": false
+            },
+            "allowed": []
+        },
+        {
+            "name": "serviceName",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "All service name",
+                "name": "Service Name",
+                "type": "dropdown",
+                "selection": "single",
+                "visible": false
+            },
+            "allowed": []
+        },
+        {
+            "name": "serviceMetadata",
+            "type": "object",
+            "display": {
+                "visible": false
+            }
+        },
+        {
+            "name": "resourcePath",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The Resource Path of the Service Invoke",
+                "name": "Resource Path",
+                "type": "dropdown",
+                "selection": "single",
+                "visible": false
+            },
+            "allowed": []
+        },
+        {
+            "name": "Method",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The REST method used for the requests",
+                "name": "Method",
+                "type": "dropdown",
+                "selection": "single"
+            },
+            "allowed": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE",
+                "PATCH"
+            ],
+            "value": "GET"
+        },
+        {
+            "name": "Uri",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The URL of the REST service",
+                "name": "URL",
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "requestType",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The Request Content Type of the REST service",
+                "name": "Request Type",
+                "type": "dropdown",
+                "selection": "single"
+            },
+            "allowed": [
+                "text/plain",
+                "application/json",
+                "application/x-www-form-urlencoded"
+            ],
+            "value": "application/json"
+        },
+        {
+            "name": "Use certificate for verification",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "description": "Use certificates for secure connection to the server",
+                "name": "Use certificate for verification",
+                "visible": false
+            }
+        },
+        {
+            "name": "mutualAuth",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "description": "Use mutual TLS for secure connection to the server",
+                "name": "Use mTLS",
+                "visible": false
+            }
+        },
+        {
+            "name": "Client Certificate",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "A PEM encoded client certificate file",
+                "name": "Client Certificate",
+                "visible": false,
+                "type": "fileselector",
+                "appPropertySupport": true,
+                "fileExtensions": [
+                    ".pem",
+                    ".cert",
+                    ".cer",
+                    ".crt"
+                ]
+            }
+        },
+        {
+            "name": "Client Key",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "A PEM encoded private key file",
+                "name": "Client Key",
+                "appPropertySupport": true,
+                "visible": false,
+                "type": "fileselector",
+                "fileExtensions": [
+                    ".pem",
+                    ".cert",
+                    ".cer",
+                    ".crt",
+                    ".key"
+                ]
+            }
+        },
+        {
+            "name": "Server Certificate",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "A PEM encoded CA or Server certificate file",
+                "name": "CA/Server Certificate",
+                "visible": false,
+                "type": "fileselector",
+                "appPropertySupport": true,
+                "fileExtensions": [
+                    ".pem",
+                    ".cert",
+                    ".cer",
+                    ".crt"
+                ]
+            }
+        },
+        {
+            "name": "disableSSLVerification",
+            "type": "boolean",
+            "required": true,
+            "display": {
+                "description": "If true, SSL certificate verification will be disabled. This is not recommended for production use.",
+                "name": "Disable SSL Verification",
+                "appPropertySupport": true
+            },
+            "value": false
+        },
+        {
+            "name": "disableKeepAlives",
+            "type": "boolean",
+            "required": true,
+            "display": {
+                "description": "If true, connection with server will be closed after processing response. This will impact performance as connection is no longer cached.",
+                "name": "Close Connection"
+            },
+            "value": false
+        },
+        {
+            "name": "followRedirects",
+            "type": "boolean",
+            "required": true,
+            "display": {
+                "description": "If false, HTTP client won't follow the redirect and return last response.",
+                "name": "Follow Redirects"
+            },
+            "value": true
+        },
+        {
+            "name": "Timeout",
+            "type": "integer",
+            "display": {
+                "description": "Timeout for REST service in milliseconds. (Timeout=0, is indefinite)",
+                "name": "Timeout",
+                "appPropertySupport": true
+            },
+            "value": 0
+        },
+        {
+            "name": "proxy",
+            "type": "string",
+            "required": false,
+            "display": {
+                "description": "The URL of the Proxy service",
+                "name": "Proxy",
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "host",
+            "type": "string"
+        },
+        {
+            "name": "queryParams",
+            "type": "complex_object",
+            "display": {
+                "name": "Query Params",
+                "description": "The query parameters for request",
+                "type": "params",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\",\"object\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}",
+                "mappable": true
+            }
+        },
+        {
+            "name": "pathParams",
+            "type": "complex_object",
+            "display": {
+                "name": "Path Params",
+                "description": "The path parameters for request",
+                "type": "params",
+                "readonly": true,
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}}}}}",
+                "mappable": true
+            }
+        },
+        {
+            "name": "headers",
+            "type": "complex_object",
+            "display": {
+                "name": "Request Headers",
+                "description": "The headers you want to send",
+                "type": "params",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}",
+                "mappable": true
+            },
+            "value": {
+                "metadata": "",
+                "value": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}, {\"parameterName\":\"Authorization\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+            }
+        },
+        {
+            "name": "body",
+            "type": "complex_object",
+            "display": {
+                "name": "Request Schema",
+                "description": "An example JSON data that you want to send to the REST service, only for request application/json content type",
+                "type": "texteditor",
+                "syntax": "json",
+                "mappable": true,
+                "visible": false
+            }
+        },
+        {
+            "name": "multipartFormData",
+            "type": "object"
+        },
+        {
+            "name": "multipartForm",
+            "type": "complex_object",
+            "display": {
+                "name": "Multipart Data",
+                "description": "Define Form Data Values",
+                "readonly": false,
+                "inputSettingsOnly": true,
+                "type": "schemaTable",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"displayName\":\"Name\"},\"type\":{\"type\":{\"enum\":[\"string\",\"object\",\"filecontent\",\"file\",\"files\"]},\"displayName\":\"Type\"},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"displayName\":\"Required\"},\"schema\":{\"displayName\":\"Schema\",\"type\":\"texteditor\",\"dependOn\":\"type\",\"displayWhen\":[\"object\",\"array\"]}}}}"
+            }
+        }
+    ],
+    "outputs": [
+        {
+            "name": "statusCode",
+            "type": "integer"
+        },
+        {
+            "name": "configureResponseCodes",
+            "type": "boolean",
+            "value": false,
+            "display": {
+                "description": "Set Response body for default response code",
+                "name": "Configure Response Codes",
+                "outputSettingsOnly": true
+            }
+        },
+        {
+            "name": "throwError",
+            "type": "boolean",
+            "value": false,
+            "display": {
+                "description": "If true, activity will throw error if HTTP status code >= 400. User should use error handler to process response.",
+                "name": "Throw Error",
+                "outputSettingsOnly": true
+            }
+        },
+        {
+            "name": "responseType",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The Response Content Type of the REST service",
+                "name": "Response Type",
+                "type": "dropdown",
+                "selection": "single",
+                "outputSettingsOnly": true
+            },
+            "allowed": [
+                "application/json",
+                "application/xml",
+                "text/plain",
+                "other"
+            ],
+            "value": "application/json"
+        },
+        {
+            "name": "responseOutput",
+            "type": "string",
+            "required": true,
+            "display": {
+                "description": "The Request Content  Return Type of the REST service for application/xml response type",
+                "name": "Output Format",
+                "type": "dropdown",
+                "selection": "single",
+                "outputSettingsOnly": true
+            },
+            "allowed": [
+                "XML String",
+                "JSON Object"
+            ],
+            "value": "JSON Object"
+        },
+        {
+            "name": "responseBody",
+            "type": "complex_object",
+            "display": {
+                "name": "Response Schema",
+                "description": "Sample JSON data or JSON Schema for the response that you expect back from the REST service. Configurable  only when response content type set to  application/json or when  response content type is set to application/xml and  output format is JSON object",
+                "type": "texteditor",
+                "syntax": "json",
+                "visible": false
+            }
+        },
+        {
+            "name": "responseTimeInMilliSec",
+            "type": "integer"
+        },
+        {
+            "name": "responseCodes",
+            "type": "complex_object"
+        },
+        {
+            "name": "responseCodesSchema",
+            "type": "complex_object",
+            "display": {
+                "name": "Response Codes",
+                "description": "Define response codes you expect to return",
+                "readonly": false,
+                "type": "schemaTable",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\",\"displayName\":\"Code\"},\"responseType\":{\"type\":{\"enum\":[\"string\",\"object\"]},\"displayName\":\"Type\"},\"responseSchema\":{\"displayName\":\"Response Body\",\"type\":\"texteditor\",\"dependOn\":\"responseType\",\"displayWhen\":[\"object\",\"array\"]},\"responseHeaders\":{\"displayName\":\"Response Headers\",\"type\":\"texteditor\"}}}}"
+            }
+        },
+        {
+            "name": "headers",
+            "type": "complex_object",
+            "display": {
+                "name": "Response Headers",
+                "description": "The headers you expect to receive",
+                "type": "params",
+                "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"integer\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}"
+            },
+            "value": {
+                "metadata": "",
+                "value": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Set-Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+            }
+        }
+    ]
+}

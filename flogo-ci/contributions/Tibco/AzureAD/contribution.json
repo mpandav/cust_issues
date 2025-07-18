@@ -1,0 +1,16 @@
+{
+  "name": "TIBCO Flogo connector for Microsoft Azure Connection",
+  "version": "1.0.1",
+  "category": "AzureAD",
+  "compatibility": {
+    "refs": [
+      {
+        "connection": "AzureAD",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azadconnection.git/src/app/AzureAD/connector/connection",
+        "newref": "github.com/tibco/wi-azadconnection/src/app/AzureAD/connector/connection"
+      }
+    ]
+  },
+"tag": "1.0.1-b03",
+  "signature": "zR/w4fN/9riy+Psk7TwFCwjbUaWEVH7emJ3Qee3lXXonGkwgdCwTbE4uG8vcZ4UpdKU4PJmWW5r2ftVWcF/iyvj117cGGASyExTUcq3aQ4Kxb1ju6oxJwg9tuQ=="
+}

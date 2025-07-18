@@ -1,0 +1,48 @@
+
+{
+    "name": "file-unarchive",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Unarchive Files",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity unarchives archived file to file/directory",
+        "smallIcon": "icons/file-unarchive@2x.png",
+		"largeIcon": "icons/file-unarchive@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/unarchive",
+    "inputs": [
+        {
+            "name": "archiveType",
+            "type": "string",
+            "required": true,
+            "allowed": ["zip"],
+            "value": "zip",
+            "display": {
+              "name": "Archive Type",
+              "description": "Type of archive to extract",
+              "type": "dropdown",
+              "selection": "single",
+              "visible": true
+            }
+        },
+        {
+            "name": "sourceFilePath",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "destinationPath",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "outputs": [
+        {
+            "name": "extractedPath",
+            "type": "string"
+        }
+    ]
+}

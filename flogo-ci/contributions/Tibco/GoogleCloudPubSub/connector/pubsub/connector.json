@@ -1,0 +1,66 @@
+{
+  "title": "Google Cloud PubSub Connector",
+  "name": "gcp-pubsub-connection",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "1.0.0",
+  "display": {
+    "description": "Google Cloud Pub/Sub Connector",
+    "category": "GoogleCloudPubSub",
+    "smallIcon": "cloud_pub-sub@2x.png",
+    "largeIcon": "cloud_pub-sub@3x.png",
+    "visible": true,
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/flogo-google-pubsub/src/app/GoogleCloudPubSub/connector/pubsub",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "visible": true
+      }
+    },
+    {
+      "name": "projectId",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Project ID",
+        "description": "Specify project ID of subscription and/or topic",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "serviceAccountKey",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service Account Key",
+        "description": "Configure service account key JSON file",
+        "visible": true,
+        "type": "fileselector",
+        "appPropertySupport": true,
+        "fileExtensions": [
+          ".json"
+        ]
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Save"
+    }
+  ]
+}

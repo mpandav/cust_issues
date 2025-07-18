@@ -1,0 +1,60 @@
+
+{
+    "name": "read",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Read File",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity reads the content of a file",
+        "smallIcon": "icons/file-read@2x.png",
+		"largeIcon": "icons/file-read@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/read",
+    "inputs": [
+        {
+            "name": "readAs",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "Text",
+                "Binary"
+            ],
+            "value": "Text",
+            "display": {
+                "name": "Read as",
+                "description": "The type of the content in the file. With 'Text', output 'textContent' will hold the plain string. With 'Binary', output 'binaryContent' will hold the base64 encoded string",
+                "type": "dropdown",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "compress",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "None",
+                "GUnZip"
+            ],
+            "value": "None",
+            "display": {
+                "name": "Uncompress",
+                "description": "Specify None for no decompression, and GUnZip for an uncompressed file content",
+                "type": "dropdown",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

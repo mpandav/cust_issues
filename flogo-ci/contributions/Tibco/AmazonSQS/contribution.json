@@ -1,0 +1,7 @@
+{
+  "name": "TIBCO Flogo connector for Amazon SQS",
+  "version": "1.0.1",
+  "category": "AmazonSQS",
+"tag": "1.0.1-b01",
+  "signature": "flVE5HMB+kGSCBJmfhNxhWJUSBusQaMMzLWJlt0PUv5euc6KzVKNHBnt5gLYk30Q4zPkGzp8JxP0fF1IeCSC/fkaZLWI05Lzjrq8nFQ="
+}

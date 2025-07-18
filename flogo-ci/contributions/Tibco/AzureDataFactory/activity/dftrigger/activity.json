@@ -1,0 +1,103 @@
+{
+  "title": "Microsoft Azure Data Factory Trigger",
+  "name": "azdatafactory-trigger",
+  "version": "1.0.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "AzureDataFactory",
+    "visible": true,
+    "description": "AzureDataFactory Publish Activity",
+    "smallIcon": "icons/azdf-trigger@2x.png",
+    "largeIcon": "icons/azdf-trigger@3x.png",
+    "tags":["Azure","Data Factory"]
+  },
+  "ref": "github.com/tibco/wi-azdatafactory/src/app/AzureDataFactory/activity/dftrigger",
+  "inputs": [{
+      "name": "Connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Connection",
+        "description": "Choose a Azure Active Directory Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "operation",
+      "type": "string",
+      "required": true,   
+      "allowed":[],   
+      "display": {
+        "name": "Trigger Operation to perform",
+        "description": "Azure Data factory's trigger operation",   
+        "type":"dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "subscriptionId",
+      "type": "string",
+      "required": false,        
+      "allowed":[],         
+      "display": {
+        "name": "Azure subscriptionId",
+        "description": "Azure's subscriptionId of the user",
+        "type":"dropdown",
+        "selection": "single",        
+        "visible": true
+      }
+    },
+    {
+      "name": "resourceGroup",
+      "type": "string",
+      "required": false,        
+      "allowed":[],         
+      "display": {
+        "name": "Resource Groups",
+        "description": "Azure's subscriptionId of the user",
+        "type":"dropdown",
+        "selection": "single",        
+        "visible": true
+      }
+    },
+    {
+      "name": "dataFactories",
+      "type": "string",
+      "required": false,        
+      "allowed":[],         
+      "display": {
+        "name": "Azure Data Factories",
+        "description": "Azure's subscriptionId of the user",
+        "type":"dropdown",
+        "selection": "single",        
+        "visible": true
+      }
+    },
+    {
+      "name": "dfTrigger",
+      "type": "string",
+      "required": false,        
+      "allowed":[],         
+      "display": {
+        "name": "Triggers",
+        "description": "Azure's subscriptionId of the user",
+        "type":"dropdown",
+        "selection": "single",        
+        "visible": true
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }    
+  ],
+
+  "outputs": [{
+    "name": "output",
+    "type": "object"
+  }]
+}

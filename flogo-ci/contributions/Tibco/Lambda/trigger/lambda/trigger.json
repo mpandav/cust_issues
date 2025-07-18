@@ -1,0 +1,122 @@
+{
+  "title": "Receive Lambda Invocation",
+  "version": "1.3.1",
+  "type": "flogo:trigger",
+  "shim": "plugin",
+  "name": "flogo-lambda-function",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "Start Flow as a Function in Lambda",
+    "category": "Lambda",
+    "visible": true,
+    "smallIcon": "icons/ic-flogo-lambda-trigger.png",
+    "largeIcon": "icons/ic-flogo-lambda-trigger@2x.png",
+    "wizard": [
+      "Select connection and set schema for the request event payload"
+    ],
+    "scope": {
+      "multipleTriggers": false,
+      "multipleHandlers": false,
+      "otherTriggers": false
+    }
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/flogo-lambda/src/app/Lambda/trigger/lambda",
+  "useReplyHandler": true,
+  "settings": [
+    {
+      "name": "ConnectionName",
+      "required": true,
+      "type": "connection",
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS connection for deploying your flow as a Lambda function",
+        "type": "connection",
+        "visible": true
+      },
+      "wizard": {
+        "type": "dropdown",
+        "selection": "single",
+        "step": "Select connection and set schema for the request event payload"
+      },
+      "allowed": []
+    },
+    {
+      "name": "ExecutionRoleName",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Execution Role Name Or ARN",
+        "description": "Permission of the Lambda function to execute on your behalf. The role must be assumable by Lambda and must have Cloudwatch Logs permission execution role. A default role with the AWS predefined 'AWSLambdaBasicExecutionRole' permission will be created if omitted or just give an role ARN",
+        "type": "string",
+        "appPropertySupport": true,
+        "visible": true
+      }
+    }
+  ],
+  "handler": {
+    "settings": []
+  },
+  "outputs": [
+    {
+      "name": "Function",
+      "type": "object",
+      "value": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\",\"type\": \"object\",\"properties\": {\"LogGroup\":{\"type\": \"string\"}, \"LogStream\":{\"type\":\"string\"}, \"Name\":{\"type\":\"string\"}, \"Version\":{\"type\":\"string\"}}}"
+    },
+    {
+      "name": "Context",
+      "type": "object",
+      "value": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\",\"type\": \"object\",\"properties\": {\"AwsRequestID\":{\"type\": \"string\"}, \"ARN\":{\"type\":\"string\"}}}"
+    },
+    {
+      "name": "Identity",
+      "type": "object",
+      "value": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\",\"type\": \"object\",\"properties\": {\"CognitoIdentityID\":{\"type\": \"string\"}, \"CognitoIdentityPoolID\":{\"type\":\"string\"}}}"
+    },
+    {
+      "name": "ClientApp",
+      "type": "object",
+      "value": "{\"$schema\": \"http://json-schema.org/draft-04/schema#\",\"type\": \"object\",\"properties\": {\"installation_id\":{\"type\": \"string\"}, \"app_title\":{\"type\":\"string\"}, \"app_version_code\":{\"type\":\"string\"}, \"app_package_name\":{\"type\":\"string\"}}}"
+
+    },
+    {
+      "name": "EventPayload",
+      "type": "object",
+      "display": {
+        "name": "Event Payload",
+        "description": "Request Event Payload schema",
+        "type": "texteditor",
+        "syntax": "json"
+      },
+      "wizard": {
+        "name": "Enter a JSON Schema or an example",
+        "type": "texteditor",
+        "syntax": "json",
+        "step": "Select connection and set schema for the request event payload"
+      }
+    }
+  ],
+  "reply": [
+    {
+      "name": "data",
+      "type": "object",
+      "display": {
+        "name": "Reply Data",
+        "description": "Reply Data schema",
+        "type": "texteditor",
+        "syntax": "json",
+        "mappable": true
+      },
+      "wizard": {
+        "name": "Enter a JSON Schema or an example",
+        "type": "texteditor",
+        "syntax": "json",
+        "step": "Set schema for the reply data"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+    "name": "tibco-messaging-tcm-get",
+    "version": "1.0.1",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "title": "eFTL Get Message",
+    "display": {
+      "category": "Messaging",
+      "visible": true,
+      "smallIcon": "icons/tcm_get_message-activity.png",
+      "largeIcon": "icons/tcm_get_message-activity@2x.png",
+      "description": "This activity gets a message from TIBCO Cloud Messaging(eFTL) service"
+    },
+    "feature": {
+      "retry": {
+        "enabled": true
+      }
+    },
+    "ref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmgetmessage",
+    "settings":[
+      {
+        "name": "tcmConnection",
+        "type": "connection",
+        "required": true,
+        "display": {
+          "name": "Connection",
+          "description": "Select your TIBCO Cloud Messaging eFTL connection",
+          "type": "connection"
+        },
+        "allowed": []
+      },
+      {
+        "name": "destination",
+        "type": "string",
+        "display": {
+          "name": "Destination",
+          "description": "Name of the message destination. This should match with the destination name configured on the publisher.",
+          "appPropertySupport": true
+        }
+      },
+      {
+        "name": "durableName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Durable Name",
+          "description": "Durable name for the subscription",
+          "appPropertySupport": true
+        }
+      },
+      {
+        "name": "matcher",
+        "type": "array",
+        "display": {
+          "name": "Content Matcher",
+          "description": "Name, type and value of attribute(s) that you wish to match in the incoming message. If configured with app property, value of app property must be a valid JSON object. e.g. {\"string_prop\":\"string_val\",\"integer_prop\":0, \"boolean_prop\":true}",
+          "appPropertySupport": true,
+          "type": "table",
+          "schema": "{\r\n    \"$schema\": \"http:\/\/json-schema.org\/draft-04\/schema#\",\r\n    \"definitions\": {},\r\n    \"id\": \"http:\/\/example.com\/example.json\",\r\n    \"items\": {\r\n        \"id\": \"\/items\",\r\n        \"properties\": {\r\n            \"Name\": {\r\n                \"id\": \"\/items\/properties\/Name\",\r\n                \"type\": \"string\"\r\n            },\r\n            \"Type\": {\r\n                \"id\": \"\/items\/properties\/Type\",\r\n                \"type\": {\"enum\":[\"String\", \"Integer\", \"Boolean\"]}\r\n            },\r\n            \"Value\": {\r\n                \"id\": \"\/items\/properties\/Value\",\r\n                \"type\": \"string\"\r\n            }\r\n        },\r\n        \"type\": \"object\"\r\n    },\r\n    \"type\": \"array\"\r\n}"
+        }
+      }
+    ],
+    "input":[
+      {
+        "name":"timeout",
+        "type":"integer",
+        "value":120000
+      }
+    ],
+    "output": [
+      {
+        "name": "message",
+        "type": "object",
+        "display": {
+          "name": "Message Schema",
+          "description": "An example JSON data that you want to receive from TIBCO Cloud Messaging",
+          "type": "texteditor",
+          "syntax": "json"
+        }
+      },
+      {
+        "name": "metadata",
+        "type": "object"
+      }
+    ]
+  }
+  

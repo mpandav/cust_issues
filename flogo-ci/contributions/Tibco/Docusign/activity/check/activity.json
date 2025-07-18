@@ -1,0 +1,49 @@
+{
+    "title": "DocuSign CheckStatus",
+    "name": "docusign-checkstatus",
+    "version": "2.0.2",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "display": {
+        "category": "Docusign",
+        "visible": true,
+        "description": "DocuSign CheckStatus Activity",
+        "smallIcon": "icons/ic-docusign-check@2x.png",
+        "largeIcon": "icons/ic-docusign-check@3x.png"
+    },
+    "feature": {
+        "retry": {
+          "enabled": true
+        }
+      },
+    "ref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/check",
+    "inputs": [
+        {
+            "name": "docusignConnection",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "name": "Connection",
+                "description": "Select a DocuSign connection",
+                "type": "connection",
+                "visible": true
+            },
+            "allowed": []
+        },
+        {
+            "name": "envelopeId",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "outputs": [
+        {
+            "name": "status",
+            "type": "string"
+        },
+        {
+            "name": "error",
+            "type": "object"
+        }
+    ]
+}

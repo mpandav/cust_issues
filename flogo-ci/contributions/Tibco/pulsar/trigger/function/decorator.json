@@ -1,0 +1,27 @@
+{
+	"type": "flogo:trigger",
+	"shim":"plugin",
+	"display": {
+		"description": "pulsar function trigger",
+		"category": "pulsar",
+		"visible": true,
+		"smallIcon": "icons/pulsar_function_trigger@2x.png",
+		"largeIcon": "icons/pulsar_function_trigger@3x.png",
+		"tags":["Messaging","Pulsar"],
+		"scope": {
+			"multipleTriggers": false,
+			"multipleHandlers": false,
+			"otherTriggers": false
+		  }
+	},
+	"ref": "github.com/project-flogo/messaging-contrib/pulsar/trigger/function",
+	"settings": [
+	],
+	"handler": {
+		"settings": []
+	},
+	"output": [
+	],
+	"reply": [
+	]
+}

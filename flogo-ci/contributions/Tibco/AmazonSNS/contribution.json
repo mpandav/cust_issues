@@ -1,0 +1,16 @@
+{
+  "name": "TIBCO Flogo Connector for AmazonSNS",
+  "version": "1.0.1",
+  "category": "AmazonSNS",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "snspublish",
+        "oldref": "github.com/tibco/flogo-aws-sns.git/src/app/AmazonSNS/activity/snspublish",
+        "newref": "github.com/tibco/flogo-aws-sns/src/app/AmazonSNS/activity/snspublish"
+      }
+    ]
+  },
+"tag": "1.0.1-b02",
+  "signature": "+06CsskMlsVZlgWNzIwUHgt8oCn/kfvJ3ZjzqrvwrvRSh1HHZ8Ntxd17kOgQqwre2ReALKUNnyIfTjgl7CBR7/NPC5v38DUOEQBAqg=="
+}

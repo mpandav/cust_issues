@@ -1,0 +1,56 @@
+
+{
+    "name": "command",
+    "version": "1.2.0",
+    "type": "flogo:activity",
+    "title": "Snowflake Command",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "Snowflake",
+        "visible": true,
+        "description": "This activity executes command on Snowflake",
+        "smallIcon": "icons/snowflake-command@2x.png",
+		"largeIcon": "icons/snowflake-command@3x.png"
+    },
+    "ref": "github.com/tibco/wi-snowflake/src/app/Snowflake/activity/command",
+    "inputs": [
+        {
+            "name": "Snowflake Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "Snowflake Connection",
+                "description": "Select Snowflake Connection",
+                "type": "connection",
+                "selection": "single"
+            }
+        },  
+        {
+            "name": "command",
+            "type": "string",
+            "required": true,
+            "allowed": [
+              "PUT",
+              "COPY INTO"
+            ],
+            "display": {
+              "name": "Command",
+              "description": "Select Snowflake command",
+              "type": "dropdown",
+              "selection": "single",
+              "visible": true
+            }
+        }, 
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

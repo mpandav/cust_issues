@@ -1,0 +1,37 @@
+{
+  "title": "AzureServiceBus DeadLetter",
+  "name": "azservicebus-deadletter",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "AzureServiceBus",
+    "visible": true,
+    "description": "AzureServiceBus deadletter activity can only be used when the subscriber has been opened with ModePeekLock. It will move the message to deadletter",
+    "smallIcon": "icons/deadletter@64px.png",
+    "largeIcon": "icons/deadletter@96px.png"
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }  
+  },
+  "ref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/activity/deadletter",
+  "inputs": [
+    {
+      "name": "reason",
+      "type": "string"
+    },
+    {
+      "name": "description",
+      "type": "string"        
+    }
+  ],
+  "outputs": [
+  ]
+}

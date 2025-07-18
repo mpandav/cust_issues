@@ -1,0 +1,61 @@
+{
+	"title": "Configure HTTP Response",
+	"name": "tibco-wi-httpresponse",
+	"author": "TIBCO Software Inc.",
+	"type": "flogo:activity",
+	"version": "1.1.2",
+	"display": {
+		"visible": true,
+		"description": "Configure HTTP Response Activity",
+		"category": "General",
+		"smallIcon": "icons/configure_http_response_48.png",
+		"largeIcon": "icons/configure_http_response_48.png"
+	},
+	"feature": {
+		"iterator": {
+			"type": "iterator",
+			"enabled": false
+		}
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/activity/httpresponse",
+	"inputs": [
+		{
+			"name": "trigger",
+			"type": "string",
+			"display": {
+				"description": "List of HTTP/REST Triggers for the given Flow ",
+				"name": "Trigger Name",
+				"type": "dropdown",
+				"selection": "single"
+			}
+		},
+
+		{
+			"name": "responsecode",
+			"type": "string",
+			"required": true,
+			"display": {
+				"description": "List of Response Codes configured on the Trigger",
+				"name": "Code",
+				"type": "dropdown",
+				"selection": "single"
+			}
+		},
+		{
+			"name": "input",
+			"type": "object"
+		}
+	],
+	"outputs": [
+
+		{
+			"name": "code",
+			"type": "integer"
+		},
+
+		{
+			"name": "response",
+			"type": "object"
+		}
+	]
+}

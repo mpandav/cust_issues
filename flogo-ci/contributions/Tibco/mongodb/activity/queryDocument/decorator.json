@@ -1,0 +1,59 @@
+{
+  "type": "flogo:activity",
+  "ref": "github.com/project-flogo/datastore-contrib/mongodb/activity/queryDocument",
+  "display": {
+    "category": "mongodb",
+    "visible": true,
+    "smallIcon": "icons/query@2x.png",
+    "largeIcon": "icons/query@3x.png",
+    "tags":["Database","NoSQL","MongoDB"]
+  },
+  "settings": {
+    "modelAttributes": {
+      "connection": {
+        "display": {
+          "name": "Connection",
+          "description": "Select a mongodb Connection",
+          "type": "connection",
+          "selection": "single",
+          "visible": true
+        }
+      },
+      "operation": {
+        "display": {
+          "name": "Operation",
+          "type": "dropdown",
+          "selection": "single",
+          "description": "Select operation you want to perform",
+          "visible": true
+        }
+      },
+      "databaseName": {
+        "display": {
+          "name": "Database Name",
+          "visible": true,
+          "description": "MongoDB databse to query",
+          "appPropertySupport": true
+        }
+      },
+      "collectionName": {
+        "display": {
+          "name": "Collection Name",
+          "visible": true,
+          "description": "The collection within the MongoDB database to query",
+          "appPropertySupport": true
+        }
+      },
+      "timeout": {
+        "display": {
+          "name": "Timeout",
+          "visible": true,
+          "description": "Timeout in seconds for the activity's operations",
+          "appPropertySupport": true
+        }
+      }
+    },
+    "newAttributes": []
+    
+  }
+}

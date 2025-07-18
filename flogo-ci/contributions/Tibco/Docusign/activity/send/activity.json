@@ -1,0 +1,81 @@
+{
+    "title": "DocuSign CreateEnvelope",
+    "name": "docusign-createenvelope",
+    "version": "2.1.1",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "display": {
+        "category": "Docusign",
+        "visible": true,
+        "description": "DocuSign CreateEnvelope Activity",
+        "smallIcon": "icons/ic-docusign-send@2x.png",
+        "largeIcon": "icons/ic-docusign-send@3x.png"
+    },
+    "feature": {
+        "retry": {
+          "enabled": true
+        }
+      },
+    "ref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/send",
+    "inputs": [
+        {
+            "name": "docusignConnection",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "name": "Connection",
+                "description": "Select a DocuSign connection",
+                "type": "connection",
+                "visible": true
+            },
+            "allowed": []
+        },
+        {
+            "name": "isMultiDoc",
+            "type": "boolean",
+            "required": true,
+            "display":{
+                "name": "Add Multiple Documents",
+                "description": "Add multiple files to envelope for signing",
+                "visible": true,
+                "inputSettingsOnly": true
+            },
+            "value": false
+        },
+        {
+            "name": "recipients",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "signingInOrder",
+            "type": "boolean",
+            "required": false
+        },
+        {
+            "name": "fileName",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "fileContent",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "documents",
+            "type": "array",
+            "required": false
+        }
+    ],
+    "outputs": [
+        {
+            "name": "envelope",
+            "type": "object"
+        },
+        {
+            "name": "error",
+            "type": "object"
+        }
+    ]
+}

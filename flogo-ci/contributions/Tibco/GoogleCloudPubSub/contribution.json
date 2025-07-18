@@ -1,0 +1,9 @@
+{
+  "name": "TIBCO Flogo Connector for Google Cloud Pub/Sub",
+  "version": "1.0.1-HF1",
+  "category": "GoogleCloudPubSub",
+  "description": "TIBCO Flogo® Connector for Google Cloud Pub/Sub provides integration with Google Cloud Pub/Sub messaging service. You can send messages to or receive messages from Googgle Cloud Pub/Sub service using this connector.",
+  "image": "connector/pubsub/cloud_pub-sub@3x.png",
+"tag": "1.0.1-hf1-b01",
+  "signature": "Jyg2i6sidtyuD4FVncZnT5BcO1I+lTYC/za84Xl0KAC+kxXCUH13oJW8lc42HKpngsinHex5j5NsPphFB2+1g6Z7R+2W8F/lpG5l1Bhzdys87XbGWd8K4qz5df3BNWfpyRqv"
+}

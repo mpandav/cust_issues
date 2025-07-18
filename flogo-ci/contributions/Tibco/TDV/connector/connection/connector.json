@@ -1,0 +1,225 @@
+{
+  "name": "tdv-connector",
+  "title": "TDV Connector",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "1.0.1",
+  "display": {
+    "description": "Connector to connect to a TDV database server",
+    "category": "TDV",
+    "visible": true,
+    "smallIcon": "icons/ic-tibco-data-virtualization-connector.png",
+    "largeIcon": "icons/ic-tibco-data-virtualization-connector.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/flogo-tdv/src/app/TDV/connector/connection",
+  "keyfield": "name",
+  "settings": [{
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "visible": true
+      }
+    },
+    {
+      "name": "server",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Server",
+        "description": "TDV Server Hostname",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "value": 9401,
+      "display": {
+        "name": "Port",
+        "description": "TDV Server Port",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "domain",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Domain",
+        "description": "TDV Domain",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "datasource",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Datasource Name",
+        "description": "TDV Published DataSource Name",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User",
+        "description": "TDV User Account",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "description": "TDV Password",
+        "type": "password",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "maxconnectattempts",
+      "type": "integer",
+      "required": false,
+      "value": 3,
+      "display": {
+        "name": "Maximum Connection Retry Attempts",
+        "description": "Maximum number of attempts to reconnect with a TDV server",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "connectionretrydelay",
+      "type": "integer",
+      "required": false,
+      "value": 5,
+      "display": {
+        "name": "Connection Retry Delay",
+        "description": "Number of seconds to wait between connection retry attempts",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "connectiontimeout",
+      "type": "integer",
+      "required": false,
+      "value": 20,
+      "display": {
+        "name": "Connection Timeout",
+        "description": "Timeout (in sec) for establishing connection. Set it to 0 for no timeout",
+        "type": "integer",
+        "visible": "true",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "sessionTimeout",
+      "type": "integer",
+      "required": false,
+      "value": 0,
+      "display": {
+        "name": "Session Timeout",
+        "description": "Session inactivity time-out, in seconds. Set to zero for infinite time-out.",
+        "type": "integer",
+        "visible": "true",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "requestTimeout",
+      "type": "integer",
+      "required": false,
+      "value": 0,
+      "display": {
+        "name": "Request Timeout",
+        "description": " Time-out for query commands and other requests. A value of 0 disables the timeout.",
+        "type": "integer",
+        "visible": "true",
+        "appPropertySupport": true
+      }
+    },
+    {
+			"name": "tlsconfig",
+			"type": "boolean",
+			"required": true,
+			"value":false,
+			"display": {
+			  "name": "Secure Connection",
+			  "description": "Enable to use secure connection",
+        "visible": true,
+        "type": "boolean"
+			}
+    },
+    {
+      "name": "tlsparam",
+      "type": "string",
+      "display": {
+        "name": "TLS",
+        "description": "Choose the type of authentication to use",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      },
+      "allowed": [
+        "VerifyCA"
+      ],
+      "value": "VerifyCA"
+    },
+    {
+      "name": "cacert",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "CA Certificate",
+        "description": "Select the CA certificate file used to sign the server's certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".pem"],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "onprem",
+      "type": "boolean",
+      "required": true,
+      "value": false,
+      "display": {
+        "name": "On-Premise Database",
+        "description": "Flag to indicate whether database is running on-premise",
+        "visible": false
+      }
+    }
+  ],
+  "actions": [{
+    "name": "Connect"
+  }]
+}

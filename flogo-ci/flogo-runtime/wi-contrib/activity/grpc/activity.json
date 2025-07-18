@@ -1,0 +1,205 @@
+{
+  "name": "grpc-activity",
+  "type": "flogo:activity",
+  "version": "0.0.3",
+  "title": "gRPC Invoke",
+  "description": "gRPC client activity",
+  "homepage": "https://github.com/project-flogo/grpc/tree/master/activity",
+  "shim": "plugin",
+  "ref": "github.com/project-flogo/grpc/activity/grpc",
+  "display": {
+    "description": "gRPC client activity",
+    "visible": true,
+    "smallIcon": "icons/grpc_32.png",
+    "largeIcon": "icons/grpc_48.png"
+  },
+  "settings": [
+    {
+      "name": "operatingMode",
+      "type": "string",
+      "description": "Either 'grpc-to-grpc' or 'rest-to-grpc'",
+      "display": {
+        "name": "Operating Mode",
+        "description": "The Proto file for the activity",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": false
+      }
+    },
+    {
+      "name": "hosturl",
+      "type": "string",
+      "description": "gRPC server address e.g. <HOSTNAME>:<PORT>",
+      "display": {
+        "name": "Host URL",
+        "description": "gRPC server address e.g. <HOSTNAME>:<PORT>",
+        "type": "string",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "enableTLS",
+      "type": "boolean",
+      "value": false,
+      "description": "true - To enable TLS (Transport Layer Security), false - No TLS security",
+      "display": {
+        "name": "Secure Connection",
+        "description": "Set to \"true\" for a secure connection",
+        "type": "boolean"
+      }
+    },
+    {
+      "name": "enableMTLS",
+      "type": "boolean",
+      "value": false,
+      "description": "true - To enable mTLS (Mutual Transport Layer Security), false - No mTLS security",
+      "display": {
+        "name": "Mutual TLS",
+        "description": "Set to \"true\" for a mTLS",
+        "type": "boolean",
+        "visible":"false"
+      }
+    },
+    {
+      "name": "clientCert",
+      "type": "string",
+      "description": "CA certificate file in PEM format",
+      "display": {
+        "name": "CA Certificate",
+        "description": "CA certificate file in PEM format",
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".crt"
+        ],
+        "appPropertySupport": true
+      },
+      "required": true
+    },
+    {
+      "name": "clientCert2",
+      "type": "string",
+      "description": "Client certificate file in PEM format",
+      "display": {
+        "name": "Client Certificate",
+        "description": "Client certificate file in PEM format",
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".crt"
+        ],
+        "appPropertySupport": true,
+        "visible":false
+      },
+      "required": true
+    },
+    {
+      "name": "clientKey",
+      "type": "string",
+      "description": "A PEM encoded private key file",
+      "display": {
+        "name": "Client key",
+        "description": "A PEM encoded private key file",
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem"
+        ],
+        "appPropertySupport": true,
+        "visible":false
+      },
+      "required": true
+    },
+    {
+      "name": "protoFile",
+      "type": "string",
+      "display": {
+        "name": "Proto File",
+        "description": "Proto file for the grpc client activity",
+        "type": "specselector",
+        "supportedSpecTypes":["gRPC"]
+      },
+      "required": true
+    }
+  ],
+  "input": [
+    {
+      "name": "grpcMthdParamtrs",
+      "type": "object",
+      "description": "A grpcMthdParamtrs payload which holds full information like method parameters, service name, proto name, method name etc."
+    },
+    {
+      "name": "header",
+      "type": "params",
+      "description": "HTTP request header params"
+    },
+    {
+      "name": "serviceName",
+      "type": "string",
+      "description": "Name of the service present in proto",
+      "display": {
+        "name": "Service Name",
+        "description": "Name of the service",
+        "type": "dropdown",
+        "selection": "single"
+      }
+    },
+    {
+      "name": "protoName",
+      "type": "string",
+      "description": "Name of the proto file used",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "methodName",
+      "type": "string",
+      "description": "rpc method name present inside service",
+      "display": {
+        "name": "Method Name",
+        "description": "Name of rpc method in proto file",
+        "type": "dropdown",
+        "selection": "single"
+      }
+    },
+    {
+      "name": "params",
+      "type": "params",
+      "description": "HTTP request params",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "queryParams",
+      "type": "params",
+      "description": "HTTP request query params",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "content",
+      "type": "any",
+      "description": "HTTP request paylod",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "pathParams",
+      "type": "params",
+      "description": "HTTP request path params",
+      "display": {
+        "visible": false
+      }
+    }
+  ],
+  "output": [
+    {
+      "name": "body",
+      "type": "any",
+      "description": "The response object from gRPC end server"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "name":"yukonquery-activity",
+  "title":"Yukon Query Activity",
+  "version":"0.0.1",
+  "type":"flogo:activity",
+  "author":"Rakshit Ashtekar <arakshit@tibco.com>",
+  "display":{
+      "category":"yukon",
+      "visible":true,
+      "smallIcon":"yukon.png",
+      "description":"Allows Flogo apps to execute queries using Yukon(Scribe) connectors"
+  },
+  "feature":{
+      "retry":{
+          "enabled":true
+      }
+  },
+  "ref":"github.com/tibco/ucs/poc/flogo-yukon-connector/src/app/yukon/activity/yukonquery",
+  "settings":[
+      {
+          "name":"connection",
+          "type":"connection",
+          "required":true,
+          "display":{
+              "name":"Connection",
+              "description":"Select your Connection",
+              "type":"connection"
+          },
+          "allowed":[
+              
+          ]
+      }
+  ],
+  "inputs":[
+      {
+          "name":"action",
+          "type":"string",
+          "required":true,
+          "description":"",
+          "value":"Query",
+          "display":{
+              "name":"Operation",
+              "description":"Operation to perform",
+              "visible":false
+          }
+      },
+      {
+          "name":"requiresLookupCondition",
+          "type":"boolean",
+          "required":true,
+          "description":"",
+          "value":false,
+          "display":{
+              "name":"requiresLookupCondition",
+              "description":"",
+              "visible":false
+          }
+      },
+      {
+          "name":"requiresInputData",
+          "type":"boolean",
+          "required":true,
+          "description":"",
+          "value":false,
+          "display":{
+              "name":"requiresInputData",
+              "description":"",
+              "visible":false
+          }
+      },
+      {
+          "name":"dataObject",
+          "required":true,
+          "description":"",
+          "type":"string",
+          "display":{
+              "name":"Object",
+              "description":"Data object name",
+              "type":"dropdown",
+              "selection":"single"
+          }
+      },
+      {
+          "name":"lookupCondition",
+          "type":"array",
+          "required":false,
+          "description":null
+      }
+  ],
+  "outputs":[
+      {
+          "name":"fieldSelection",
+          "type":"array",
+          "required":true,
+          "description":"",
+          "display":{
+              "name":"Field selector",
+              "description":"Select the fields to query for",
+              "type":"table",
+              "enableClear":false,
+              "outputSettingsOnly":true,
+              "schema":"{\"type\":\"array\",\"items\":{\"properties\":{\"FieldName\":{\"isEditable\":false,\"type\":\"string\"},\"Selected\":{\"isEditable\":true,\"type\":{\"enum\":[\"true\",\"false\"]}}},\"type\":\"object\"}}"
+          }
+      },
+      {
+          "name":"output",
+          "type":"object",
+          "description":"Operation output"
+      }
+  ]
+}

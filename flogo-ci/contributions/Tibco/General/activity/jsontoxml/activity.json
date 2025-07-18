@@ -1,0 +1,27 @@
+{
+  "name": "tibco-jsontoxml-activity",
+  "type": "flogo:activity",
+  "ref": "github.com/tibco/flogo-general/src/app/General/activity/jsontoxml",
+  "version": "1.0.0",
+  "title": "JSONToXML",
+  "description": "Converts JSON into XML string",
+  "display": {
+    "visible": true,
+    "description": "Simple JSONtoXML Activity",
+    "category": "General",
+    "smallIcon": "json-to-xml.png",
+    "largeIcon": "json-to-xml@2x.png"
+  },
+  "input": [
+    {
+      "name": "jsonString",
+      "type": "string"
+    }
+  ],
+  "output": [
+    {
+      "name": "xmlString",
+      "type": "string"
+    }
+  ]
+}

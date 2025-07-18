@@ -1,0 +1,39 @@
+
+{
+    "name": "delete",
+    "version": "1.0.1",
+    "type": "flogo:activity",
+    "title": "SFTP Delete",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "SFTP",
+        "visible": true,
+        "description": "This activity executes delete operation on SFTP server",
+        "smallIcon": "icons/sftp-delete@2x.png",
+		"largeIcon": "icons/sftp-delete@3x.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/flogo-sftp/src/app/SFTP/activity/delete",
+    "inputs": [
+        {
+            "name": "SFTP Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "SFTP Connection",
+                "description": "Select SFTP Connection",
+                "type": "connection",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ]
+}

@@ -1,0 +1,64 @@
+{
+  "title": "Salesforce Upsert",
+  "name": "salesforce-upsert",
+  "version": "1.3.3",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "Salesforce",
+    "visible": true,
+    "description": "Salesforce Upsert Activity",
+    "smallIcon": "icons/ic-salesforce-upsert@2x.png",
+    "largeIcon": "icons/ic-salesforce-upsert@3x.png",
+    "appPropertySupport": true
+  },
+  "ref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/upsert",
+  "inputs": [
+    {
+      "name": "connectionName",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Connection",
+        "description": "Select a Salesforce connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "objectName",
+      "type": "string",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Object",
+        "description": "Salesforce business object name",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    },
+    {
+      "name": "externalIdFieldName",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "allOrNone",
+      "type": "boolean",
+      "required": false
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object",
+      "value": "{ \"$schema\": \"http:\/\/json-schema.org\/draft-04\/schema#\", \"type\": \"object\", \"properties\": { \"response\": { \"type\": \"array\", \"items\": { \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"string\" }, \"success\": { \"type\": \"boolean\" }, \"errors\": { \"type\": \"array\", \"items\": {} }, \"created\": { \"type\": \"boolean\" } } } } } }"
+    }
+  ]
+}

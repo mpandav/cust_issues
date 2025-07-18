@@ -1,0 +1,181 @@
+{
+  "name": "TIBCO Flogo Connector for General",
+  "version": "1.6.6",
+  "category": "General",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "actreply",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/activity/actreply",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/actreply"
+      },
+      {
+        "activity": "actreply",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/actreply",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/actreply"
+      },
+      {
+        "activity": "httpresponse",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/httpresponse",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/httpresponse"
+      },
+      {
+        "activity": "httpresponse",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/httpresponse",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/httpresponse"
+      },
+      {
+        "activity": "log",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/log",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/log"
+      },
+      {
+        "activity": "log",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/log",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/log"
+      },
+      {
+        "activity": "mapper",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/mapper",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/mapper"
+      },
+      {
+        "activity": "mapper",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/mapper",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/mapper"
+      },
+      {
+        "activity": "parsejson",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/parsejson",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/parsejson"
+      },
+      {
+        "activity": "parsejson",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/parsejson",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/parsejson"
+      },
+      {
+        "activity": "protobuf2json",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/protobuf2json",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/protobuf2json"
+      },
+      {
+        "activity": "protobuf2json",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/protobuf2json",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/protobuf2json"
+      },
+      {
+        "activity": "reply",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/reply",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/reply"
+      },
+      {
+        "activity": "reply",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/reply",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/reply"
+      },
+      {
+        "activity": "rest",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/rest",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/rest"
+      },
+      {
+        "activity": "rest",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/rest",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/rest"
+      },
+      {
+        "activity": "sendmail",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/sendmail",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/sendmail"
+      },
+      {
+        "activity": "sendmail",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/sendmail",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/sendmail"
+      },
+      {
+        "activity": "shareddata",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/shareddata",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/shareddata"
+      },
+      {
+        "activity": "shareddata",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/shareddata",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/shareddata"
+      },
+      {
+        "activity": "sleep",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/activity/sleep",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/sleep"
+      },
+      {
+        "activity": "sleep",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/activity/sleep",
+        "newref": "github.com/tibco/flogo-general/src/app/General/activity/sleep"
+      },
+      {
+        "connector": "authorization",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/connector/authorization",
+        "newref": "github.com/tibco/flogo-general/src/app/General/connector/authorization"
+      },
+      {
+        "connector": "authorization",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/connector/authorization",
+        "newref": "github.com/tibco/flogo-general/src/app/General/connector/authorization"
+      },
+      {
+        "trigger": "error",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/error",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/error"
+      },
+      {
+        "trigger": "error",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/trigger/error",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/error"
+      },
+      {
+        "trigger": "rest",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/rest",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/rest"
+      },
+      {
+        "trigger": "rest",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/trigger/rest",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/rest"
+      },
+      {
+        "trigger": "shutdownhook",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/shutdownhook",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/shutdownhook"
+      },
+      {
+        "trigger": "shutdownhook",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/trigger/shutdownhook",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/shutdownhook"
+      },
+      {
+        "trigger": "startuphook",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/startuphook",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/startuphook"
+      },
+      {
+        "trigger": "startuphook",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/trigger/startuphook",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/startuphook"
+      },
+      {
+        "trigger": "timer",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-contrib.git/contributions/General/trigger/timer",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/timer"
+      },
+      {
+        "trigger": "timer",
+        "oldref": "github.com/tibco/wi-contrib/contributions/General/trigger/timer",
+        "newref": "github.com/tibco/flogo-general/src/app/General/trigger/timer"
+      }
+    ]
+  },
+"tag": "1.6.6-b10",
+  "signature": "LuzfkI4RRL0aTSWw95uDo1m4qP6DuRwUbS1Le+rqxRC6bTvC+cJcl0n2SFCIxQ80DuFTvzPWNfSu5V5TYZjwwbDr9K+Cya2L"
+}

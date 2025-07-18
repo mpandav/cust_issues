@@ -1,0 +1,72 @@
+{
+    "title": "Mailchimp connector",
+    "name": "tibco-mailchimp",
+    "version": "1.0.1",
+    "type": "flogo:connector",
+    "author": "TIBCO Software Inc.",
+    "display": {
+        "description": "MailChimp Connector",
+        "visible": true,
+        "category": "Mailchimp",
+        "smallIcon": "icons/ic-connector-mailchimp.png",
+        "largeIcon": "icons/ic-connector-mailchimp@2x.png",
+        "connectionsupport": true
+    },
+    "ref": "github.com/tibco/wi-mailchimp/src/app/Mailchimp/connector/mailchimp",
+    "keyfield": "name",
+    "settings": [{
+            "name": "name",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "Name",
+                "visible": true,
+                "placeholder": "Connection name"
+            }
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Description",
+                "description": "Connection description",
+                "visible": true
+            }
+        },
+        {
+            "name": "clientId",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "Client Id",
+                "description": "Oauth client Id",
+                "visible": true,
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "clientSecret",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "Client Secret",
+                "type": "password",
+                "description": "OAuth client secret",
+                "visible": true,
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "WI_STUDIO_OAUTH_CONNECTOR_INFO",
+            "type": "string",
+            "required": true,
+            "display": {
+                "visible": false
+            }
+        }
+    ],
+    "actions": [{
+        "name": "Login"
+    }]
+}

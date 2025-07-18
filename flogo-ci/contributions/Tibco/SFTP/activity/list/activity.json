@@ -1,0 +1,45 @@
+
+{
+    "name": "list",
+    "version": "1.0.1",
+    "type": "flogo:activity",
+    "title": "SFTP List",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "SFTP",
+        "visible": true,
+        "description": "This activity lists all the files in the directory on SFTP server",
+        "smallIcon": "icons/sftp-list@2x.png",
+		"largeIcon": "icons/sftp-list@3x.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/flogo-sftp/src/app/SFTP/activity/list",
+    "inputs": [
+        {
+            "name": "SFTP Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "SFTP Connection",
+                "description": "Select SFTP Connection",
+                "type": "connection",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

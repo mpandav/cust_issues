@@ -1,0 +1,23 @@
+{
+  "name": "TIBCO Flogo connector for Redis",
+  "version": "1.3.0",
+  "category": "Redis",
+  "description": "TIBCO Flogo® Connector for Redis allows you to perform various redis commands.",
+  "image": "connector/connection/icons/redis.png",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "redis-command",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-redis.git/src/app/Redis/activity/rediscommand",
+        "newref": "github.com/tibco/wi-redis/src/app/Redis/activity/rediscommand"
+      },
+      {
+        "connection": "redis-connector",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-redis.git/src/app/Redis/connector/connection",
+        "newref": "github.com/tibco/wi-redis/src/app/Redis/connector/connection"
+      }
+    ]
+  },
+"tag": "1.3.0-b06",
+  "signature": "1iOjFSpVFqAMUejOtMf9xbvXJycoarphCThieQLKa0I0B8J7d3EKl4xDSkmDGDsJsUrWRvGCtO6jWTFlrFaY3xoXPX4="
+}

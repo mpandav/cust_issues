@@ -1,0 +1,20 @@
+{
+  "title": "App Shutdown Trigger",
+  "version": "1.0.1",
+  "type": "flogo:trigger",
+  "name": "tibco-appshutdown",
+  "author": "TIBCO Software Inc.",
+  "ref": "github.com/tibco/flogo-general/src/app/General/trigger/shutdownhook",
+  "display": {
+    "description": "This trigger allows you to execute flows after other triggers in the application are successfully stopped. This is useful in cleaning application specific tasks.",
+    "category": "General",
+    "smallIcon": "ic-appShutdown.png",
+    "largeIcon": "ic-appShutdown.png"
+  },
+  "settings":[
+  ],
+  "handler": {
+    "settings":[
+    ]
+  }
+}

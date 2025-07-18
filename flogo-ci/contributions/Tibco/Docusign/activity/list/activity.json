@@ -1,0 +1,49 @@
+{
+    "title": "DocuSign ListDocuments",
+    "name": "docusign-listdocuments",
+    "version": "1.0.1",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "display": {
+        "category": "Docusign",
+        "visible": true,
+        "description": "DocuSign ListDocuments Activity",
+        "smallIcon": "icons/ic-docusign-list@2x.png",
+        "largeIcon": "icons/ic-docusign-list@3x.png"
+    },
+    "feature": {
+        "retry": {
+          "enabled": true
+        }
+      },
+    "ref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/list",
+    "inputs": [
+        {
+            "name": "docusignConnection",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "name": "Connection",
+                "description": "Select a DocuSign connection",
+                "type": "connection",
+                "visible": true
+            },
+            "allowed": []
+        },
+        {
+            "name": "envelopeId",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "outputs": [
+        {
+            "name": "Output",
+            "type": "object"
+        },
+        {
+            "name": "error",
+            "type": "object"
+        }
+    ]
+}

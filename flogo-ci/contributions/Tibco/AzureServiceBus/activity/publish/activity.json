@@ -1,0 +1,88 @@
+{
+  "title": "AzureServiceBus Publish",
+  "name": "azservicebus-publish",
+  "version": "1.3.0",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "AzureServiceBus",
+    "visible": true,
+    "description": "AzureServiceBus Publish Activity",
+    "smallIcon": "icons/azservicebus-publish@2x.png",
+    "largeIcon": "icons/azservicebus-publish@3x.png"
+  },
+  "feature": {
+  },
+  "ref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/activity/publish",
+  "inputs": [{
+      "name": "Connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Connection",
+        "description": "Choose a AzureServiceBus Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "entityType",
+      "type": "string",
+      "required": true,
+      "allowed": [ "Queue","Topic"],
+      "display": {
+        "name": "Entity Type",
+        "description": "AzureServiceBus entity type to publish message",   
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      },
+      "value":"Queue"           
+    }, 
+    {
+      "name": "Timeout",
+      "type": "integer",
+      "display": {
+        "description": "Context Timeout for Service bus in milliseconds. (Timeout=0, is indefinite)",
+        "name": "Timeout",
+        "appPropertySupport": true
+      },
+      "value": 0
+    },  
+    {
+      "name": "entityName",
+      "type": "string",
+      "required": true,      
+      "display": {
+        "name": "Entity Name",
+        "description": "AzureServiceBus entity name to publish message",       
+        "visible": false
+      }
+    },
+    {
+      "name": "customProperties",
+      "type": "params",
+      "required": false,
+      "display": {
+        "name": "Custom Properties",
+        "description": "Custom properties for each message.",
+        "type": "params",
+        "mappable": false,
+        "enableClear": true,
+        "inputSettingsOnly": true,
+        "additionalProperties": true,
+        "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"integer\",\"string\",\"number\",\"boolean\"]}}}}}"
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }    
+  ],
+
+  "outputs": [{
+    "name": "output",
+    "type": "object"
+  }]
+}

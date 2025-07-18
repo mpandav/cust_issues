@@ -1,0 +1,172 @@
+{
+  "name": "tibco-messaging-tcm-trigger",
+  "version": "1.2.3",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:trigger",
+  "title": "eFTL Message Subscriber",
+  "display": {
+    "category": "Messaging",
+    "visible": true,
+    "smallIcon": "icons/tcm_trigger.png",
+    "largeIcon": "icons/tcm_trigger@2x.png",
+    "description": "This trigger receives a message from TIBCO Cloud Messaging(eFTL) service",
+    "wizard": [
+      "Settings"
+    ]
+  },
+  "ref": "github.com/tibco/flogo-messaging/src/app/Messaging/trigger/tcmtrigger",
+  "settings": [],
+  "handler": {
+    "settings": [
+      {
+        "name": "tcmConnection",
+        "type": "connection",
+        "required": true,
+        "display": {
+          "name": "Connection",
+          "description": "Select TIBCO Cloud Messaging(eFTL) connection",
+          "type": "connection"
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Settings"
+        },
+        "allowed": []
+      },
+      {
+        "name": "durableSub",
+        "type": "boolean",
+        "display": {
+          "name": "Durable Subscriber",
+          "description": "Enable durable subscription. If enabled, all messages will be preserved for this subscriber when disconnected."
+        },
+        "wizard": {
+          "step": "Settings"
+        },
+        "value": false
+      },
+      {
+        "name": "durableName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Durable Name",
+          "description": "Durable name for the subscription",
+          "visible": false,
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Settings"
+        }
+      },
+      {
+        "name": "durableType",
+        "type": "string",
+        "display": {
+          "name": "Durable Type",
+          "description": "Type of durable subscriber. For shared durable, message is delivered to only one subscriber from the list of all subscribers configured with same durable name.\r\nFor standard durable, message is delivered all subscribers configured with same durable name.",
+          "visible": false
+        },
+        "allowed": [
+          "Shared",
+          "Standard"
+        ],
+        "wizard": {
+          "step": "Settings",
+          "type": "dropdown",
+          "selection": "single"
+        },
+        "value": "Shared"
+      },
+      {
+        "name": "ackMode",
+        "type": "string",
+        "display": {
+          "name": "Message Ack Mode",
+          "description": "When auto ack mode is set, received message will be automatically acknowledged as soon as received.\r\n When explicit ack mode is set, received message need to be explicitly acknowledged by using 'TCM MessageAck' activity.",
+          "visible": false
+        },
+        "allowed": [
+          "Auto",
+          "Explicit"
+        ],
+        "wizard": {
+          "step": "Settings",
+          "type": "dropdown",
+          "selection": "single"
+        },
+        "value": "Auto"
+      },
+      {
+        "name": "destination",
+        "type": "string",
+        "display": {
+          "name": "Destination",
+          "description": "Name of the message destination. This should match with the destination name configured on the publisher.",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Settings"
+        }
+      },
+      {
+        "name": "processingMode",
+        "type": "string",
+        "display": {
+          "name": "Processing Mode",
+          "description": "Determines how messages are received by the handler. In `Sync` mode, handler will receive and process at-most one message. This mode guarantees the order of processing. In `Async` mode, handler will receive messages concurrently at the same time. This mode does not guarantee the order of processing.",
+          "appPropertySupport": false
+        },
+        "allowed": [
+          "Sync",
+          "Async"
+        ],
+        "value": "Sync",
+        "wizard": {
+          "step": "Settings"
+        }
+      },
+      {
+        "name": "matcher",
+        "type": "array",
+        "display": {
+          "name": "Content Matcher",
+          "description": "Name, type and value of attribute(s) that you wish to match in the incoming message. If configured with app property, value of app property must be a valid JSON object. e.g. {\"string_prop\":\"string_val\",\"integer_prop\":0, \"boolean_prop\":true}",
+          "appPropertySupport": true,
+          "type": "table",
+          "schema": "{\r\n    \"$schema\": \"http:\/\/json-schema.org\/draft-04\/schema#\",\r\n    \"definitions\": {},\r\n    \"id\": \"http:\/\/example.com\/example.json\",\r\n    \"items\": {\r\n        \"id\": \"\/items\",\r\n        \"properties\": {\r\n            \"Name\": {\r\n                \"id\": \"\/items\/properties\/Name\",\r\n                \"type\": \"string\"\r\n            },\r\n            \"Type\": {\r\n                \"id\": \"\/items\/properties\/Type\",\r\n                \"type\": {\"enum\":[\"String\", \"Integer\", \"Boolean\"]}\r\n            },\r\n            \"Value\": {\r\n                \"id\": \"\/items\/properties\/Value\",\r\n                \"type\": \"string\"\r\n            }\r\n        },\r\n        \"type\": \"object\"\r\n    },\r\n    \"type\": \"array\"\r\n}"
+        },
+        "wizard": {
+          "step": "Settings"
+        }
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "message",
+      "type": "object",
+      "display": {
+        "name": "Message Schema",
+        "description": "An example JSON data that you want to receive from TIBCO Cloud Messaging",
+        "type": "texteditor",
+        "syntax": "json"
+      },
+      "wizard": {
+        "step": "Settings",
+        "type": "texteditor",
+        "syntax": "json"
+      }
+    },
+    {
+      "name": "metadata",
+      "type": "object"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

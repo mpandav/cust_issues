@@ -1,0 +1,171 @@
+{
+    "ref": "github.com/project-flogo/grpc/trigger/grpc",
+    "type": "flogo:trigger",
+    "display": {
+        "description": "Simple gRPC Trigger",
+        "visible": true,
+        "wizard": [
+            "Step 1"
+        ],
+        "smallIcon": "icons/grpc_32.png",
+        "largeIcon": "icons/grpc_48.png"
+    },
+    "settings": {
+        "modelAttributes": {
+            "port": {
+                "display": {
+                    "name": "Port",
+                    "description": "The port to listen for requests",
+                    "type": "integer",
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "Port",
+                    "type": "integer",
+                    "step": "Step 1"
+                }
+            },
+            "protoName": {
+                "display": {
+                    "name": "Proto Name",
+                    "description": "The name of the proto file (without .proto extension)",
+                    "type": "string",
+                    "visible":false
+                }
+            },
+            "protoFile": {
+                "display": {
+                    "name": "Proto File",
+                    "description": "The Proto file for the trigger",
+                    "type": "fileselector",
+                    "fileExtensions": [
+                        ".proto"
+                    ]
+                },
+                "wizard": {
+                    "name": "Proto File",
+                    "type": "fileselector",
+                    "step": "Step 1"
+                }
+            },
+            "enableTLS": {
+                "display": {
+                    "name": "Secure Connection",
+                    "description": "Set to \"true\" for a secure connection",
+                    "type": "boolean"
+                },
+                "wizard": {
+                    "name": "Secure Connection",
+                    "type": "boolean",
+                    "step": "Step 1"
+                }
+            },
+            "serverCert": {
+                "display": {
+                    "name": "CA or Server Certificate",
+                    "description": "A PEM encoded CA or Server certificate file",
+                    "type": "fileselector",
+                    "fileExtensions": [
+                        ".pem",
+                        ".cert",
+                        ".cer",
+                        ".crt"
+                    ],
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "CA or Server Certificate",
+                    "type": "fileselector",
+                    "step": "Step 1"
+                }
+            },
+            "serverKey": {
+                "display": {
+                    "name": "Server Key",
+                    "description": "A PEM encoded private key file",
+                    "type": "fileselector",
+                    "fileExtensions": [
+                        ".pem",
+                        ".cert",
+                        ".cer",
+                        ".crt",
+                        ".key"
+                    ],
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "Server Key",
+                    "type": "fileselector",
+                    "step": "Step 1"
+                }
+            }
+        },
+        "newAttributes": []
+    },
+    "handlers": {
+        "modelAttributes": {
+            "serviceName": {
+                "display": {
+                    "name": "Service Name",
+                    "description": "Name of the service",
+                    "type": "dropdown",
+                    "selection": "single"
+                },
+                "wizard": {
+                    "name": "Service Name",
+                    "type": "dropdown",
+                    "selection": "single",
+                    "step": "Step 1"
+                }
+            },
+            "methodName": {
+                "display": {
+                    "name": "Method Name",
+                    "description": "Name of rpc method in selected service",
+                    "type": "dropdown",
+                    "selection": "single"
+                },
+                "wizard": {
+                    "name": "Method Name",
+                    "type": "dropdown",
+                    "selection": "single",
+                    "step": "Step 1"
+                }
+            }
+        },
+        "newAttributes": []
+    },
+    "outputs": {
+        "modelAttributes": {
+            "grpcData": {
+                "display": {
+                    "visible": false
+                }
+            },
+            "content": {
+                "display": {
+                    "visible": false
+                }
+            }
+        },
+        "newAttributes": []
+    },
+    "reply": {
+        "modelAttributes": {
+            "code": {
+                "display": {
+                    "visible": false
+                }
+            }
+        },
+        "newAttributes": []
+    },
+    "actions": {
+        "modelAttributes": {},
+        "newAttributes": [
+            {
+                "name": "Finish"
+            }
+        ]
+    }
+}

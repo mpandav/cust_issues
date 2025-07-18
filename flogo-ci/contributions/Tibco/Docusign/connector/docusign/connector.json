@@ -1,0 +1,136 @@
+{
+    "title": "DocuSign Connector",
+    "name": "tibco-docsign",
+    "version": "3.0.1",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:connector",
+    "display": {
+        "description": "Docusign Connector",
+        "visible": true,
+        "category": "Docusign",
+        "smallIcon": "docusign.png",
+        "largeIcon": "docusign.png",
+        "connectionsupport": true
+    },
+    "ref": "github.com/tibco/wi-docusign/src/app/Docusign/connector/docusign",
+    "keyfield": "name",
+    "settings": [
+        {
+            "name": "name",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "Name",
+                "description": "Connection name",
+                "visible": true
+            }
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Description",
+                "description": "Connection description",
+                "visible": true
+            }
+        },
+        {
+            "name": "environment",
+            "type": "boolean",
+            "required": true,
+            "display": {
+                "name": "DocuSign Live Environment",
+                "description": "Set to false if connecting to DocuSign sandbox(demo) environment",
+                "visible": true,
+                "appPropertySupport": true
+            },
+            "value": true
+        },
+        {
+            "name": "integratorKey",
+            "type": "string",
+            "required": true,
+            "encryptable": true,
+            "display": {
+                "name": "Integrator Key",
+                "description": "OAuth integrator key for DocuSign",
+                "visible": true,
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "secretKey",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "Secret Key",
+                "description": "OAuth secret key for DocuSign",
+                "visible": true,
+                "type": "password",
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "authenticationType",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "Authorization Code Grant",
+                "JWT Grant"
+            ],
+            "value": "Authorization Code Grant",
+            "display": {
+                "name": "DocuSign Authentication Type",
+                "description": "Docusign Authentication type",
+                "visible": true
+            }
+        },
+        {
+            "name": "userId",
+            "type": "string",
+            "required": true,
+            "display":{
+                "name": "User ID",
+                "description": "DocuSign UserID",
+                "visible": false,
+                "type": "string",
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "privateKey",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "RSA Private Key",
+                "description": "RSA Private key from DocuSign app",
+                "visible": false,
+                "type": "fileselector",
+                "fileExtensions": [".pem", ".key"],
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "WI_STUDIO_OAUTH_CONNECTOR_INFO",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "OAuth2 Token",
+                "description": "DocuSign OAuth2 token",
+                "visible": true,
+                "encryptable": true,
+                "readonly": true,
+                "appPropertySupport": true
+              }
+        }
+    ],
+    "actions": [
+        {
+            "name": "Login",
+            "display": {
+                "readonly": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "delete",
+  "title": "Delete",
+  "version": "1.2.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon S3 Delete Activity",
+    "category": "AmazonS3",
+    "smallIcon": "icons/delete@2x.png",
+    "largeIcon": "icons/delete@3x.png"
+  },
+  "ref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/delete",
+  "inputs": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "serviceName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service Name",
+        "description": "Select one service from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    },
+    {
+      "name": "error",
+      "type": "object"
+    }
+  ]
+}

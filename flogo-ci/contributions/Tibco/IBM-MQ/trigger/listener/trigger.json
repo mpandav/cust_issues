@@ -1,0 +1,129 @@
+{
+  "name": "listener",
+  "version": "2.2.0",
+  "type": "flogo:trigger",
+  "title": "IBM MQ Listener",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "Listen on an IBM MQ queue",
+    "category": "IBM-MQ",
+    "visible": true,
+    "smallIcon": "icons/MQGetProcessStarter_48x48.png",
+    "largeIcon": "icons/MQGetProcessStarter_48x48.png",
+    "wizard": [
+      "Choose Connection"
+    ]
+  },
+  "useReplyHandler": false,
+  "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/trigger/listener",
+  "settings": [
+    {
+      "name": "clientconfirm",
+      "type": "boolean",
+      "value": false,
+      "display": {
+        "name": "Explicit Client Commit",
+        "description": "Enable to commit the message "
+      }
+    },
+    {
+      "name": "pollinginterval",
+      "required": false,
+      "type": "number",
+      "display": {
+        "name": "Polling Interval",
+        "appPropertySupport": true,
+        "description": "Enter the timeout for each polling interval in seconds"
+      },
+      "value": 1000
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "Connection",
+        "type": "object",
+        "required": true,
+        "allowed": [],
+        "display": {
+          "name": "Connection",
+          "description": "Select an IBM MQ connection",
+          "type": "connection"
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "queue",
+        "required": true,
+        "type": "string",
+        "display": {
+          "name": "Queue",
+          "appPropertySupport": true,
+          "description": "Enter the queue name"
+        }
+      },
+      {
+        "name": "valueType",
+        "type": "string",
+        "display": {
+          "name": "Value Deserializer",
+          "description": "Type of record value to be published"
+        },
+        "allowed": [
+          "String",
+          "JSON"
+        ],
+        "value": "String",
+        "wizard": {
+          "step": "Choose Connection"
+        }
+      }
+    ]
+  },
+  "outputs": [
+      {
+        "name": "MessageJson",
+        "type": "object",
+        "display": {
+          "name": "Schema for JSON value",
+          "description": "The JSON schema for the IBM MQ record value",
+          "type": "texteditor",
+          "syntax": "json",
+          "visible": false
+        },
+        "wizard": {
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "MessageProperties",
+        "type": "object",
+        "display": {
+          "name": "Properties",
+          "description": "Message properties to be sent",
+          "type": "params",
+          "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}"
+        },
+        "wizard": {
+          "step": "Choose Connection"
+        }
+      },
+    {
+      "name": "MQMD",
+      "type": "object"
+    },
+    {
+      "name": "Message",
+      "type": "object"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

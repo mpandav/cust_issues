@@ -1,0 +1,18 @@
+{
+  "name": "TIBCO Flogo® Connector for AWS",
+  "version": "1.2.2",
+  "category": "AWS",
+  "description": "TIBCO Flogo® Connector for AWS allows you to configure AWS credentials for accessing various AWS services. This connection must be used in AWS connectors like S3, SNS, SQS etc. It also supports assumed role.",
+  "image": "connector/icons/ic-flogo-aws-connector@2x.png",
+  "compatibility": {
+    "refs": [
+      {
+        "connection": "tibco-aws",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/AWS/connector",
+        "newref": "github.com/tibco/flogo-aws/src/app/AWS/connector"
+      }
+    ]
+  },
+"tag": "1.2.2-b02",
+  "signature": "Xa4WeAWrNKJRHAfUZaSFgGUJRGAzClQ1VY03K0jz9HFWX3vuML387WdzA49RSlo+4VycbbV6pSY9TVkNvmIXNlce"
+}

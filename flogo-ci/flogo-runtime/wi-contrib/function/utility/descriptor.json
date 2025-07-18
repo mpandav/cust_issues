@@ -1,0 +1,31 @@
+{
+    "name": "utility",
+    "type": "flogo:function",
+    "version": "0.0.1",
+    "title": "utilityFunctions",
+    "description": "utilityFunctions",
+    "functions": [
+        {
+            "name": "renderJSON",
+            "description": "Specify an JSON data and convert to string, The second boolean argument indicate to pretty print JSON",
+            "example": "utility.renderJSON($RestInvoke.responseBody, false) => {\"FirstName\":\"ABC\",\"LastName\":\"XYZ\"}",
+            "args": [
+                {
+                    "name": "data",
+                    "type": "object"
+                },
+                {
+                    "name": "pretty-formatting",
+                    "type": "boolean",
+                    "value": false
+                }
+            ],
+            "return": {
+                "type": "string"
+            },
+            "display": {
+                "visible": true
+            }
+        }
+    ]
+}

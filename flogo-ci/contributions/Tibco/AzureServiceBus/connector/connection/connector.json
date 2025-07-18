@@ -1,0 +1,155 @@
+{
+  "title": "Microsoft Azure ServiceBus Connector",
+  "name": "azservicebus-connection",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "1.3.1",
+  "display": {
+    "description": "Establish connection to your Azure ServiceBus account",
+    "category": "AzureServiceBus",
+    "visible": true,
+    "smallIcon": "icons/azure_service_bus.png",
+    "largeIcon": "icons/azure_service_bus.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/connector/connection",
+  "keyfield": "name",
+  "settings": [{
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "visible": true
+      }
+    },
+    {
+      "name": "authMode",
+      "type": "string",
+      "display": {
+        "name": "Auth Mode",
+        "description": "Choose authentication mode to connect to Azure Service Bus"
+      },
+      "allowed": [
+        "SAS Token",
+        "Oauth2"
+      ],
+      "value": "SAS Token"
+    },
+    {
+      "name": "resourceURI",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service Bus Namespace",
+        "description": "Provide the Namespace name without prefix .servicebus.windows.net or the complete namespace address like https://{serviceNamespace}.servicebus.windows.net/{path}. The path section identifies the entity.",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "authorizationRuleName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Authorization Rule Name",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "primarysecondaryKey",  
+      "type": "string",
+      "required": true,
+      "display": {
+          "name": "SharedAccessKey",  
+          "description": "Provide the Primary or Secondary Key",
+          "visible": true,
+          "type": "password",
+          "encryptable":true,
+          "appPropertySupport": true
+      }
+    },
+    {
+      "name": "tenantID",  
+      "type": "string",
+      "required": true,
+      "display": {
+          "name": "Tenant ID",  
+          "description": "Enter the Tenant ID, a unique identifier representing the tenant for OAuth 2.0 authentication.",
+          "visible": false,
+          "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientID",  
+      "type": "string",
+      "required": true,
+      "display": {
+          "name": "Client ID",  
+          "description": "Enter the Client ID, a unique identifier assigned to the client application for OAuth2.0 authentication",
+          "visible": false,
+          "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientSecret",  
+      "type": "string",
+      "required": true,
+      "display": {
+          "name": "Client Secret",  
+          "description": "Enter the Client Secret, a confidential key associated with the client application for OAuth2.0 authentication",
+          "visible": false,
+          "appPropertySupport": true,
+          "type": "password"
+      }
+    },
+    {
+      "name": "count",
+      "type": "integer",
+      "display": {
+        "description": "The maximum number of times to retry. This count will be used across publish activity and subscriber triggers.",
+        "name": "Retry Count",
+        "appPropertySupport": true
+      },
+      "value": 3
+    }, 
+    {
+      "name": "interval",
+      "type": "integer",
+      "display": {
+        "description": "The time interval (in ms) between each retry attempt",
+        "name": "Retry Interval",
+        "appPropertySupport": true
+      },
+      "value": 4000
+    }, 
+    {
+      "name": "configProperties",
+      "type": "string",
+      "required": true,
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "DocsMetadata",
+      "type": "string",
+      "required": true,
+      "display": {
+        "visible": false
+      }
+    }
+  ],
+  "actions": [{
+    "name": "Login"
+  }]
+}

@@ -1,0 +1,183 @@
+{
+  "name": "coerce",
+  "type": "flogo:function",
+  "version": "0.10.0",
+  "title": "Coerce Type Functions",
+  "description": "Function for type coercion/conversion",
+  "homepage": "https://github.com/prject-flogo/contrib/tree/master/function/coerce",
+  "functions": [
+    {
+      "name": "toType",
+      "description": "convert value to specified type",
+      "example": "coerce.toType(\"123\",\"int\") => 123",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        },
+        {
+          "name": "type",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "any"
+      }
+    },
+    {
+      "name": "toString",
+      "description": "convert value to a string",
+      "example": "coerce.toString(123) => \"123\"",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "string"
+      }
+    },
+    {
+      "name": "toInt",
+      "description": "convert value to an int",
+      "example": "coerce.toInt(\"333\") => 333",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "int"
+      }
+    },
+    {
+      "name": "toInt32",
+      "description": "convert value to an int32",
+      "example": "coerce.toInt32(\"333\") => 333",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "int32"
+      }
+    },
+    {
+      "name": "toInt64",
+      "description": "convert value to a int64",
+      "example": "coerce.toInt64(\"333\") => 333",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "int64"
+      }
+    },
+    {
+      "name": "toFloat32",
+      "description": "convert value to a float32",
+      "example": "coerce.toFloat32(\"3.3\") => 3.3",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "float32"
+      }
+    },
+    {
+      "name": "toFloat64",
+      "description": "convert value to a float64",
+      "example": "coerce.toFloat64(\"3.3\") => 3.3",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "float64"
+      }
+    },
+    {
+      "name": "toBool",
+      "description": "convert value to a bool",
+      "example": "coerce.toBool(\"true\") => true",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "bool"
+      }
+    },
+    {
+      "name": "toBytes",
+      "description": "convert value to bytes",
+      "example": "coerce.toBytes(\"hello\") => byte data",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "bytes"
+      }
+    },
+    {
+      "name": "toParams",
+      "description": "convert value to params",
+      "example": "coerce.toParams($activity[xxx].xxx) => string name-value map",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "params"
+      }
+    },
+    {
+      "name": "toObject",
+      "example": "coerce.toObject($activity[xxx].xxx) =>  Json object",
+      "description": "convert value to an object",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "object"
+      }
+    },
+    {
+      "name": "toArray",
+      "description": "convert value to an array",
+      "example": "coerce.toArray($activity[xxx].xxx) =>  Json array",
+      "args": [
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "array",
+        "valueType": "any"
+      }
+    }
+  ]
+}

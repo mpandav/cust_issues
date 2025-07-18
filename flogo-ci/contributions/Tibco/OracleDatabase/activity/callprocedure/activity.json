@@ -1,0 +1,94 @@
+{
+    "name": "callprocedure",
+    "version": "1.2.1",
+    "author": "Cloud Software Group Inc.",
+    "type": "flogo:activity",
+    "title": "Oracle Database Call Procedure",
+    "display": {
+        "category": "OracleDatabase",
+        "visible": true,
+        "description": "This activity executes call procedure statement on Oracle Database",
+        "smallIcon": "icons/oracledb-callprocedure@2x.png",
+        "largeIcon": "icons/oracledb-callprocedure@3x.png"
+    },
+    "ref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/callprocedure",
+    "inputs": [
+        {
+            "name": "Oracle Database Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "Oracle Database Connection",
+                "description": "Select Oracle Database Connection",
+                "type": "connection",
+                "selection": "single",
+                "visible": true
+            }
+        },
+        {
+            "name": "CallProcedure",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Call Procedure Statement",
+                "description": "Enter an SQL Call Procedure statement that you want to execute, terminated by a semi-colon. If metadata acquisition fails configure metadata manually",
+                "inputSettingsOnly": true,
+                "type": "texteditor",
+                "mode": "StandardSQL"
+            }
+        },
+        {
+            "name": "manualmode",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Manually Configure Metadata",
+                "description": "Enable to use separate queries to acquire the fields metadata",
+                "inputSettingsOnly": true,
+                "visible": true
+            }
+        },
+        {
+            "name": "Fields",
+            "type": "array",
+            "required": false,
+            "display": {
+                "name": "Table Schema",
+                "description": "Displays input and output fields",
+                "type": "table",
+                "inputSettingsOnly": true,
+                "readonly": true,
+                "enableClear": true,
+                "manualFetch": true,
+                "schema": "{\"items\":{\"properties\":{\"FieldName\":{\"type\":\"string\",\"isEditable\":true},\"Type\":{\"type\":\"string\",\"isEditable\":true},\"Direction\":{\"type\":{\"enum\":[\"IN\",\"OUT\",\"INOUT\"]},\"isEditable\":true}},\"type\":\"object\"},\"type\":\"array\"}"
+            }
+        },
+        {
+            "name": "FieldsInfo",
+            "type": "string",
+            "display": {
+                "visible": false
+             
+             }
+        },
+        {
+            "name": "State",
+            "type": "string",
+            "display": {
+                "visible": false
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "Output",
+            "type": "object"
+        }
+    ]
+}

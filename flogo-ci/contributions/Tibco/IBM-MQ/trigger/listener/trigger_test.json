@@ -1,0 +1,207 @@
+{
+            "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/trigger/listener",
+            "name": "IBMMQListener",
+            "description": "",
+            "settings": 
+            {
+                "Connection": {
+                    "type": "flogo:connector",
+                    "version": "1.0.0",
+                    "name": "connection",
+                    "inputMappings": {},
+                    "outputMappings": {},
+                    "iteratorMappings": {},
+                    "title": "IBM MQ Connection",
+                    "description": "IBM MQ Connection",
+                    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/connector/connection",
+                    "settings": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "required": true,
+                            "display": {
+                                "name": "Connection Name",
+                                "visible": true
+                            },
+                            "value": "centosmq9"
+                        },
+                        {
+                            "name": "description",
+                            "type": "string",
+                            "display": {
+                                "name": "Description",
+                                "visible": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "qmname",
+                            "type": "string",
+                            "display": {
+                                "name": "Queue Manager Name",
+                                "visible": true
+                            },
+                            "value": "centosmq9"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "display": {
+                                "name": "Host Name",
+                                "visible": true
+                            },
+                            "value": "centosmq9"
+                        },
+                        {
+                            "name": "port",
+                            "type": "string",
+                            "display": {
+                                "name": "Port",
+                                "visible": true
+                            },
+                            "value": "1414"
+                        },
+                        {
+                            "name": "chname",
+                            "type": "string",
+                            "display": {
+                                "name": "Server Connection Channel Name",
+                                "visible": true
+                            },
+                            "value": "SVRCONN"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "display": {
+                                "name": "User Name",
+                                "visible": true
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "password",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Password",
+                                "visible": true,
+                                "type": "password",
+                                "encryptable": true,
+                                "Description": "Enter a password if this connection requires one"
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "encryptionMode",
+                            "type": "string",
+                            "display": {
+                                "name": "Encryption Mode",
+                                "description": "Choose the type of authentication to use"
+                            },
+                            "allowed": [
+                                "None",
+                                "TLS-ServerAuth",
+                                "TLS-MutualAuth"
+                            ],
+                            "value": "None"
+                        },
+                        {
+                            "name": "keystore",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore",
+                                "description": "Select the IBM keystore to be used for this connection",
+                                "visible": false,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".kdb",
+                                    ".KDB"
+                                ]
+                            },
+                            "value": ""
+                        }
+                    ],
+                    "outputs": [],
+                    "inputs": [],
+                    "handler": {
+                        "settings": []
+                    },
+                    "reply": [],
+                    "s3Prefix": "Tibco",
+                    "key": "Tibco/IBM-MQ/connector/connection/connector.json",
+                    "display": {
+                        "category": "IBM-MQ",
+                        "smallIcon": "icons/IBM-MQ-large.png",
+                        "largeIcon": "icons/IBM-MQ-large.png",
+                        "visible": true,
+                        "description": "IBM MQ Connection"
+                    },
+                    "actions": [
+                        {
+                            "name": "Save"
+                        }
+                    ],
+                    "feature": {},
+                    "propertyMap": {},
+                    "keyfield": "",
+                    "isValid": true,
+                    "lastUpdatedTime": 1554227006819,
+                    "createdTime": 1554227006819,
+                    "user": "flogo",
+                    "subscriptionId": "flogo_sbsc",
+                    "id": "d1ec2b30-556e-11e9-97c9-476408e63db4",
+                    "connectorName": " ",
+                    "connectorDescription": " "
+                },
+                "clientconfirm": false,
+                "islistener": true,
+                "maxlength": 10000,
+                "pollinginterval": 1000
+            },
+            "id": "IBMMQListener",
+            "handlers": [
+                {
+                    "description": "",
+                    "settings": {
+                        "queue": "flogo.request",
+                        "valueType": "String"
+                    },
+                    "outputs": {
+                        "MQMD": {
+                            "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"MsgType\":{\"type\":\"string\"},\"MsgId\":{\"type\":\"string\"},\"CorrelId\":{\"type\":\"string\"},\"Encoding\":{\"type\":\"number\"},\"CodedCharSetId\":{\"type\":\"number\"},\"Format\":{\"type\":\"string\"},\"Priority\":{\"type\":\"number\"},\"BackoutCount\":{\"type\":\"number\"},\"ReplyToQ\":{\"type\":\"string\"},\"ReplyToQmgr\":{\"type\":\"string\"},\"UserIdentifier\":{\"type\":\"string\"},\"AccountingToken\":{\"type\":\"string\"},\"ApplIdentityData\":{\"type\":\"string\"},\"PutApplType\":{\"type\":\"number\"},\"PutApplName\":{\"type\":\"string\"},\"PutDate\":{\"type\":\"string\"},\"PutTime\":{\"type\":\"string\"},\"ApplOriginData\":{\"type\":\"string\"}}}",
+                            "value": "",
+                            "fe_metadata": "{\"MsgType\": \"string\", \"MsgId\": \"string\",\"CorrelId\":\"string\",\"Encoding\": 0,\"CodedCharSetId\":0,\"Format\":\"string\",\"Priority\":0, \"BackoutCount\": 0 ,\"ReplyToQ\":\"string\",\"ReplyToQmgr\":\"string\",\"UserIdentifier\":\"string\",\"AccountingToken\":\"string\",\"ApplIdentityData\":\"string\",\"PutApplType\":0,\"PutApplName\":\"string\",\"PutDate\":\"string\",\"PutTime\":\"string\",\"ApplOriginData\":\"string\"}"
+                        },
+                        "Message": {
+                            "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"String\":{\"type\":\"string\"}}}",
+                            "value": "",
+                            "fe_metadata": "{ \"String\": \"string\" }"
+                        }
+                    },
+                    "action": {
+                        "id":"dummy",
+                        "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+                        "data": {
+                            "flowURI": "res://flow:Sub"
+                        },
+                        "mappings": {
+                            "input": [
+                                {
+                                    "mapTo": "$INPUT['MQMD']",
+                                    "type": "assign",
+                                    "value": "$.MQMD"
+                                },
+                                {
+                                    "mapTo": "$INPUT['Message']",
+                                    "type": "assign",
+                                    "value": "$.Message"
+                                }
+                            ],
+                            "output": []
+                        }
+                    }
+                }
+            ]
+        }

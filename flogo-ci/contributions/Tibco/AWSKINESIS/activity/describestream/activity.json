@@ -1,0 +1,65 @@
+
+{
+    "name": "describestream",
+    "type": "flogo:activity",
+    "title": "Kinesis Describe Stream Activity",
+    "display": {
+        "category": "AWSKINESIS",
+        "smallIcon": "icons/describe.png",
+        "largeIcon": "icons/describe@2x.png"
+    },
+    "ref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/describestream",
+    "inputs": [
+        {
+            "name": "awsConnection",
+            "type": "connection",
+            "required": "true",
+            "display":{
+                "name": "AWS Connection",
+                "description": "Select AWS Connection",
+                "type": "connection"
+            },
+            "allowed":[]
+        },
+        {
+            "name": "streamType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Stream Type",
+                "description" : "Choose the Type of Stream",
+                "type" : "dropdown",
+                "selection" : "single"
+            },
+            "allowed":["DataStream","Firehose-DeliveryStream"]
+        },
+        {
+            "name" : "describeType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Describe Type",
+                "description" : "Choose the Type of Stream",
+                "type" : "dropdown",
+                "visible" : "false",
+                "selection" : "single"
+            },
+            "allowed":["Stream"],
+            "value":"Stream"
+        },
+        {
+            "name" : "input",
+            "type" : "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name" : "Message",
+            "type" : "object"
+        },
+        {
+            "name" : "Error",
+            "type" : "object"
+        }
+    ]
+}

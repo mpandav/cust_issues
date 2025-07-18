@@ -1,0 +1,151 @@
+{
+	"type": "flogo:connector",
+	"display": {
+		"description": "TIBCO WI MongoDb Connector",
+		"category": "mongodb",
+		"visible": true,
+		"smallIcon": "icons/mongodb_connection.png",
+    	"largeIcon": "icons/mongodb_connection.png",
+		"connectionsupport": true,
+		"keyfield": "name"
+	},
+	"ref": "github.com/project-flogo/datastore-contrib/mongodb/connection",
+
+	"settings": {
+		"modelAttributes": {
+			"name": {
+				"display": {
+					"name": "Connection Name",
+					"description": "Name of the connection"
+				}
+			},
+			"description": {
+				"display": {
+					"name": "Description",
+					"description": "Connection description"
+				}
+			},
+			"connectionURI": {
+				"display": {
+					"name": "Connection URL",
+					"visible": true,
+					"description": "Connection URL of the MongoDB instance",
+					"appPropertySupport": true
+				}
+			},
+			"credType": {
+				"display": {
+					"name": "Credential Type",
+					"description": "Select Security Credential Type",
+					"visible": true
+				}
+			},
+			"authenticationDB": {
+				"display": {
+					"name": "Authentication Source",
+					"visible": false,
+					"description": "Specify the database name you created in the MongoDB database on which the user has to be authenticated. Default is admin",
+					"appPropertySupport": true
+				}
+			},
+			"username": {
+				"display": {
+					"name": "User Name",
+					"visible": false,
+					"description": "Username for MongoDB database authentication",
+					"appPropertySupport": true
+				}
+			},
+			"password": {
+				"display": {
+					"name": "Password",
+					"description": "Password for MongoDB database authentication",
+					"visible": false,
+					"encryptable": true,
+					"appPropertySupport": true
+				}
+			},
+			"ssl": {
+				"display": {
+					"name": "SSL",
+					"description": "Select true if you want to configure SSL certificates.",
+					"appPropertySupport": true
+				}
+			},
+			"x509": {
+				"display": {
+					"name": "X-509 Credentials",
+					"description": "Select true if you want to authenticate using X-509 Certificate.",
+					"appPropertySupport": true
+				}
+			},
+			"trustCert": {
+				"display": {
+					"name": "Trusted Certificate File",
+					"description": "Select a trusted certificate file for secure connection, allowed types are .pem,.cert,.cer,.crt",
+					"type": "fileselector",
+					"fileExtensions": [
+						".pem",
+						".cert",
+						".cer",
+						".crt"
+					]
+				}
+			},
+			"clientCert": {
+				"display": {
+					"name": "ClientCert File",
+					"description": "Select a client certificate file for secure two way ssl connection, allowed types are .pem,.cert,.cer,.crt",
+					"type": "fileselector",
+					"fileExtensions": [
+						".pem",
+						".cert",
+						".cer",
+						".crt"
+					]
+				}
+			},
+			"clientKey": {
+				"display": {
+					"name": "ClientKey File",
+					"description": "Select a key file for client certificate for secure two way ssl connection, allowed types are .key,.pem,.cert,.cer,.crt,.der",
+					"type": "fileselector",
+					"fileExtensions": [
+						".pem",
+						".cert",
+						".cer",
+						".der",
+						".crt",
+						".key"
+					]
+				}
+			},
+			"keyPassword": {
+				"display": {
+					"name": "Key Password",
+					"description": "Password for Client Key",
+					"visible": false,
+					"encryptable": true,
+					"appPropertySupport": true
+				}
+			}
+		},
+		"newAttributes": [
+			{
+				"name": "DocsMetadata",
+				"type": "string",
+				"required": false,
+				"display": {
+					"visible": false
+				}
+			}
+		]
+	},
+	"actions": {
+		"newAttributes": [
+			{
+				"name": "Save"
+			}
+		]
+	}
+}

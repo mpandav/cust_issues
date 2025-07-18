@@ -1,0 +1,60 @@
+{
+	"title": "Sleep",
+	"name": "tibco-wi-sleep",
+	"author": "TIBCO Software Inc.",
+	"type": "flogo:activity",
+	"version": "1.1.1",
+	"display": {
+		"visible": true,
+		"description": "Simple sleep Activity",
+		"category": "General",
+		"smallIcon": "icons/ic-tibco-wi-sleep.svg",
+		"largeIcon": "icons/ic-tibco-wi-sleep@2x.png"
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/activity/sleep",
+	"inputs": [
+		{
+			"name": "IntervalTypeSetting",
+			"type": "string",
+			"value": "Millisecond",
+			"display": {
+				"description": "Set Interval Type",
+				"name": "Interval Type",
+				"type": "dropdown",
+				"selection": "single",
+				"appPropertySupport": true
+			},
+			"allowed": [
+				"Millisecond",
+				"Second",
+				"Minute"
+			]
+
+		},
+		{
+			"name": "IntervalSetting",
+			"type": "integer",
+			"value": 0,
+			"display": {
+			"description": "Set Interval",
+			"name": "Interval",
+			"appPropertySupport": true
+		 	}
+		},
+		{
+			"name": "Interval Type",
+			"type": "string",
+			"allowed": [
+				"Millisecond",
+				"Second",
+				"Minute"
+			]
+
+		},
+		{
+			"name": "Interval",
+			"type": "integer"
+		}
+		
+	]
+}

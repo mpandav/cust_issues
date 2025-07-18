@@ -1,0 +1,49 @@
+{
+  "name": "TIBCO Flogo connector for IBM MQ",
+  "version": "2.2.0",
+  "supplement": true,
+  "category": "IBM-MQ",
+  "description": "TIBCO Flogo® Connector IBM MQ allows to access IBM MQ queues and messages with IBM MQ applications by using Put, Publish, and Get activities and Listener and Subscriber triggers.",
+  "image": "connector/connection/icons/IBM-MQ.png",
+  "compatibility": {
+    "refs": [
+      {
+        "connection": "connection",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/connector/connection",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/connector/connection"
+      },
+      {
+        "activity": "confirm",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/activity/confirm",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/confirm"
+      },
+      {
+        "activity": "get",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/activity/get",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/get"
+      },
+      {
+        "activity": "pub",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/activity/pub",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/pub"
+      },
+      {
+        "activity": "put",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/activity/put",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/put"
+      },
+      {
+        "trigger": "listener",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/trigger/listener",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/trigger/listener"
+      },
+      {
+        "trigger": "subscriber",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-ibmmq.git/IBM-MQ/trigger/subscriber",
+        "newref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/trigger/subscriber"
+      }
+    ]
+  },
+"tag": "2.2.0-b11",
+  "signature": "nIg3EVDS7V6A/ViNiC0qSiVCl05JyYauesmU4N5Se/yMtmEGN+s5El0fRVwtqM2djdKrCCHSVYNVAZgTtZjz7X7cngQE3A=="
+}

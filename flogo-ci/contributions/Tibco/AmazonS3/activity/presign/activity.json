@@ -1,0 +1,65 @@
+{
+  "name": "presignedURL",
+  "title": "Presigned URL",
+  "version": "1.2.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon S3 Presigned URL Activity",
+    "category": "AmazonS3",
+    "smallIcon": "icons/get_presigned_url@2x.png",
+    "largeIcon": "icons/get_presigned_url@3x.png"
+  },
+  "ref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/presign",
+  "inputs": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "operationType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Operation Type",
+        "description": "Select one operation type from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "expirationTimeSec",
+      "type": "integer",
+      "required": true,
+      "display": {
+        "name": "Expiration Time (sec)",
+        "description": "Enter expiration time in seconds for the Presigned URL",
+        "type": "integer"
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    },
+    {
+      "name": "error",
+      "type": "object"
+    }
+  ]
+}

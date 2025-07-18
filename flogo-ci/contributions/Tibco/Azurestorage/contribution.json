@@ -1,0 +1,38 @@
+{
+  "name": "TIBCO Flogo connector for Microsoft Azure Storage",
+  "version": "1.2.0",
+  "category": "Azurestorage",
+  "description": "TIBCO Flogo® Connector for Azure Storage allows you to perform different activities on blob and file storage.",
+  "image": "connector/connection/icons/azure_storage.png",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "createstreams",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azstorage.git/src/app/Azurestorage/activity/create",
+        "newref": "github.com/tibco/wi-azstorage/src/app/Azurestorage/activity/create"
+      },
+      {
+        "activity": "delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azstorage.git/src/app/Azurestorage/activity/delete",
+        "newref": "github.com/tibco/wi-azstorage/src/app/Azurestorage/activity/delete"
+      },
+      {
+        "activity": "query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azstorage.git/src/app/Azurestorage/activity/query",
+        "newref": "github.com/tibco/wi-azstorage/src/app/Azurestorage/activity/query"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azstorage.git/src/app/Azurestorage/activity/update",
+        "newref": "github.com/tibco/wi-azstorage/src/app/Azurestorage/activity/update"
+      },
+      {
+        "connection": "connection",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-azstorage.git/src/app/Azurestorage/connector/connection",
+        "newref": "github.com/tibco/wi-azstorage/src/app/Azurestorage/connector/connection"
+      }
+    ]
+  },
+"tag": "1.2.0-b04",
+  "signature": "2jrInwXvVtC5XywifCwHLAyi/ihLliNcsbpLNZB2aea6m1qbIs5o6Vomy7NyqmJQOatR0BymHUs2MErge9ScnytllFXVxLfkYGc9JPMp2ue0Pz7Ag/9HnvaMzYYS"
+}

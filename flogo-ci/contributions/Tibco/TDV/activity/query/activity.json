@@ -1,0 +1,137 @@
+{
+  "name": "tdv-query",
+  "title": "TDV Query",
+  "version": "1.1.2",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "TDV",
+    "visible": true,
+    "description": "This activity executes query on a TDV database",
+    "smallIcon": "icons/ic-tibco-data-virtualization-activity-query@2x.png",
+    "largeIcon": "icons/ic-tibco-data-virtualization-activity-query@3x.png"
+  },
+  "feature": {
+    "retry": {
+      "enabled": true
+    }
+  },
+  "ref": "github.com/tibco/flogo-tdv/src/app/TDV/activity/query",
+  "inputs": [
+    {
+      "name": "Connection",
+      "type": "connection",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Connection",
+        "description": "Select a TDV Connection",
+        "type": "connection",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "QueryName",
+      "description": "Custom Name for your SQL Query",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Query Name",
+        "description": "Custom Name for your SQL Query",
+        "type": "string",
+        "visible": false
+      }
+    },
+    {
+      "name": "Catalog",
+      "type": "string",
+      "required": false,
+      "allowed": [],
+      "value": "All",
+      "display": {
+        "name": "Catalog",
+        "description": "Select a Catalog",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "Schema",
+      "type": "string",
+      "required": false,
+      "allowed": [],
+      "value": "Public",
+      "display": {
+        "name": "Schema",
+        "description": "Select a TDV schema to use",
+        "required": false,
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "Query",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Query Statement",
+        "description": "Enter an SQL statement.",
+        "inputSettingsOnly": true,
+        "type": "texteditor",
+        "mode": "TDVSQL"
+      },
+      "meta": {
+        "canProvide": true
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    },
+    {
+      "name": "Fields",
+      "type": "array",
+      "required": false,
+      "display": {
+        "name": "Fields",
+        "description": "Displays input and output fields",
+        "type": "table",
+        "inputSettingsOnly": true,
+        "readonly": true,
+        "enableClear": false,
+        "manualFetch": false,
+        "schema": "{\"items\":{\"properties\":{\"FieldName\":{\"type\":\"string\",\"isEditable\":false},\"Type\":{\"type\":\"string\",\"isEditable\":false},\"Selected\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":false},\"Parameter\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":false}},\"type\":\"object\"},\"type\":\"array\"}"
+      }
+    },
+    {
+      "name": "ConnectionState",
+      "type": "string",
+      "display": {
+        "visible": false,
+        "exportable": false
+      }
+    },
+    {
+      "name": "CatalogState",
+      "type": "string",
+      "display": {
+        "visible": false,
+        "exportable": false
+      }
+    },
+    {
+      "name": "State",
+      "type": "string",
+      "display": {
+        "visible": false
+      }
+    }
+  ],
+  "outputs": [{
+    "name": "Output",
+    "type": "object"
+  }]
+}

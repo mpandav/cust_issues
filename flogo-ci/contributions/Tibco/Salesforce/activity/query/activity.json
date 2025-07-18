@@ -1,0 +1,67 @@
+{
+  "title": "Salesforce Query",
+  "name": "salesforce-query",
+  "version": "1.3.4",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "Salesforce",
+    "visible": true,
+    "description": "Salesforce Query Activity",
+    "smallIcon": "icons/ic-salesforce-query@2x.png",
+    "largeIcon": "icons/ic-salesforce-query@3x.png"
+  },
+  "ref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/query",
+  "inputs": [
+    {
+      "name": "Connection Name",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Connection",
+        "description": "Select a Salesforce connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "Object Name",
+      "type": "string",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Object",
+        "description": "Salesforce business object name",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "queryType",
+      "type": "string",
+      "required": true,
+      "allowed": ["Query", "QueryAll"],
+      "value": "Query",
+      "display": {
+        "name": "Query Type",
+        "description": "Salesforce business query type",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "query",
+      "type": "string",
+      "required": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    }
+  ]
+}

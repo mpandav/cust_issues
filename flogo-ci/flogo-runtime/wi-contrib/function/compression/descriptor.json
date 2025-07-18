@@ -1,0 +1,43 @@
+{
+    "name": "compression",
+    "type": "flogo:function",
+    "version": "1.0.0",
+    "title": "compressionFunctions",
+    "description": "compressionFunctions",
+    "functions": [
+        {
+            "name": "gzipCompress",
+            "description": "Takes a string (e.g: stringified json/xml, base64 encoded binary) as an input and returns the string, compressed using gzip compression algorithm. Note: The compressed string can be decompressed by gzipUncompress function.",
+            "example": "compression.gzipCompress(\"Hello World\")",
+            "args": [
+                {
+                    "name": "str",
+                    "type": "string"
+                }
+            ],
+            "return": {
+                "type": "string"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "gzipUncompress",
+            "description": "Takes gzip compressed string as input and returns a string, decompressed using gzip decompression algorithm.",
+            "example": "compression.gzipUncompress(\"GZipCompressedString\")",
+            "args": [
+                {
+                    "name": "compressedStr",
+                    "type": "string"
+                }
+            ],
+            "return": {
+                "type": "string"
+            },
+            "display": {
+                "visible": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+  "type": "flogo:activity",
+  "description": "Pulsar Acknowledge activity",
+  "ref": "github.com/project-flogo/messaging-contrib/pulsar/activity/acknowledge",
+  "display": {
+    "category": "pulsar",
+    "description": "This activity acknowledges Pulsar message received by the subscriber trigger.",
+    "smallIcon": "icons/pulsar_message_ack@2x.png",
+    "largeIcon": "icons/pulsar_message_ack@3x.png",
+    "tags":["Messaging","Pulsar"]
+  },
+  "feature": {    
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }  
+  }
+}

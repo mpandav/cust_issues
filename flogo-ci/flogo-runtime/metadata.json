@@ -1,0 +1,25 @@
+{
+  "baseImages": [
+    {
+      "baseImageName": "Amazon Linux 2023",
+      "imageTag": "2.25.6-b251"
+    }
+  ],
+  "systemProperties": [
+
+    {
+      "label": "FLOGO LOG LEVEL",
+      "description": "Override the Flogo engine log level",
+      "name": "FLOGO_LOG_LEVEL",
+      "value": "ERROR",
+      "type": "string"
+    },  
+    {
+      "label": "FLOGO OTEL TRACE",
+      "description": "Enable the Otel Trace ",
+      "name": "FLOGO_OTEL_TRACE",
+      "value": "false",
+      "type": "boolean"
+    }
+  ]
+}

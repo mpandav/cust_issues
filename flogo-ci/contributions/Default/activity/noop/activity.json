@@ -1,0 +1,24 @@
+{
+  "name": "flogo-noop",
+  "type": "flogo:activity",
+  "version": "0.10.0",
+  "title": "NoOp",
+  "description": "NoOp Activity",
+  "homepage": "https://github.com/prject-flogo/contrib/tree/master/activity/noop",
+  "ref": "github.com/project-flogo/contrib/activity/noop",
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }
+  },
+  "display": {
+    "visible": true,
+    "smallIcon": "noop_32x32.png",
+    "largeIcon": "noop_64x64.png"
+  }
+}

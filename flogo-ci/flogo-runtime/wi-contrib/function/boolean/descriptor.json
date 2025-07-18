@@ -1,0 +1,52 @@
+{
+    "name": "boolean",
+    "type": "flogo:function",
+    "version": "0.0.1",
+    "title": "booleanFunctions",
+    "description": "booleanFunctions",
+    "functions": [
+        {
+            "name": "false",
+            "description": "Always returns false",
+            "example": "boolean.false() => false",
+            "args": [],
+            "return": {
+                "type": "boolean"
+            },
+            "display": {
+                "visible": true,
+                "deprecated": "false"
+            }
+        },
+        {
+            "name": "not",
+            "description": "Return the reverse value of a boolean",
+            "example": "boolean.not(boolean.true()) => false",
+            "args": [
+                {
+                    "name": "bool",
+                    "type": "boolean"
+                }
+            ],
+           "return": {
+                "type": "boolean"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "true",
+            "description": "Always returns true",
+            "example": "boolean.true() => true",
+            "args": [],
+            "return": {
+                "type": "boolean"
+            },
+            "display": {
+                "visible": true,
+                "deprecated": "true"
+            }
+        }
+    ]
+}

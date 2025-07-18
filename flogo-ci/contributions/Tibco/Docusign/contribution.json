@@ -1,0 +1,56 @@
+{
+  "name": "TIBCO Flogo connector for DocuSign",
+  "category": "Docusign",
+  "version": "3.0.1-hf1",
+  "compatibility": {
+    "refs": [
+      {
+        "connector": "docusign",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-docusign.git/src/app/Docusign/connector/docusign",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/connector/docusign"
+      },
+      {
+        "connector": "docusign",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Docusign/connector/docusign",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/connector/docusign"
+      },
+      {
+        "activity": "check",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Docusign/activity/check",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/check"
+      },
+      {
+        "activity": "check",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-docusign.git/src/app/Docusign/activity/check",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/check"
+      },
+      {
+        "activity": "get",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Docusign/activity/get",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/get"
+      },
+      {
+        "activity": "get",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-docusign.git/src/app/Docusign/activity/get",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/get"
+      },
+      {
+        "activity": "send",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Docusign/activity/send",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/send"
+      },
+      {
+        "activity": "send",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-docusign.git/src/app/Docusign/activity/send",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/send"
+      },
+      {
+        "activity": "list",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-docusign.git/src/app/Docusign/activity/list",
+        "newref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/list"
+      }
+    ]
+  },
+"tag": "3.0.1-hf1-b01",
+  "signature": "bim1B3MW39lW3CjxR/d7ap1GsRJ808IRDuN4e5TgMdr42V/9Mh9OhIbIEswMaA3AX/Yue7Fls3J7y6FfMooxRWAaU2/lJDc3MGCragnN"
+}

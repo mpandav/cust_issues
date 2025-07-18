@@ -1,0 +1,218 @@
+{
+  "title": "GraphQL Trigger",
+  "version": "1.0.4",
+  "type": "flogo:trigger",
+  "name": "tibco-graphql",
+  "author": "TIBCO Software Inc.",
+  "ref": "github.com/project-flogo/graphql/trigger/graphql",
+  "display": {
+    "description": "Simple GraphQL Trigger",
+    "uploadField": "schemaFile",
+    "visible": true,
+    "wizard": ["Step 1"],
+    "smallIcon": "icons/graphql_32.png",
+    "largeIcon": "icons/graphql_48.png"
+  },
+  "settings": [
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "value": 7879,
+      "display": {
+        "name": "Port",
+        "description": "The port to listen for requests",
+        "type": "integer",
+        "appPropertySupport": true
+      },
+      "wizard": {
+        "name": "Port",
+        "type": "integer",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "path",
+      "type": "string",
+      "required": true,
+      "value": "/graphql",
+      "display": {
+        "name": "Path",
+        "description": "The HTTP resource path",
+        "type": "string",
+        "appPropertySupport": true
+      },
+      "wizard": {
+        "name": "Resource path",
+        "type": "string",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "schemaFile",
+      "type": "string",
+      "display": {
+        "name": "GraphQL Schema File",
+        "description": "The GraphQL schema file for the trigger",
+        "type": "specselector",
+        "supportedSpecTypes":["GraphQL"]
+      },
+      "wizard": {
+        "name": "GraphQL Schema File",
+        "type": "specselector",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "secureConnection",
+      "type": "boolean",
+      "required": true,
+      "value": false,
+      "display": {
+        "description": "Set to \"true\" for a secure connection",
+        "name": "Secure Connection"
+      },
+      "wizard": {
+        "name": "Secure Connection",
+        "type": "boolean",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "serverKey",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Server Key",
+        "type": "fileselector",
+        "description": "A PEM encoded private key file",
+        "fileExtensions": [".pem", ".cert", ".cer", ".crt", ".key"],
+        "visible": true,
+        "appPropertySupport": true
+      },
+      "wizard": {
+        "name": "Server Key",
+        "type": "fileselector",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "caCertificate",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "A PEM encoded CA or Server certificate file",
+        "name": "CA or Server Certificate",
+        "visible": true,
+        "type": "fileselector",
+        "fileExtensions": [".pem", ".cert", ".cer", ".crt"],
+        "appPropertySupport": true
+      },
+      "wizard": {
+        "name": "CA or Server Certificate",
+        "type": "fileselector",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "graphqlSchema",
+      "type": "string",
+      "display": {
+        "name": "GraphQL Schema",
+        "description": "The GraphQL schema for the trigger ",
+        "type": "texteditor"
+      },
+      "wizard": {
+        "name": "GraphQL Schema",
+        "type": "texteditor",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "introspection",
+      "type": "boolean",
+      "value": true,
+      "display": {
+        "description": "Set to \"false\" to disable introspection for graphql schema",
+        "name": "Schema Introspection",
+        "appPropertySupport": true
+      }
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "operation",
+        "type": "string",
+        "required": true,
+        "allowed": ["Query", "Mutation"],
+        "display": {
+          "readonly": true,
+          "name": "GraphQL Operation",
+          "description": "Select the type of the GraphQL Operation",
+          "type": "dropdown",
+          "selection": "single"
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Step 1"
+        }
+      },
+      {
+        "name": "resolverFor",
+        "type": "string",
+        "required": true,
+        "allowed": [],
+        "display": {
+          "name": "Resolver For",
+          "description": "Select one field from the drop down",
+          "type": "string"
+        },
+        "wizard": {
+          "name": "Resolver For",
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Step 1"
+        }
+      }
+    ]
+  },
+  "output": [
+    {
+      "name": "arguments",
+      "type": "object"
+    },
+    {
+      "name": "headers",
+      "type": "params",
+      "display": {
+        "name": "Headers",
+        "description": "The HTTP header parameters you want to receive when this flow is started",
+        "type": "texteditor",
+        "syntax": "json",
+        "mappable": true
+      }
+    },
+    {
+      "name": "fields",
+      "type": "object",
+      "value": "{\"type\":\"object\",\"properties\":{\"fieldName\":{\"type\":\"string\"},\"fields\":{\"type\":\"array\"}}}"
+    }
+  ],
+  "reply": [
+    {
+      "name": "data",
+      "type": "object"
+    },
+    {
+      "name": "error",
+      "type": "string"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

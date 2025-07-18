@@ -1,0 +1,109 @@
+{
+	"name": "sqsreceivemessage",
+	"title": "Receive SQS Message",
+	"version": "1.0.0",
+	"author": "TIBCO Software Inc.",
+	"type": "flogo:trigger",
+	"display": {
+		"category": "AmazonSQS",
+		"visible": true,
+		"smallIcon": "sqsreceivemessage.png",
+		"description": "This trigger receives messages from the Amazon queue Service"
+	},
+	"ref": "github.com/tibco/flogo-aws-sqs/src/app/AmazonSQS/trigger/sqsreceivemessage",
+	"settings": [
+		{
+			"name": "awsConnection",
+			"type": "connection",
+			"required": true,
+			"display": {
+				"name": "AWS Connection",
+				"description": "Select AWS Connection",
+				"type": "connection"
+			},
+			"allowed": []
+		}
+	],
+	"handler": {
+		"settings": [
+			{
+				"name": "queueUrl",
+				"type": "string",
+				"required": true,
+				"display": {
+					"name": "Queue URL",
+					"description": "Select Queue URL for Receiving Messages",
+                    "appPropertySupport": true
+				},
+				"allowed": []
+			},
+			{
+				"name": "MaxNumberOfMessages",
+				"type": "integer",
+				"required": false,
+				"display": {
+					"name": "Max Number of Messages",
+					"description": "The maximum number of messages to return. Amazon SQS never returns more messages than this value (however, fewer messages might be returned). Valid values: 1 to 10."
+				},
+				"value": 1
+			},
+			{
+				"name": "VisibilityTimeout",
+				"type": "integer",
+				"required": false,
+				"display": {
+					"name": "Visibility Timeout(Seconds)",
+					"description": "The duration that the received messages are hidden from subsequent retrieve requests after being retrieved by a ReceiveMessage request."
+				},
+				"value": 0
+			},
+			{
+				"name": "WaitTimeSeconds",
+				"type": "integer",
+				"required": false,
+				"display": {
+					"name": "WaitTime(Seconds)",
+					"description": "The duration for which the call waits for a message to arrive in the queue before returning. If a message is available, the call returns sooner than WaitTimeSeconds."
+				},
+				"value": 0
+			},
+			{
+				"name": "ReceiveRequestAttemptId",
+				"type": "string",
+				"required": false,
+				"display": {
+					"name": "ReceiveRequest Attempt Id",
+					"description": "The token used for deduplication of ReceiveMessage calls. If a networking issue occurs, it is possible to retry the same action with an identical ReceiveRequestAttemptId to retrieve the same set of messages"
+				}
+			},
+			{
+				"name": "deleteMessage",
+				"type": "boolean",
+				"required": false,
+				"display": {
+					"name": "Delete Received Message",
+					"description": "Delete received message(s)"
+				},
+				"value": false
+			},
+			{
+				"name": "MessageAttributeNames",
+				"type": "array",
+				"required": false,
+				"display": {
+					"name": "Message Attributes",
+					"description": "Name and type of message attributes that you wish to receive",
+					"type": "table",
+					"schema": "{\r\n    \"$schema\": \"http:\/\/json-schema.org\/draft-04\/schema#\",\r\n    \"definitions\": {},\r\n    \"id\": \"http:\/\/example.com\/example.json\",\r\n    \"items\": {\r\n        \"id\": \"\/items\",\r\n        \"properties\": {\r\n            \"Name\": {\r\n                \"id\": \"\/items\/properties\/Name\",\r\n                \"type\": \"string\"\r\n            },\r\n            \"Type\": {\r\n                \"id\": \"\/items\/properties\/Type\",\r\n                \"type\": {\"enum\":[\"String\", \"Number\"]}\r\n            }\r\n        },\r\n        \"type\": \"object\"\r\n    },\r\n    \"type\": \"array\"\r\n}",
+					"inputSettingsOnly":true
+				}
+			}
+		]
+	},
+	"outputs": [
+		{
+			"name": "Message",
+			"type": "object"
+		}
+	]
+}

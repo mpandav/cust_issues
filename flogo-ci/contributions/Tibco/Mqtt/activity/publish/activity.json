@@ -1,0 +1,94 @@
+{
+  "title": "MQTT Pub",
+  "name": "mqtt",
+  "version": "1.2.1",
+  "type": "flogo:activity",
+  "author": "TIBCO Software Inc.",
+  "description": "An MQTT message publisher",
+  "display": {
+    "category": "Mqtt",
+    "visible": true,
+    "description": "Publish a message to a MQTT topic",
+    "smallIcon": "Icon/publisher@2x.png",
+    "largeIcon": "Icon/publisher@3x.png"
+  },
+  "ref": "github.com/tibco/wi-mqtt/src/app/Mqtt/activity/publish",
+  "inputs": [
+    {
+      "name": "Connection",
+      "type": "connection",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Connection",
+        "description": "Select an MQTT connection",
+        "type": "connection",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "topic",
+      "required": false,
+      "type": "string",
+      "display": {
+        "name": "Topic",
+        "description": "Enter a '/' delimited series of topic nodes which describe the desired topic.  Topic nodes can be '+' for single or '#' for multi level wildcards.  For example: '/root/branch/+/leaves'",
+        "appPropertySupport": true,
+        "mappable": true
+      }
+    },
+    {
+      "name": "retain",
+      "required": true,
+      "type": "boolean",
+      "display": {
+        "name": "Retain",
+        "description": "Set to true to cause the server to retain this message for newly arriving subscribers",
+        "appPropertySupport": true
+      },
+      "value": false
+    },
+    {
+      "name": "qos",
+      "required": false,
+      "allowed": [0, 1, 2],
+      "type": "number",
+      "display": {
+        "name": "Qos",
+        "description": "Set the Quality of Service to 0 - At most once; 1 = At least once; 2 - Exactly once.  The default is 0 and if the entry is out of range it will be set to 0",
+        "appPropertySupport": true
+      },
+      "value": 0
+    },
+    {
+      "name": "valueType",
+      "type": "string",
+      "display": {
+        "name": "Value Deserializer",
+        "description": "Type of record value to be published"
+      },
+      "allowed": ["String", "JSON", "Base64"],
+      "value": "String"
+    },
+    {
+      "name": "stringValue",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "name": "jsonValue",
+      "type": "object",
+      "required": true,
+      "display": {
+        "name": "Schema for JSON value",
+        "description": "The JSON schema for the MQTT record value",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false,
+        "mappable": true
+      }
+    }
+  ],
+  "outputs": []
+}

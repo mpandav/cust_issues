@@ -1,0 +1,166 @@
+{
+  "name": "json",
+  "type": "flogo:function",
+  "version": "0.11.0",
+  "title": "Json Functions",
+  "description": "Json Functions",
+  "homepage": "https://github.com/prject-flogo/contrib/tree/master/function/json",
+  "functions": [
+    {
+      "name": "exists",
+      "description": "Check if the key/JSONPath is present in the json object. Refer https://github.com/oliveagle/jsonpath for expression format.",
+      "example": "json.exists(jsonObject, \"$.key\") => value",
+      "args": [
+        {
+          "name": "jsonObject",
+          "type": "object"
+        },
+        {
+          "name": "key",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "bool"
+      }
+    },
+    {
+      "name": "get",
+      "description": "Get value of associated key from json object",
+      "example": "json.get(jsonObject, \"key\") => value",
+      "args": [
+        {
+          "name": "jsonObject",
+          "type": "object"
+        },
+        {
+          "name": "key",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "any"
+      }
+    },
+    {
+      "name": "length",
+      "description": "Get the number of top level elements in json object or array",
+      "example": "json.length(jsonObjectOrArray) => lengthInteger",
+      "args": [
+        {
+          "name": "jsonObjectOrArray",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "int"
+      }
+    },
+    {
+      "name": "numbersToString",
+      "description": "Convert every number type to string in a json object or array",
+      "example": "json.numbersToString(jsonObjectOrArray) => jsonObjectOrArray",
+      "args": [
+        {
+          "name": "jsonObjectOrArray",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "any"
+      }
+    },
+    {
+      "name": "objKeys",
+      "description": "Get the list of all top level keys of json object",
+      "example": "json.objKeys(jsonObject) => arrayOfStrings",
+      "args": [
+        {
+          "name": "jsonObject",
+          "type": "object"
+        }
+      ],
+      "return": {
+        "type": "array",
+        "valueType": "string"
+      }
+    },
+    {
+      "name": "objValues",
+      "description": "Get the list of all top level values of json object",
+      "example": "json.objValues(jsonObject) => arrayOfValues",
+      "args": [
+        {
+          "name": "jsonObject",
+          "type": "object"
+        }
+      ],
+      "return": {
+        "type": "array",
+        "valueType": "any"
+      }
+    },
+    {
+      "name": "path",
+      "description": "Use JSONPath expression to get value from JSON object. Refer https://github.com/oliveagle/jsonpath for expression format.",
+      "example": "json.path(\"$.key\",$activity[xxx].data) => value",
+      "args": [
+        {
+          "name": "path",
+          "type": "string"
+        },
+        {
+          "name": "object",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "any"
+      }
+    },
+    {
+      "name": "set",
+      "description": "Set the value of existing key or add new key and set it's value in a json object",
+      "example": "json.set(jsonObject, \"key\", value) => jsonObject",
+      "args": [
+        {
+          "name": "jsonObject",
+          "type": "object"
+        },
+        {
+          "name": "key",
+          "type": "string"
+        },
+        {
+          "name": "value",
+          "type": "any"
+        }
+      ],
+      "return": {
+        "type": "any"
+      }
+    },
+    {
+      "name": "jq",
+      "description": "process the JSON inputs based on a provided query and return the filtered array output",
+      "example": "json.jq(inputJSON, \"query\") => [output1, output2 ...]",
+      "args": [
+        {
+          "name": "inputJSON",
+          "type": "any"
+        },
+        {
+          "name": "query",
+          "type": "string"
+        }
+      ],
+      "return": {
+        "type": "array",
+        "valueType": "any"
+      },
+      "display": {
+        "visible": true
+      }
+    }
+  ]
+}

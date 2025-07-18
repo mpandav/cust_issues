@@ -1,0 +1,154 @@
+
+{
+    "name": "pub",
+    "version": "2.2.0",
+    "type": "flogo:activity",
+    "title": "Pub",
+    "display": {
+        "category": "IBM-MQ",
+        "visible": true,
+        "description": "",
+        "smallIcon": "icon/MQPublishToTopic_48x48.png",
+        "largeIcon": "icon/MQPublishToTopic_48x48.png"    
+    },
+    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/pub",
+    "settings": [
+        {
+            "name": "Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+              "name": "Connection",
+              "description": "Select an IBM MQ connection",
+              "type": "connection",
+              "selection": "single",
+              "visible": true
+            }
+          },
+          {
+            "name": "topic",
+            "required": false,
+            "type": "string",
+            "display": {
+              "name": "Topic Name",
+              "mappable": true,
+              "appPropertySupport": true,
+              "description": "Enter the topic name"
+            }
+          },
+          {
+            "name": "topicdynamic",
+            "required": false,
+            "type": "string",
+            "display": {
+              "name": "Topic Dynamic",
+              "mappable": true,
+              "appPropertySupport": true,
+              "description": "Enter the dynamic portion of the topic string"
+            }
+          },
+          {
+            "name": "retain",
+            "required": false,
+            "type": "boolean",
+            "value": false,
+            "display": {
+              "name": "Retain Publication",
+              "mappable": true,
+              "appPropertySupport": true,
+              "description": "Select to retain the publication if there are no consumers"
+            }
+          },
+          {
+            "name": "contextSupport",
+            "type": "string",
+            "display": {
+              "name": "Context Support",
+              "description": "Select the level of context info to be presented on input"
+            },
+            "allowed": [
+              "Default",
+              "Identity",
+              "All"
+            ],
+            "value": "Default"
+          },
+          {
+            "name": "messageType",
+            "type": "string",
+            "display": {
+              "name": "Message Type",
+              "description": "Type of message sent"
+            },
+            "allowed": [
+              "Datagram",
+              "Request",
+              "Reply"
+            ],
+            "value": "Datagram"
+          },
+          {
+            "name": "valueType",
+            "type": "string",
+            "display": {
+              "name": "Value Deserializer",
+              "description": "Type of record value to be sent"
+            },
+            "allowed": [
+              "String",
+              "JSON"
+            ],
+            "value": "String"
+          }
+    ],
+    "input": [
+          {
+            "name": "topic",
+            "type": "string"
+          },
+          {
+            "name": "topicdynamic",
+            "type": "string"
+          },
+          {
+            "name": "MessageString",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "MessageJson",
+            "type": "object",
+            "required": true,
+            "display": {
+              "name": "Schema for JSON value",
+              "description": "The JSON schema for the IBM MQ record value",
+              "type": "texteditor",
+              "syntax": "json",
+              "visible": false,
+              "mappable": true
+            }
+          },
+          {
+            "name": "properties",
+            "type": "object",
+            "display": {
+              "name": "Properties",
+              "description": "Message properties to be sent",
+              "type": "params",
+              "mappable": true,
+              "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}"
+            }
+          },
+          {
+            "name": "MQMD",
+            "type": "object"
+          }
+    ],
+        "outputs": [
+          {
+            "name": "Output",
+            "type": "object"
+          }
+        ]
+}

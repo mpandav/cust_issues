@@ -1,0 +1,28 @@
+{
+  "name": "tcm-messageack-activity",
+  "type": "flogo:activity",
+  "title": "eFTL Message Ack",
+  "version": "1.0.1",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "Messaging",
+    "smallIcon": "icons/tcm_message_ack.png",
+    "largeIcon": "icons/tcm_message_ack@2x.png",
+    "description": "This activity acknowledges TCM message received by the subscriber trigger. This to be used only when Subscriber trigger is configured with Explicit message ack mode."
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }
+  },
+  "ref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmmessageack",
+  "inputs": [
+  ],
+  "outputs": [
+  ]
+}

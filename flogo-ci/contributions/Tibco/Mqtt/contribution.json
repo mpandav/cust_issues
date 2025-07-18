@@ -1,0 +1,26 @@
+{
+  "name": "TIBCO Flogo Connector for MQTT",
+  "version": "1.3.1",
+  "category": "Mqtt",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "mqtt",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mqtt.git/Mqtt/activity/publish",
+        "newref": "github.com/tibco/wi-mqtt/src/app/Mqtt/activity/publish"
+      },
+      {
+        "activity": "connection",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mqtt.git/Mqtt/connector/connection",
+        "newref": "github.com/tibco/wi-mqtt/src/app/Mqtt/connector/connection"
+      },
+      {
+        "activity": "mqtt-trigger",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mqtt.git/Mqtt/trigger/subscribe",
+        "newref": "github.com/tibco/wi-mqtt/src/app/Mqtt/trigger/subscribe"
+      }
+    ]
+  },
+"tag": "1.3.1-b02",
+  "signature": "UXU2yorHnGASXoYkLG6u7cgRXMp2n8tlSjYGL/ikmu2ksDbUuTibHD4NoCFJTM8EkpKdMa8lPCpdaubU/TTlYDLc"
+}

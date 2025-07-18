@@ -1,0 +1,157 @@
+{
+    "name": "azservicebus-queuereceiver-trigger",     
+    "type": "flogo:trigger",
+    "title": "AzureServiceBus QueueReceiver",
+    "version": "1.3.0",
+    "author": "TIBCO Software Inc.",
+    "display": {
+      "category": "AzureServiceBus",
+      "smallIcon": "icons/azservicebus_queuereceiver.png",
+      "largeIcon": "icons/azservicebus_queuereceiver@2x.png",
+      "wizard": [
+        "Configuration"
+      ]
+    },
+    "ref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/trigger/queuereceiver",
+    "settings": [
+      {
+        "name": "azservicebusConnection",
+        "type": "connection",
+        "required": true,
+        "display": {
+          "name": "AzureServiceBus Connection",
+          "description": "Choose a AzureServiceBus Connection",
+          "type": "connection"
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Configuration"
+        },
+        "allowed": []
+      }
+    ],
+    "handler": {
+    "settings": [
+      {
+        "name": "queue",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Queue",
+          "description": "Name of the Queue to keep receiving message from",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Configuration"
+        }
+      },
+      {
+        "name": "deadletter",
+        "type": "boolean",
+        "required": true,
+        "value": false,
+        "display": {
+          "name": "DeadLetter Subscription",
+          "description": "AzureServiceBus DeadLetter Subscription",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "boolean",
+          "step": "Configuration"
+        }       
+      },
+      {
+        "name": "sessionId",
+        "type": "string",
+        "display": {
+          "name": "SessionId",
+          "description": "Id of the Session in the Queue to keep receiving message from",
+          "appPropertySupport": true
+        }
+      },
+      {
+        "name": "receiveMode",
+        "type": "string",
+        "display": {
+          "name": "Receive Mode",
+          "description": "Specify mode in which Service Bus receives messages"
+        },
+        "allowed": [
+          "ReceiveAndDelete",
+          "ModePeekLock"
+        ],
+        "value": "ReceiveAndDelete"   
+      },
+      {
+        "name": "Timeout",
+        "type": "integer",
+        "display": {
+          "description": "Context Timeout for Service bus in milliseconds. (Timeout=0, is indefinite)",
+          "name": "Timeout",
+          "appPropertySupport": true
+        },
+        "value": 0
+      }, 
+      {
+        "name": "Count",
+        "type": "integer",
+        "display": {
+          "description": "The maximum number of times to retry Trigger",
+          "name": "Retry Count",
+          "appPropertySupport": true
+        },
+        "value": 0
+      }, 
+      {
+        "name": "Interval",
+        "type": "integer",
+        "display": {
+          "description": "The time interval (in ms) between each retry attempt",
+          "name": "Retry Interval",
+          "appPropertySupport": true
+        },
+        "value": 0
+      }, 
+      {
+        "name": "valueType",
+        "type": "string",
+        "display": {
+          "name": "Value Deserializer",
+          "description": "Type of record value to be received",
+          "visible": false
+        },
+        "allowed": [
+          "String",
+          "JSON"
+        ],
+        "value": "String"
+      }
+    ]
+    },
+    "outputs": [
+      {
+        "name": "customProperties",
+        "type": "params",
+        "required": false,
+        "display": {
+          "name": "Custom Properties",
+          "description": "Custom properties for each message.",
+          "type": "params",
+          "mappable": false,
+          "enableClear": true,
+          "outputSettingsOnly": true,
+          "additionalProperties": true,
+          "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"integer\",\"string\",\"number\",\"boolean\"]}}}}}"
+        }
+      },
+      {
+      "name": "output",
+      "type": "object"
+      }
+    ],
+    "actions": [{
+        "name": "Finish"
+      }]
+  }

@@ -1,0 +1,109 @@
+{
+	"title": "Timer Trigger",
+	"name": "tibco-wi-timer",
+	"author": "TIBCO Software Inc.",
+	"version": "1.2.2",
+	"type": "flogo:trigger",
+	"display": {
+		"description": "Simple Timer trigger",
+		"category": "General",
+		"visible": true,
+		"smallIcon": "icons/ic-tibco-wi-timer.svg",
+		"largeIcon": "icons/ic-tibco-wi-timer@2x.png"
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/trigger/timer",
+	"settings": [],
+	"handler": {
+		"settings": [
+			{
+                "name": "Scheduler Options",
+                "type": "string",
+                "required": true,
+                "display": {
+                    "name": "Scheduler Options",
+                    "description": "The scheduler options for cron and timer",
+                    "type": "dropdown",
+                    "selection": "single"
+                },
+                "value": "Timer",
+                "allowed": [
+                    "Timer",
+                    "Cron Job"
+                ]
+            },
+			{
+				"name": "Start Time",
+				"type": "string",
+				"display": {
+					"name": "Start Time",
+					"type": "dateTime",
+					"description": "Start time to start the flow execution",
+					"appPropertySupport": true
+				}
+			},
+			{
+				"name": "Repeating",
+				"type": "boolean",
+				"display": {
+					"name": "Repeating",
+					"description": "Indicates whether this flow should run only once or multiple times"
+				},
+				"value": false,
+				"required": true
+			},
+			{
+				"name": "Delayed Start",
+				"type": "boolean",
+				"display": {
+					"name": "Delayed Start",
+					"description": "Adds delay to start time",
+					"appPropertySupport": true
+				},
+				"value": false,
+				"required": true
+			},
+			{
+				"name": "Time Interval",
+				"type": "integer",
+				"display": {
+					"name": "Time Interval",
+					"description": "The time interval to start the flow execution",
+					"appPropertySupport": true
+				},
+				"value": 1,
+				"required": true
+			},
+			{
+				"name": "Interval Unit",
+				"type": "string",
+				"required": true,
+				"display": {
+					"name": "Interval Unit",
+					"description": "The unit of time interval to start the flow execution",
+					"type": "dropdown",
+					"selection": "single",
+					"appPropertySupport": true
+				},
+				"value": "Second",
+				"allowed": [
+					"Second",
+					"Minute",
+					"Hour",
+					"Day",
+					"Week"
+				]
+			},
+			{
+                "name": "Cron Expression",
+                "type": "string",
+                "display": {
+                    "name": "Cron Expression",
+                    "type": "cron",
+                    "description": "Schedule based on this cron expression. Please edit to set a schedule not configurable with Cron Expression Builder.",
+                    "appPropertySupport": true
+                },
+                "value": ""
+            }
+		]
+	}
+}

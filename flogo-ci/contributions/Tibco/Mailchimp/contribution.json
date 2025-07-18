@@ -1,0 +1,33 @@
+{
+  "name": "TIBCO Flogo connector for Mailchimp",
+  "version": "1.0.1",
+  "description": "TIBCO Flogo® Connector for Mailchimp allows seamless integration with Mailchimp's marketing automation platform, enabling users to manage email campaigns, subscriber lists, and other marketing activities directly from their applications.",
+  "image": "connector/mailchimp/icons/ic-connector-mailchimp.png",
+  "category": "Mailchimp",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "mailchimp-action",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Mailchimp/activity/action",
+        "newref": "github.com/tibco/wi-mailchimp/src/app/Mailchimp/activity/action"
+      },
+      {
+        "activity": "mailchimp-create",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Mailchimp/activity/create",
+        "newref": "github.com/tibco/wi-mailchimp/src/app/Mailchimp/activity/create"
+      },
+      {
+        "activity": "mailchimp-query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Mailchimp/activity/query",
+        "newref": "github.com/tibco/wi-mailchimp/src/app/Mailchimp/activity/query"
+      },
+      {
+        "connection": "tibco-mailchimp",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Mailchimp/connector/connection",
+        "newref": "github.com/tibco/wi-mailchimp/src/app/Mailchimp/connector/mailchimp"
+      }
+    ]
+  },
+"tag": "1.0.1-b02",
+  "signature": "6VxnP8L15c9pwg+y/xErDgWJPWRIrX1PeUkdFmBt9QYIRS5tDGJPGORxE7f7UOcmpWhTl1Lr5BGfdkPv6HQ1LEejKrNWbGgEC4VMdQ=="
+}

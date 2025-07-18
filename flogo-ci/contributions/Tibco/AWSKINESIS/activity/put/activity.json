@@ -1,0 +1,64 @@
+
+{
+    "name": "put",
+    "type": "flogo:activity",
+    "title": "Kinesis Put Activity",
+    "display": {
+        "category": "AWSKINESIS",
+        "smallIcon": "icons/put.png",
+        "largeIcon": "icons/put@2x.png"
+    },
+    "ref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/put",
+    "inputs": [
+        {
+            "name": "awsConnection",
+            "type": "connection",
+            "required": "true",
+            "display":{
+                "name": "AWS Connection",
+                "description": "Select AWS Connection",
+                "type": "connection"
+            },
+            "allowed":[]
+        },
+        {
+            "name": "streamType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Stream Type",
+                "description" : "Choose the Type of Stream",
+                "type" : "dropdown",
+                "selection" : "single"
+            },
+            "allowed":["DataStream","Firehose-DeliveryStream"]
+        },
+        {
+            "name" : "recordType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Record Type",
+                "description" : "Specify if you want to Put Single Record or Multiple Records",
+                "type" : "dropdown",
+                "visible" : "true",
+                "selection" : "single"
+            },
+            "allowed":["SingleRecord"]
+        },
+        {
+            "name" : "input",
+            "type" : "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name" : "Message",
+            "type" : "object"
+        },
+        {
+            "name" : "Error",
+            "type" : "object"
+        }
+    ]
+}

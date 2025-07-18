@@ -1,0 +1,128 @@
+{
+  "name": "tibco-flogo-http-client",
+  "type": "flogo:activity",
+  "version": "1.1.0",
+  "title": "HTTP Client",
+  "description": "Invokes a HTTP Service",
+  "ref": "github.com/tibco/wi-plugins/contributions/http/src/app/HTTP/activity/client",
+  "display": {
+    "category": "HTTP",
+    "smallIcon": "icons/ic-http-activity.png",
+    "largeIcon": "icons/ic-http-activity.png",
+    "tags": ["HTTP"]
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }
+  },
+  "settings": [
+    {
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service Endpoint",
+        "description": "Configure a service endpoint in the format 'http(s)://host:port/<optional_context_path>'",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "display": {
+        "name": "Processing Mode",
+        "description": "Select processing mode. In 'Proxy' mode, details like query params, request/response headers, method, request/response body etc. are opaquely passed to/from the client activity. In this mode, no data conversion occurs. It is meant for implementing pass-through proxy services. To use this feature, you must configure HTTP trigger in 'Proxy' mode. 2. In 'Data' Mode users have more control over the header, params, method, and body of the request."
+      },
+      "allowed": [
+        "Proxy",
+        "Data"
+      ],
+      "value": "Proxy"
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "display": {
+        "description": "Timeout for HTTP Requests in Milliseconds. (Timeout=0, is indefinite)",
+        "name": "Timeout",
+        "appPropertySupport": true
+      },
+      "value": 0
+    }
+  ],
+  "input": [
+    {
+      "name": "contextPath",
+      "type": "string",
+      "description": "Set optional base path for the request"
+    },
+    {
+      "name": "proxyData",
+      "required": true,
+      "type": "object"
+    },
+    {
+      "name": "excludeRequestHeaders",
+      "type": "string"
+    },
+    {
+      "name": "excludeResponseHeaders",
+      "type": "string"
+    },
+    {
+      "name": "pathParams",
+      "type": "params",
+      "enablecoercing": "true"
+    },
+    {
+      "name": "queryParams",
+      "type": "params",
+      "enablecoercing": "true"
+    },
+    {
+      "name": "headers",
+      "type": "params",
+      "enablecoercing": "true"
+    },
+    {
+      "name": "method",
+      "type": "string"
+    },
+    {
+      "name": "requestBody",
+      "type": "any",
+      "enablecoercing": "true"
+    }
+  ],
+  "output": [
+    {
+      "name": "statusCode",
+      "type": "integer",
+      "visible": false
+    },
+    {
+      "name": "headers",
+      "type": "params",
+      "enablecoercing": "true",
+      "visible": false
+    },
+    {
+      "name": "responseBody",
+      "type": "any",
+      "enablecoercing": "true",
+      "visible": false
+    },
+    {
+      "name": "cookies",
+      "type": "array",
+      "enablecoercing": "true",
+      "visible": false
+    }
+  ]
+}

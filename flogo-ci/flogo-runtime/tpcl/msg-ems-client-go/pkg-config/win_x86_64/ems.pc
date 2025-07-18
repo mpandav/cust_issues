@@ -1,0 +1,12 @@
+# See: man pkg-config
+prefix=/opt/tibco/ems/10.3
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: TIBCO EMS
+Description: EMS C client libraries
+Requires:
+Version: 10.3
+Libs: -L${libdir} -ltibems -ltibemsufo -lssl -lcrypto -lzdll
+Cflags: -I${includedir} -g -O2

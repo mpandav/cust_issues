@@ -1,0 +1,53 @@
+{
+    "name": "flogo-subflow",
+    "type": "flogo:activity",
+    "ref": "github.com/project-flogo/flow/activity/subflow",
+    "version": "0.11.0",
+    "title": "Start a SubFlow",
+    "description": "Simple SubFlow Activity",
+    "homepage": "https://github.com/project-flogo/flow/tree/master/activity/subflow",
+    "display": {
+      "visible": true,
+      "smallIcon": "icons/subflow_32.png",
+      "largeIcon": "icons/subflow_48.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "dynamicIO": true,
+    "settings": [
+      {
+        "name": "flowURI",
+        "type": "string",
+        "required": true,
+        "display": {
+            "name": "Select flow",
+            "type": "dropdown"
+        },
+        "allowed": []
+      },
+      {
+        "name": "detached",
+        "type": "boolean",
+        "display": {
+          "name": "Detached Invocation",
+          "description": "When enabled, subflow is invoked in fire and forget mode. In this case, main flow will not wait for the completion of subflow."
+        },
+        "value": false
+      }
+    ],
+    "inputs": [
+      {
+        "name": "input",
+        "type": "complex_object"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "output",
+        "type": "complex_object"
+      }
+    ]
+  }

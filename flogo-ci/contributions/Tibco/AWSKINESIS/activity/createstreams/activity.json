@@ -1,0 +1,83 @@
+
+{
+    "name": "CreateStreams",
+    "type": "flogo:activity",
+    "title": "Kinesis Create Streams Activity",
+    "display": {
+        "category": "AWSKINESIS",
+        "smallIcon": "icons/create.png",
+        "largeIcon": "icons/create@2x.png"
+    },
+    "ref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/createstreams",
+    "inputs": [{
+        "name": "awsConnection",
+        "type": "connection",
+        "required": true,
+        "display":{
+            "name": "AWS Connection",
+            "description": "Select AWS Connection",
+            "type": "connection",
+            "visible": true
+        },
+        "allowed":[]
+    },
+    {
+        "name": "streamType",
+        "type" : "string",
+        "required" : true,
+        "display":{
+            "name" : "Stream Type",
+            "description" : "Choose the Type of Stream To Create",
+            "type" : "dropdown",
+            "selection" : "single"
+        },
+        "allowed":["DataStream","Firehose-DeliveryStream"]
+    },
+    {
+        "name": "DeliveryStreamType",
+        "type": "string",
+        "required": "false",
+        "display":{
+            "name": "Delivery Stream Type",
+            "visible" : false,
+            "description": "Select the Delivery Stream Type for Data Firehose "
+        },
+        "allowed":["DirectPut","KinesisStreamAsSource"]
+
+    },
+    {
+        "name": "DestinationType",
+        "type": "string",
+        "required": "true",
+        "display":{
+            "name": "Destination Type",
+            "visible" : false,
+            "description": "Select the Destination Type for Data Firehose Stream"
+        },
+        "allowed":["ExtendedS3DestinationConfiguration","S3DestinationConfiguration","ElasticsearchDestinationConfiguration","RedshiftDestinationConfiguration","SplunkDestinationConfiguration"]
+
+    },
+    {
+        "name" : "input",
+        "type" : "object"
+    },
+    {
+        "name" : "DeliveryStreamConfiguration",
+        "type" : "object"
+    },
+    {
+        "name" : "KinesisStreamSourceConfiguration",
+        "type" : "object"
+    }
+],
+"outputs": [
+    {
+        "name" : "Message",
+        "type" : "object"
+    },
+    {
+        "name" : "Error",
+        "type" : "object"
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "name": "tibco-ems-connector",
+  "type": "flogo:connector",
+  "title": "EMS Connection Configuration",
+  "version": "1.0.2",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "EMS",
+    "smallIcon": "icons/flogo-ems-connector.png",
+    "largeIcon": "icons/flogo-ems-connector@2x.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/flogo-ems/src/app/EMS/connector/ems",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Name",
+        "description": "Name of the configuration"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "description": "Connection description"
+      },
+      "value": "Ems client configuration"
+    },
+    {
+      "name": "serverUrl",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "ServerUrl",
+        "description": "A EMS server URL",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "authenticationMode",
+      "type": "string",
+      "display": {
+        "name": "Authentication Mode",
+        "description": "Choose authentication mode to connect to EMS server"
+      },
+      "allowed": ["None", "SSL"],
+      "value": "None"
+    },
+    {
+      "name": "userName",
+      "type": "string",
+      "display": {
+        "name": "User Name",
+        "visible": true,
+        "description": "User name for EMS authentication",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "display": {
+        "name": "Password",
+        "type": "password",
+        "visible": true,
+        "description": "Password for EMS authentication",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientID",
+      "type": "string",
+      "display": {
+        "name": "Client ID",
+        "visible": true,
+        "description": "The unique Client ID for the connection. Client ID should be set for non-shared durable subscriber. It should not be set for shared durable subscriber",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "enablemTLS",
+      "type": "boolean",
+      "display": {
+        "name": "Enable mTLS",
+        "type": "boolean",
+        "description": "Enable mutual TLS (mTLS) for secure communication",
+        "visible": false, 
+        "appPropertySupport": true
+      },
+      "value": true
+    },  
+    {
+      "name": "clientCert",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "A PEM encoded certificate file",
+        "name": "Client Certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".pem", ".cert", ".cer", ".crt"],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientKey",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "A PEM encoded private key file",
+        "name": "Client Key",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".pem", ".cert", ".cer", ".crt", ".key"],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "caCert",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "A PEM encoded CA or Server certificate file",
+        "name": "CA or Server Certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".pem", ".cert", ".cer", ".crt"],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "privateKeyPassword",
+      "type": "string",
+      "display": {
+        "name": "Client Key Password",
+        "type": "password",
+        "visible": false,
+        "description": "Password for client's private Key",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "noVerifyHostname",
+      "type": "boolean",
+      "display": {
+        "name": "Hostname Verification",
+        "type": "boolean",
+        "visible": false,
+        "description": "Set the value false to skip hostname verification",
+        "appPropertySupport": true
+      },
+      "value": true
+    },
+    {
+      "name": "reconnectCount",
+      "type": "integer",
+      "display": {
+        "description": "The maximum number of times to retry.",
+        "name": "Reconnect Count",
+        "appPropertySupport": true
+      },
+      "value": 4
+    },
+    {
+      "name": "reconnectDelay",
+      "type": "integer",
+      "display": {
+        "description": "The time interval (in ms) between each retry attempt",
+        "name": "Reconnect Delay",
+        "appPropertySupport": true
+      },
+      "value": 500
+    },
+    {
+      "name": "reconnectTimeout",
+      "type": "integer",
+      "display": {
+        "description": "The maximum time (in ms) a client will wait for the reconnection to be established. zero is no timeout.",
+        "name": "Retry Timeout",
+        "appPropertySupport": true
+      },
+      "value": 0
+    }
+  ],
+  "actions": [
+    {
+      "name": "Save"
+    }
+  ]
+}

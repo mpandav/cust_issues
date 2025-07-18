@@ -1,0 +1,190 @@
+{
+  "title": "OData Connection",
+  "name": "tibco-odataconnector",
+  "version": "1.0.0",
+  "type": "flogo:connector",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "OData Connection",
+    "visible": true,
+    "category": "OData",
+    "smallIcon": "icons/OData_64px.png",
+    "largeIcon": "icons/OData_96px.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/flogo-odata/src/app/OData/connector/odata",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "inputType": "text",
+      "display": {
+        "name": "Name",
+        "visible": true,
+        "placeholder": "Connection name"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "inputType": "text",
+      "display": {
+        "name": "Description",
+        "description": "Connection description",
+        "visible": true
+      }
+    },
+    {
+      "name": "rootURL",
+      "type": "string",
+      "required": true,
+      "inputType": "text",
+      "display": {
+        "name": "Root URL",
+        "description": "The root URL of OData service",
+        "visible": true
+      }
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Authorization Type",
+        "description": "Indicate the type of authorization",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": [
+        "None",
+        "Basic",
+        "OAuth2"
+      ],
+      "value": "None"
+    },
+    {
+      "name": "userName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User Name",
+        "description": "User Name for basic auth",
+        "appPropertySupport": true,
+        "visible": false
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "description": "Password for basic auth",
+        "type": "password",
+        "appPropertySupport": true,
+        "visible": false
+      }
+    },
+    {
+      "name": "grantType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Grant Type",
+        "description": "Indicate the way of the application to get the token",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": [
+        "Client Credentials"
+      ],
+      "value": "Client Credentials"
+    },
+    {
+      "name": "accessTokenURL",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Access Token URL",
+        "description": "Token API endpoint used to get the access token",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client Id",
+        "description": "The client id of OAuth2 application",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientSecret",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client Secret",
+        "type": "password",
+        "description": "The client secret of OAuth2 application",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Scope",
+        "description": "Specifies the level of access that the application is requesting",
+        "visible": false
+      }
+    },
+    {
+      "name": "clientAuthentication",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "The way of sending auth parameters. Based on the service request, you can send auth parameters in Body or Header or Query",
+        "name": "Client Authentication",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": false
+      },
+      "allowed": [
+        "Body",
+        "Header",
+        "Query"
+      ],
+      "value": "Body"
+    },
+    {
+      "name": "WI_STUDIO_OAUTH_CONNECTOR_INFO",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Token",
+        "description": "Base64 encoded token",
+        "visible": true,
+        "encryptable": true,
+        "readonly": true,
+        "appPropertySupport": true
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Save"
+    },
+    {
+      "name": "Login"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "TIBCO Flogo connector for Oracle MySQL",
+  "version": "2.4.5 HF-1",
+  "category": "MySQL",
+  "description": "TIBCO Flogo® Connector for Oracle MySQL allows you to execute SQL queries to create, read, update, and delete on a MySQL database instance.",
+  "image": "connector/connection/icons/my_sql.png",
+  "compatibility": {
+    "refs": [
+      {
+        "connector": "mysql-connector",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/connector/connection",
+        "newref": "github.com/tibco/wi-mysql/src/app/MySQL/connector/connection"
+      },
+      {
+        "activity": "mysql-update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/activity/update",
+        "newref": "github.com/tibco/wi-mysql/src/app/MySQL/activity/update"
+      },
+      {
+        "activity": "mysql-query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/activity/query",
+        "newref": "github.com/tibco/wi-mysql/src/app/MySQL/activity/query"
+      },
+      {
+        "activity": "mysql-insert",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/activity/insert",
+        "newref": "github.com/tibco/wi-mysql/src/app/MySQL/activity/insert"
+      },
+      {
+        "activity": "mysql-delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mysql.git/src/app/MySQL/activity/delete",
+        "newref": "github.com/tibco/wi-mysql/src/app/MySQL/activity/delete"
+      }
+    ]
+  },
+"tag": "2.4.5-b03",
+  "signature": "DDcSbi4/+QaQy98l3bmf2gCgMdGpaYbM/SXXollUK3FUpTC/iSr4bvjezYk31cajxGvpX0uGCETqk+FTLzYqUhJjp43m5eeQi3p8jQg16c4="
+}

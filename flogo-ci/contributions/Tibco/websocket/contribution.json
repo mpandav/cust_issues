@@ -1,0 +1,9 @@
+{
+  "name": "Tibco Flogo Connector for Websocket",
+  "version": "1.0.1",
+  "category": "websocket",
+  "description": "TIBCO Flogo® Connector for Websocket",
+  "image": "activity/ws/icons/ws_connector.png",
+"tag": "1.0.1-b03-flogo-2.25.0",
+  "signature": "STJZ7oxnmJVp3iy1QKg4a8fwCD2F7krRySmtOXwmXxaq+5xoZBSi39qiM7EglA/4qMdQVAN7WRN/0eTBcU9hBRoB3WTIsyR1nxLbJw=="
+}

@@ -1,0 +1,62 @@
+{
+  "name": "flogo-jsexec",
+  "type": "flogo:activity",
+  "version": "0.10.0",
+  "title": "Execute JavaScript",
+  "homepage": "https://github.com/project-flogo/contrib/tree/master/activity/jsexec",
+  "ref": "github.com/project-flogo/contrib/activity/jsexec",
+  "display": {
+    "description": "Executes JavaScript",
+    "visible": true,
+    "smallIcon": "js_32x32.png",
+    "largeIcon": "js_64x64.png"
+  },
+  "settings":[
+    {
+      "name": "script",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "JavaScript Code",
+        "description": "The javascript code to evaluate. To access defined input parameter value in javascript code use `parameters.<parameter_name>` e.g. var foo = parameters.foo. To set value to output parameter in javascript code, use `result.<parameter_name>` e.g. result.foo = bar.",
+        "type": "texteditor",
+        "syntax": "javascript"
+      }
+    }
+  ],
+  "input":[
+    {
+      "name": "parameters",
+      "type": "object",
+      "display": {
+        "name": "Script Input Parameters",
+        "description": "Configure schema for one or more input parameters to the script",
+        "type": "texteditor",
+        "syntax": "json",
+        "mappable": true
+      }
+    }
+  ],
+  "output": [
+    {
+      "name": "error",
+      "type": "boolean",
+      "description": "Flag indicating if there was an error executing the script"
+    },
+    {
+      "name": "errorMessage",
+      "type": "string",
+      "description": "The error message"
+    },
+    {
+      "name": "result",
+      "type": "object",
+      "display": {
+        "name": "Script Output",
+        "description": "Configure schema for one or more output parameters for the script",
+        "type": "texteditor",
+        "syntax": "json"
+      }
+    }
+  ]
+}

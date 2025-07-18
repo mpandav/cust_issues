@@ -1,0 +1,148 @@
+{
+  "title": "Receive Salesforce Message",
+  "name": "salesforce-trigger",
+  "author": "TIBCO Software Inc.",
+  "version": "1.3.4",
+  "type": "flogo:trigger",
+  "display": {
+    "category": "Salesforce",
+    "visible": true,
+    "description": "Salesforce Trigger",
+    "smallIcon": "icons/ic-salesforce-trigger@2x.png",
+    "largeIcon": "icons/ic-salesforce-trigger@3x.png",
+    "wizard": [
+      "Choose Connection",
+      "Choose Object"
+    ],
+    "appPropertySupport": true
+  },
+  "ref": "github.com/tibco/wi-salesforce/src/app/Salesforce/trigger/salesforce",
+  "handler": {
+    "settings": [
+      {
+        "name": "Connection Name",
+        "required": true,
+        "type": "connection",
+        "display": {
+          "name": "Connection",
+          "description": "Select a Salesforce connection",
+          "type": "connection",
+          "visible": true
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Choose Connection"
+        },
+        "allowed": []
+      },
+      {
+        "name": "Object Name",
+        "type": "string",
+        "required": true,
+        "allowed": [],
+        "display": {
+          "name": "Object",
+          "description": "Salesforce business object name",
+          "type": "dropdown",
+          "selection": "single",
+          "visible": true
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Choose Object"
+        }
+      },
+      {
+        "name": "subscriberType",
+        "type": "string",
+        "allowed": [
+          "PushTopic",
+          "Change Data Capture",
+          "Platform Event"
+        ],
+        "required": false,
+        "value": "PushTopic",
+        "display": {
+          "name": "Subscriber Type",
+          "description": "Salesforce subscriber type",
+          "visible": true
+        },
+        "wizard": {
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Choose Object"
+        }
+      },
+      {
+        "name": "autoCreatePushTopic",
+        "required": true,
+        "type": "boolean",
+        "display": {
+          "name": "Auto Create PushTopic",
+          "description": "Set to true to create new PushTopic or set to false to use existing PushTopic"
+        },
+        "wizard": {
+          "step": "Choose Object"
+        },
+        "value": true
+      },
+      {
+        "name": "channelName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Channel Name",
+          "description": "Salesforce channel name to which the listener subscribes (Ex: /topic/AccountUpdates for PushTopic, /data/AccountChangeEvent for Change Data Capture, /event/OrderStatus__e for Platform Event)",
+          "visible": false,
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Choose Object"
+        },
+        "value": ""
+      },
+      {
+        "name": "replayID",
+        "type": "integer",
+        "required": false,
+        "display": {
+          "name": "Replay ID",
+          "description": "Retrieve events as per Replay ID configured value",
+          "visible": false,
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Choose Object"
+        },
+        "value": 0
+      },
+      {
+        "name": "Query",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Query",
+          "description": "The query you want to use to receive information from Salesforce (ex: Select Id, Name From Account)",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Choose Object"
+        }
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

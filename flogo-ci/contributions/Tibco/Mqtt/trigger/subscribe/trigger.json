@@ -1,0 +1,204 @@
+{
+  "title": "MQTT Subscriber",
+  "name": "mqtt-trigger",
+  "version": "1.2.1",
+  "type": "flogo:trigger",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "Mqtt",
+    "visible": true,
+    "description": "Subscribe to an MQTT topic",
+    "smallIcon": "icons/trigger@2x.png",
+    "largeIcon": "icons/trigger@3x.png",
+    "wizard": ["Choose Connection"],
+    "connector": ["Mqtt/connection"]
+  },
+  "useReplyHandler": false,
+  "ref": "github.com/tibco/wi-mqtt/src/app/Mqtt/trigger/subscribe",
+  "settings": [
+    {
+      "name": "mqttConnection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "MQTT Connection",
+        "description": "Select an MQTT connection",
+        "type": "connection"
+      },
+      "wizard": {
+        "type": "dropdown",
+        "selection": "single",
+        "step": "Choose Connection"
+      },
+      "allowed": []
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "topic",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Topic",
+          "visible": true,
+          "type": "string",
+          "description": "Enter a '/' delimited series of topic nodes which describe the desired topic.  Topic nodes can be '+' for single or '#' for multi level wildcards.  For example: '/root/branch/+/leaves'",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "qos",
+        "allowed": [0, 1, 2],
+        "type": "integer",
+        "required": false,
+        "display": {
+          "name": "Maximum QoS",
+          "visible": true,
+          "type": "string",
+          "description": "Maximum Quality of Service for the message. Valid values: 0 - At most once; 1 = At least once; 2 - Exactly once.",
+          "appPropertySupport": true
+        },
+        "value": 2
+      },
+      {
+        "name": "valueType",
+        "type": "string",
+        "display": {
+          "name": "Value Deserializer",
+          "description": "Type of record value to be received"
+        },
+        "allowed": ["String", "JSON", "Base64"],
+        "value": "String",
+        "wizard": {
+          "type": "string",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "showwill",
+        "type": "boolean",
+        "display": {
+          "name": "Show Will Fields",
+          "description": "Enable to view the last will and testiment fields"
+        },
+        "value": false,
+        "wizard": {
+          "type": "boolean",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "will",
+        "type": "string",
+        "required": false,
+        "display": {
+          "name": "Will",
+          "visible": true,
+          "type": "string",
+          "description": "Enter a message to be sent to the WillTopic in the event that this connection terminates abnormally",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "willtopic",
+        "type": "string",
+        "required": false,
+        "display": {
+          "name": "Will Topic",
+          "visible": true,
+          "type": "string",
+          "description": "Enter a topic to which the will message will be sent upon failure of this connection",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "type": "string",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "willqos",
+        "allowed": [0, 1, 2],
+        "type": "number",
+        "display": {
+          "name": "Will QoS",
+          "description": "Quality of Service for the will message. Valid values: 0 - At most once; 1 = At least once; 2 - Exactly once.",
+          "appPropertySupport": true
+        },
+        "value": 0,
+        "wizard": {
+          "type": "string",
+          "step": "Choose Connection"
+        }
+      },
+      {
+        "name": "willretain",
+        "type": "boolean",
+        "display": {
+          "name": "Will Retain",
+          "description": "Set to true to cause the server to retain the will message",
+          "appPropertySupport": true
+        },
+        "value": false,
+        "wizard": {
+          "type": "boolean",
+          "step": "Choose Connection"
+        }
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "topic",
+      "type": "string"
+    },
+    {
+      "name": "retained",
+      "type": "boolean"
+    },
+    {
+      "name": "qos",
+      "type": "integer"
+    },
+    {
+      "name": "duplicate",
+      "type": "boolean"
+    },
+    {
+      "name": "messageID",
+      "type": "integer"
+    },
+    {
+      "name": "stringValue",
+      "type": "string"
+    },
+    {
+      "name": "jsonValue",
+      "type": "object",
+      "display": {
+        "name": "Schema for JSON value",
+        "description": "The JSON schema for the MQTT record value",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false
+      },
+      "wizard": {
+        "type": "object",
+        "step": "Choose Connection"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

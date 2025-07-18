@@ -1,0 +1,262 @@
+{
+	"type": "flogo:trigger",
+	"display": {
+		"description": "Subscribe to a Pulsar topic",
+		"category": "pulsar",
+		"visible": true,
+		"smallIcon": "icons/pulsar_message_subscriber@2x.png",
+		"largeIcon": "icons/pulsar_message_subscriber@3x.png",
+		"wizard": [
+			"Settings"
+		],
+		"tags": [
+			"Messaging",
+			"Pulsar"
+		]
+	},
+	"useReplyHandler": false,
+	"ref": "github.com/project-flogo/messaging-contrib/pulsar/trigger/subscriber",
+	"settings": {
+		"modelAttributes": {
+			"connection": {
+				"display": {
+					"name": "Pulsar Connection",
+					"description": "Connection to an Apache Pulsar broker",
+					"type": "connection"
+				},
+				"wizard": {
+					"type": "dropdown",
+					"selection": "single",
+					"step": "Settings"
+				}
+			}
+		}
+	},
+	"handlers": {
+		"modelAttributes": {
+			"topic": {
+				"display": {
+					"name": "Topic",
+					"description": "Topic name in the format:  topic, tenant/namespace/topic, persistent://topic, persistent://tenant/namespace/topic, non-persistent://tenant/namespace/topic",
+					"appPropertySupport": true
+				},
+				"wizard": {
+					"step": "Settings"
+				}
+			},
+			"topicsPattern": {
+				"display": {
+					"name": "Topics Pattern",
+					"description": "Specify a regular expression. If both Topic and Topics Pattern are specified, the subscription will be created with only the Topic.",
+					"appPropertySupport": true
+				},
+				"wizard": {
+					"step": "Settings"
+				}
+			},
+			"subscriptionName": {
+				"display": {
+					"name": "Subscription Name",
+					"description": "The subscription name.  If no such subscription exists it will be created.",
+					"appPropertySupport": true
+				},
+				"wizard": {
+					"step": "Settings"
+				}
+			},
+			"subscriptionType": {
+				"display": {
+					"name": "Subscription Type",
+					"description": "All subscribers for a particular subscription must be of the same type to connect",
+					"appPropertySupport": false,
+					"type": "dropdown",
+					"selection": "single"
+				}
+			},
+			"processingMode": {
+				"display": {
+					"name": "Processing Mode",
+					"description": "Determines how messages are received by the handler. In `Sync` mode, handler will receive and process at-most one message. This mode guarantees the order of processing. In `Async` mode, handler will receive messages concurrently at the same time. This mode does not guarantee the order of processing.",
+					"appPropertySupport": false
+				},
+				"wizard": {
+					"step": "Settings"
+				}
+			},
+			"initialPosition": {
+				"display": {
+					"name": "Initial Position",
+					"description": "Select Latest to recieve only messages sent as of when this subscriber starts, else Earliest",
+					"appPropertySupport": true,
+					"type": "dropdown",
+					"selection": "single"
+				}
+			},
+			"seek": {
+				"display": {
+					"name": "Seek",
+					"description": "Seek resets the subscription associated with this consumer to a specific message id OR to a specific message publish time",
+					"appPropertySupport": true,
+					"type": "dropdown",
+					"selection": "single"
+				}
+			},
+			"seekTime": {
+				"display": {
+					"name": "TimeStamp",
+					"visible": false,
+					"description": "Provide specific message publish time to resets the subscription associated with this consumer",
+					"appPropertySupport": true
+				}
+			},
+			"entryId": {
+				"display": {
+					"name": "Entry ID",
+					"description": "Set the entry id pointing to the desired entry",
+					"appPropertySupport": true,
+					"visible": false
+				}
+			},
+			"ledgerId": {
+				"display": {
+					"name": "Ledger ID",
+					"description": "Set the ledger id pointing to the desired ledger",
+					"appPropertySupport": true,
+					"visible": false
+				}
+			},
+			"dlqTopic": {
+				"display": {
+					"name": "DLQ Topic",
+					"description": "The name of the topic to which messages will be relocated when the DLQ Max Deliveries threshold is reached.  If no topic is specified then DLQ processing is not performed.",
+					"appPropertySupport": true,
+					"visible": false,
+					"type": "string"
+				}
+			},
+			"dlqMaxDeliveries": {
+				"display": {
+					"name": "DLQ Max Deliveries",
+					"description": "Set the maximum number of times message processing can fail before the message is relocated to the DLQ Topic",
+					"appPropertySupport": true,
+					"visible": false
+				}
+			},
+			"nackRedeliveryDelay": {
+				"display": {
+					"name": "Nack Redelivery Delay",
+					"description": "Set the delay in seconds after which message will be redelivered when it is negative acknowledged",
+					"appPropertySupport": true,
+					"visible": true,
+					"type": "int"
+				}
+			},
+			"enableBatchIndexAcknowledgment": {
+				"display": {
+					"name": "Enable Batch Index Acknowledgment",
+					"description": "Enable or disable batch index acknowledgment. To enable this feature, ensure batch index acknowledgment is enabled on the broker side.",
+					"appPropertySupport": true,
+					"visible": true
+				}
+			},
+			"maxPendingChunkedMessage": {
+				"display": {
+					"name": "Max Pending Chunked Message",
+					"description": "Specifies the maximum size of a queue that can hold pending message chunks for a consumer.",
+					"appPropertySupport": true,
+					"visible": true
+				}
+			},
+			"expireTimeOfIncompleteChunk": {
+				"display": {
+					"name": "Expire Time Of Incomplete Chunk",
+					"description": "Set the expiry time of discarding incomplete chunked message in seconds",
+					"appPropertySupport": true,
+					"visible": true
+				}
+			},
+			"autoAckIncompleteChunk": {
+				"display": {
+					"name": "Auto Ack Incomplete Chunk",
+					"description": "Set whether consumer auto acknowledges incomplete chunked message when it should be removed",
+					"appPropertySupport": true,
+					"visible": true
+				}
+			},
+			"replicateSubscriptionState": {
+				"display": {
+					"name": "Replicate Subscription State",
+					"description": "Replicate Subscription State marks the subscription as replicated to keep it in sync across clusters",
+					"appPropertySupport": true,
+					"visible": true
+				}
+			}
+		},
+		"newAttributes": [
+			{
+				"name": "format",
+				"type": "string",
+				"required": true,
+				"value": "String",
+				"allowed": [
+					"String",
+					"JSON"
+				],
+				"display": {
+					"name": "Message Format",
+					"description": "Select the format for the message body",
+					"appPropertySupport": false,
+					"visible": true,
+					"outputSettingsOnly": true
+				},
+				"wizard": {
+					"type": "dropdown",
+					"selection": "single",
+					"step": "Settings"
+				}
+			}
+		]
+	},
+	"output": {
+		"newAttributes": [
+			{
+				"name": "jsonSchema",
+				"type": "object",
+				"required": false,
+				"value": "",
+				"display": {
+					"name": "Schema for JSON value",
+					"description": "The JSON schema for the topic payload",
+					"type": "texteditor",
+					"syntax": "json",
+					"visible": false,
+					"outputSettingsOnly": true
+				},
+				"wizard": {
+					"type": "object",
+					"step": "Settings"
+				}
+			}
+		],
+		"modelAttributes": {
+			"properties": {
+				"display": {
+					"name": "Message Properties",
+					"description": "Message properties",
+					"type": "params",
+					"schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}"
+				},
+				"wizard": {
+					"step": "Settings"
+				}
+			}
+		}
+	},
+	"actions": {
+		"newAttributes": [
+			{
+				"name": "Finish"
+			}
+		]
+	}
+}

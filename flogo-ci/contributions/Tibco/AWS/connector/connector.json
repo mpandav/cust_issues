@@ -1,0 +1,218 @@
+{
+    "name": "tibco-aws",
+    "version": "1.2.2",
+    "title": "AWS Connector",
+    "type": "flogo:connector",
+    "author": "TIBCO Software Inc.",
+    "display": {
+        "description": "AWS Connection",
+        "category": "AWS",
+        "visible": true,
+        "smallIcon": "icons/ic-flogo-aws-connector.png",
+        "largeIcon": "icons/ic-flogo-aws-connector@2x.png",
+        "connectionsupport": true
+    },
+	"ref": "github.com/tibco/flogo-aws/src/app/AWS/connector",
+    "keyfield": "name",
+    "settings": [
+        {
+            "name": "name",
+            "type": "string",
+            "required": true,
+            "display": {
+                "name": "Name",
+                "visible": true
+            }
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Description",
+                "visible": true
+            }
+        },
+        {
+            "name": "customEndpoint",
+            "type": "boolean",
+            "required": false,
+            "display": {
+                "name": "Custom Endpoint",
+                "description": "Enable Custom Endpoint",
+                "visible": true,
+                "appPropertySupport": true
+            },
+            "value": false
+        },
+        {
+            "name": "endpoint",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Endpoint",
+                "description": "AWS Custom Endpoint",
+                "visible": false,
+                "appPropertySupport": true
+            }
+        },
+        {
+            "name": "region",
+            "type": "string",
+            "required": true,
+			"allowed": [
+                "us-east-1",
+                "us-east-2",
+                "us-west-1",
+                "us-west-2",
+                "af-south-1",
+                "ap-east-1",
+                "ap-south-1",
+                "ap-northeast-3",
+                "ap-northeast-2",
+                "ap-northeast-1",
+                "ap-southeast-1",
+                "ap-southeast-2",
+                "ca-central-1",
+                "cn-north-1",
+                "cn-northwest-1",
+                "eu-central-1",
+                "eu-west-1",
+                "eu-west-2",
+                "eu-west-3",
+                "eu-north-1",
+                "eu-south-1",
+                "me-south-1",
+                "sa-east-1",
+                "us-gov-east-1",
+                "us-gov-west-1"
+            ],
+            "display": {
+                "name": "Region",
+				"description": "AWS Region",
+                "appPropertySupport": true,
+                "visible": true
+            },
+            "value": ""
+        },
+        {
+            "name": "authenticationType",
+            "type": "string",
+            "required": true,
+			"allowed": [
+                "AWS Credentials",
+                "Default Credentials"
+            ],
+            "display": {
+                "name": "Authentication Type",
+                "description": "Select appropriate authentication method 1. AWS Credentials : This method must be used when you want to connect to AWS resources using access/secret keys and assumed role. 2. Default Credentials: This method must be used when you want to leverage role configured to AWS resource like EC2, EKS without configuring AWS credentials.",
+                "appPropertySupport": true,
+                "visible": true
+            },
+            "value": "AWS Credentials"
+        },
+        {
+            "name": "accessKey",
+            "type": "string",
+            "required" : true,
+            "display": {
+                "name": "Access key ID",
+                "description": "AWS Access key ID",
+                "appPropertySupport": true,
+                "visible": true
+            },
+            "value": ""
+        },
+        {
+            "name": "secretKey",
+            "type": "string",
+            "required" : true,
+            "display": {
+                "name": "Secret access key",
+                "description": "AWS Secret access key",
+                "appPropertySupport": true,
+                "visible": true,
+                "type": "password"
+            },
+            "value": ""
+        },
+        {
+            "name": "sessionToken",
+            "type": "string",
+            "display": {
+                "name": "Session Token",
+                "description": "AWS session token if generated",
+                "appPropertySupport": true,
+                "visible": true,
+                "type": "password"
+            },
+            "value": ""
+        },
+        {
+            "name": "assumeRole",
+            "type": "boolean",
+            "required" : true,
+            "display": {
+                "name": "Use Assume Role",
+                "description": "Use for AWS Assume role, default is false"
+            },
+            "value":false
+        },
+        {
+            "name": "roleArn",
+            "type": "string",
+            "required" : true,
+            "display": {
+                "name": "Role ARN",
+                "description": "The Amazon Resource Name (ARN) of the role to assume",
+                "appPropertySupport": true
+            },
+            "value": ""
+        },
+        {
+            "name": "roleSessionName",
+            "type": "string",
+            "required" : true,
+            "display": {
+                "name": "Role Session Name",
+                "description": "An identifier for the assumed role session",
+                "appPropertySupport": true
+            },
+            "value": ""
+        },
+        {
+            "name": "externalId",
+            "type": "string",
+            "required" : false,
+            "display": {
+                "name": "External ID",
+                "description": "A unique identifier that might be required when you assume a role in another account",
+                "appPropertySupport": true
+            },
+            "value": ""
+        },
+        {
+            "name": "expirationDuration",
+            "type": "integer",
+            "required" : true,
+            "display": {
+                "name": "Expiration Duration",
+                "description": "The duration, in seconds, of the role session. The value can range from 900 seconds (15 minutes) up to the maximum session duration setting for the role",
+                "appPropertySupport": true
+            },
+            "value": 900
+        },
+        {
+            "name": "LAMBDA_CONNECTION_INFO",
+            "type": "string",
+            "required": true,
+            "display": {
+                "visible": false
+            },
+            "value": ""
+        }
+    ],
+    "actions": [{
+        "name": "Save"
+    }]
+}

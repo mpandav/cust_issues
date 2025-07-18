@@ -1,0 +1,162 @@
+{
+    "ref": "github.com/project-flogo/graphql/trigger/graphql",
+    "type": "flogo:trigger",
+    "display": {
+        "description": "Simple GraphQL Trigger",
+        "uploadField": "schemaFile",
+        "visible": true,
+        "wizard": [
+            "Step 1"
+        ],
+        "smallIcon": "icons/graphql_32.png",
+        "largeIcon": "icons/graphql_48.png"
+    },
+    "settings": {
+        "modelAttributes": {
+            "port": {
+                "display": {
+                    "name": "Port",
+                    "type": "integer",
+                    "description": "The port to listen for requests",
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "Port",
+                    "type": "integer",
+                    "step": "Step 1"
+                }
+            },
+            "path": {
+                "display": {
+                    "name": "Path",
+                    "type": "string",
+                    "description": "The HTTP resource path",
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "Resource path",
+                    "type": "string",
+                    "step": "Step 1"
+                }
+            },
+            "secureConnection": {
+                "display": {
+                    "name": "Secure Connection",
+                    "type":"boolean",
+                    "description": "Set to \"true\" for a secure connection"
+                },
+                "wizard": {
+                    "name": "Secure Connection",
+                    "type": "boolean",
+                    "step": "Step 1"
+                }
+            },
+            "serverKey": {
+                "display": {
+                    "name": "Server Key",
+                    "type": "fileselector",
+                    "description": "A PEM encoded private key file",
+                    "fileExtensions": [
+                        ".pem",
+                        ".cert",
+                        ".cer",
+                        ".crt",
+                        ".key"
+                    ],
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "Server Key",
+                    "type": "fileselector",
+                    "step": "Step 1"
+                }
+            },
+            "caCertificate": {
+                "display": {
+                    "name": "CA or Server Certificate",
+                    "type": "fileselector",
+                    "description": "A PEM encoded CA or Server certificate file",
+                    "fileExtensions": [
+                        ".pem",
+                        ".cert",
+                        ".cer",
+                        ".crt"
+                    ],
+                    "appPropertySupport": true
+                },
+                "wizard": {
+                    "name": "CA or Server Certificate",
+                    "type": "fileselector",
+                    "step": "Step 1"
+                }
+            },
+            "graphqlSchema": {
+                "display": {
+                    "name": "GraphQL Schema",
+                    "type": "texteditor",
+                    "description": "The GraphQL schema for the trigger ",
+                    "visible": false
+                }
+            }
+        },
+        "newAttributes": [
+            {
+                "name": "schemaFile",
+                "type": "string",
+                "display": {
+                  "name": "GraphQL Schema File",
+                  "type": "fileselector",
+                  "description": "The GraphQL schema file for the trigger",
+                  "fileExtensions": [
+                      ".graphql",
+                      ".gql"
+                  ]
+                },
+                "wizard": {
+                  "name": "GraphQL Schema File",
+                  "type": "fileselector",
+                  "step": "Step 1"
+                }
+            }
+        ]
+    },
+    "handlers": {
+        "modelAttributes": {
+            "operation": {
+                "display": {
+                    "name": "GraphQL Operation",
+                    "description": "Select the type of the GraphQL Operation",
+                    "type": "dropdown",
+                    "selection": "single"
+                },
+                "wizard": {
+                    "type": "dropdown",
+                    "selection": "single",
+                    "step": "Step 1"
+                }
+            },
+            "resolverFor": {
+                "display": {
+                    "name": "Resolver For",
+                    "description": "Select one field from the drop down",
+                    "type": "dropdown"
+                },
+                "wizard": {
+                    "name": "Resolver For",
+                    "type": "dropdown",
+                    "selection": "single",
+                    "step": "Step 1"
+                }
+            }
+        },
+        "newAttributes": []
+    },
+    "actions": {
+        "modelAttributes": {},
+        "newAttributes": [
+            {
+                "name": "Finish"
+            }
+        ]
+    }
+}

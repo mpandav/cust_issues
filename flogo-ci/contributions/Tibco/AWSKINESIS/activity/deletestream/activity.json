@@ -1,0 +1,51 @@
+
+{
+    "name": "deletestream",
+    "type": "flogo:activity",
+    "title": "Kinesis Delete Stream Activity",
+    "display": {
+        "category": "AWSKINESIS",
+        "smallIcon": "icons/delete.png",
+        "largeIcon": "icons/delete@2x.png"
+    },
+    "ref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/deletestream",
+    "inputs": [
+        {
+            "name": "awsConnection",
+            "type": "connection",
+            "required": "true",
+            "display":{
+                "name": "AWS Connection",
+                "description": "Select AWS Connection",
+                "type": "connection"
+            },
+            "allowed":[]
+        },
+        {
+            "name": "streamType",
+            "type" : "string",
+            "required" : "true",
+            "display":{
+                "name" : "Stream Type",
+                "description" : "Choose the Type of Stream To Delete",
+                "type" : "dropdown",
+                "selection" : "single"
+            },
+            "allowed":["DataStream", "Firehose-DeliveryStream"]
+        },
+        {
+            "name" : "input",
+            "type" : "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name" : "Error",
+            "type" : "object"
+        },
+        {
+            "name" : "Message",
+            "type" : "object"
+        }
+    ]
+}

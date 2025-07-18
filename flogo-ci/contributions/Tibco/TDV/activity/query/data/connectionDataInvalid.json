@@ -1,0 +1,128 @@
+{
+    "id": "3d483000-bb7c-11e8-a211-efab733e23a2",
+    "connectorName": " ",
+    "connectorDescription": " ",
+    "display": {
+        "category": "TDV"
+    },
+    "createdTime": 1537300291328,
+    "lastUpdatedTime": 1537300291328,
+    "connector": {
+        "type": "flogo:connector",
+        "version": "1.0.0",
+        "name": "tdv-connector",
+        "inputMappings": {},
+        "outputMappings": {},
+        "iteratorMappings": {},
+        "title": "TDV Connector",
+        "description": "Connector to connect to a TDV database server",
+        "ref": "github.com/tibco/flogo-tdv/src/app/TDV/connector/connection",
+        "settings": [{
+                "name": "name",
+                "type": "string",
+                "required": true,
+                "display": {
+                    "name": "Connection Name",
+                    "visible": true
+                },
+                "value": "TDVUniv"
+            },
+            {
+                "name": "description",
+                "type": "string",
+                "display": {
+                    "name": "Description",
+                    "visible": true
+                },
+                "value": "TDVUnivConnection"
+            },
+            {
+                "name": "host",
+                "type": "string",
+                "required": true,
+                "display": {
+                    "name": "Host",
+                    "description": "TDV Database Host name",
+                    "type": "string",
+                    "visible": true
+                },
+                "value": "hyperion.na.tibco.com"
+            },
+            {
+                "name": "port",
+                "type": "integer",
+                "required": true,
+                "value": 9401,
+                "display": {
+                    "name": "Port",
+                    "description": "TDV Database Port",
+                    "type": "integer",
+                    "visible": true
+                }
+            },
+            {
+                "name": "databaseName",
+                "type": "string",
+                "required": true,
+                "display": {
+                    "name": "Database Name",
+                    "description": "Name of the Database",
+                    "type": "string",
+                    "visible": true
+                },
+                "value": "university"
+            },
+            {
+                "name": "user",
+                "type": "string",
+                "required": true,
+                "display": {
+                    "name": "User",
+                    "description": "Name of the Database User",
+                    "visible": true
+                },
+                "value": "admin"
+            },
+            {
+                "name": "password",
+                "type": "string",
+                "required": true,
+                "display": {
+                    "name": "Password",
+                    "description": "TDV Database Port",
+                    "type": "password",
+                    "visible": true
+                },
+                "value": "hahahhehe"
+            }
+        ],
+        "outputs": [],
+        "inputs": [],
+        "handler": {
+            "settings": []
+        },
+        "reply": [],
+        "s3Prefix": "bob",
+        "key": "bob/TDV/connector/connection/connector.json",
+        "display": {
+            "description": "Connector to connect to a TDV database server",
+            "category": "TDV",
+            "visible": true,
+            "smallIcon": "icons/ic-tibco-data-virtualization-connector.png",
+            "largeIcon": "icons/ic-tibco-data-virtualization-connector.png"
+        },
+        "actions": [{
+            "name": "Connect"
+        }],
+        "feature": {},
+        "keyfield": "name",
+        "isValid": true,
+        "lastUpdatedTime": 1537300291328,
+        "createdTime": 1537300291328,
+        "user": "bob",
+        "subscriptionId": "bob_sbsc",
+        "id": "3d483000-bb7c-11e8-a211-efab733e23a2",
+        "connectorName": " ",
+        "connectorDescription": " "
+    }
+}

@@ -1,0 +1,112 @@
+{
+  "name": "gcp-pubsub-message-publisher",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "title": "Message Publisher Activity",
+  "display": {
+    "category": "GoogleCloudPubSub",
+    "visible": true,
+    "smallIcon": "cloud_pub-sub_publisher@2x.png",
+    "largeIcon": "cloud_pub-sub_publisher@3x.png",
+    "description": "This activity sends a message to Google Cloud Pub/Sub Messaging Service"
+  },
+  "ref": "github.com/tibco/flogo-google-pubsub/src/app/GoogleCloudPubSub/activity/publisher",
+  "feature": {
+    "retry": {
+      "enabled": true
+    }
+  },
+  "settings": [
+    {
+      "name": "googleConnection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Google Pub/Sub Connection",
+        "description": "Select Google Pub/Sub Connection",
+        "type": "connection"
+      },
+      "allowed": []
+    },
+    {
+      "name": "topicName",
+      "type": "string",
+      "display": {
+        "name": "Topic ID",
+        "description": "Configure the Id of topic to publish messages. Topic with given id must exist in Google project. You can override topic Id in the activity `Input`.",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "messageOrdering",
+      "type": "boolean",
+      "display": {
+        "name": "Enable Message Ordering",
+        "description": "Enable delivery of messages based on the ordering key. When enabled, receiver will receive messages in the order in which they are sent"
+      },
+      "value": false
+    },
+    {
+      "name": "messageDataFormat",
+      "type": "string",
+      "display": {
+        "name": "Message Data Format",
+        "description": "Format of the data to be sent. For JSON format, configure JSON schema or JSON sample payload on the `Input Settings`",
+        "visible": true
+      },
+      "value": "String",
+      "allowed": [
+        "String",
+        "JSON"
+      ]
+    }
+  ],
+  "inputs": [
+    {
+      "name": "jsonSchema",
+      "type": "object",
+      "required": false,
+      "value": "",
+      "display": {
+        "name": "Schema for JSON data",
+        "description": "Enter JSON schema or JSON sample payload for the message data",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false,
+        "inputSettingsOnly": true
+      }
+    },
+    {
+      "name": "topicId",
+      "type": "string"
+    },
+    {
+      "name": "message",
+      "type": "any",
+      "required": true
+    },
+    {
+      "name": "messageAttributes",
+      "type": "object",
+      "display": {
+        "name": "Message Attributes",
+        "description": "Message attributes to be sent",
+        "type": "params",
+        "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}",
+        "mappable": true
+      }
+    },
+    {
+      "name": "messageOrderingKey",
+      "type": "string"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "messageId",
+      "type": "string",
+      "required": true
+    }
+  ]
+}

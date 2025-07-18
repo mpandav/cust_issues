@@ -1,0 +1,257 @@
+{
+    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/trigger/subscriber",
+    "name": "IBMMQSubscriber",
+    "description": "",
+    "settings": {
+        "clientconfirm": false,
+        "islistener": false,
+        "pollinginterval": 1000
+    },
+    "id": "IBMMQSubscriber",
+    "handlers": [
+        {
+            "description": "",
+            "settings": {
+                "Connection": {
+                    "id": "a3fcee70-5f9c-11e9-8528-b53abec2e1ba",
+                    "type": "flogo:connector",
+                    "version": "1.0.0",
+                    "name": "connection",
+                    "inputMappings": {},
+                    "outputMappings": {},
+                    "iteratorMappings": {},
+                    "title": "IBM MQ Connection",
+                    "description": "IBM MQ Connection",
+                    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/connector/connection",
+                    "settings": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "required": true,
+                            "display": {
+                                "name": "Connection Name",
+                                "visible": true
+                            },
+                            "value": "gandalf"
+                        },
+                        {
+                            "name": "description",
+                            "type": "string",
+                            "display": {
+                                "name": "Description",
+                                "visible": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "qmname",
+                            "type": "string",
+                            "display": {
+                                "name": "Queue Manager Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "gandalfmq91"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "display": {
+                                "name": "Host Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "gandalf"
+                        },
+                        {
+                            "name": "port",
+                            "type": "string",
+                            "display": {
+                                "name": "Port",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "1414"
+                        },
+                        {
+                            "name": "chname",
+                            "type": "string",
+                            "display": {
+                                "name": "Server Connection Channel Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "SVRCONN"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "display": {
+                                "name": "User Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "password",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Password",
+                                "visible": true,
+                                "type": "password",
+                                "encryptable": true,
+                                "appPropertySupport": true,
+                                "Description": "Enter a password if this connection requires one"
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "encryptionMode",
+                            "type": "string",
+                            "display": {
+                                "name": "Encryption Mode",
+                                "description": "Choose the type of authentication to use"
+                            },
+                            "allowed": [
+                                "None",
+                                "TLS-ServerAuth",
+                                "TLS-MutualAuth"
+                            ],
+                            "value": "None"
+                        },
+                        {
+                            "name": "keystore",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore",
+                                "description": "Select the IBM keystore to be used for this connection.  Must be a KDB keystore",
+                                "visible": false,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".kdb",
+                                    ".KDB"
+                                ],
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "keystorestash",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore Stashfile",
+                                "description": "Select the IBM keystore stashfile to be used for this connection",
+                                "visible": false,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".sth",
+                                    ".STH"
+                                ],
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "keystoreLabel",
+                            "type": "string",
+                            "display": {
+                                "name": "Keystore Cert Label",
+                                "description": "Enter the label of the client cerificate to use for mutual authentication.  If not specified the default certificate will be used",
+                                "visible": false,
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "cipherspec",
+                            "type": "string",
+                            "display": {
+                                "name": "CipherSpec",
+                                "description": "Enter the cipher specification used on the server connection channel",
+                                "visible": false,
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        }
+                    ],
+                    "outputs": [],
+                    "inputs": [],
+                    "handler": {
+                        "settings": []
+                    },
+                    "reply": [],
+                    "s3Prefix": "Tibco",
+                    "key": "Tibco/IBM-MQ/connector/connection/connector.json",
+                    "display": {
+                        "category": "IBM-MQ",
+                        "smallIcon": "icons/IBM-MQ-large.png",
+                        "largeIcon": "icons/IBM-MQ-large.png",
+                        "visible": true,
+                        "description": "IBM MQ Connection"
+                    },
+                    "actions": [
+                        {
+                            "name": "Save"
+                        }
+                    ],
+                    "feature": {},
+                    "propertyMap": {},
+                    "keyfield": "name",
+                    "isValid": true,
+                    "lastUpdatedTime": 1555424167369,
+                    "user": "flogo",
+                    "connectorName": "gandalf",
+                    "connectorDescription": " "
+                },
+                "topic": "wcn/topic/static",
+                "dynamictopic": "",
+                "durable": false,
+                "durablename": "",
+                "newpubsonly": false,
+                "valueType": "String"
+            },
+            "outputs": {
+                "MQMD": {
+                    "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"MsgType\":{\"type\":\"string\"},\"MsgId\":{\"type\":\"string\"},\"CorrelId\":{\"type\":\"string\"},\"Encoding\":{\"type\":\"number\"},\"CodedCharSetId\":{\"type\":\"number\"},\"Format\":{\"type\":\"string\"},\"Priority\":{\"type\":\"number\"},\"BackoutCount\":{\"type\":\"number\"},\"ReplyToQ\":{\"type\":\"string\"},\"ReplyToQmgr\":{\"type\":\"string\"},\"UserIdentifier\":{\"type\":\"string\"},\"AccountingToken\":{\"type\":\"string\"},\"ApplIdentityData\":{\"type\":\"string\"},\"PutApplType\":{\"type\":\"number\"},\"PutApplName\":{\"type\":\"string\"},\"PutDate\":{\"type\":\"string\"},\"PutTime\":{\"type\":\"string\"},\"ApplOriginData\":{\"type\":\"string\"}}}",
+                    "value": "",
+                    "fe_metadata": "{\"MsgType\": \"string\", \"MsgId\": \"string\",\"CorrelId\":\"string\",\"Encoding\": 0,\"CodedCharSetId\":0,\"Format\":\"string\",\"Priority\":0, \"BackoutCount\": 0 ,\"ReplyToQ\":\"string\",\"ReplyToQmgr\":\"string\",\"UserIdentifier\":\"string\",\"AccountingToken\":\"string\",\"ApplIdentityData\":\"string\",\"PutApplType\":0,\"PutApplName\":\"string\",\"PutDate\":\"string\",\"PutTime\":\"string\",\"ApplOriginData\":\"string\"}"
+                },
+                "Message": {
+                    "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"String\":{\"type\":\"string\"}}}",
+                    "value": "",
+                    "fe_metadata": "{ \"String\": \"string\" }"
+                }
+            },
+            "action": {
+                "id":"dummy",
+                "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+                "data": {
+                    "flowURI": "res://flow:Subscribe"
+                },
+                "mappings": {
+                    "input": [
+                        {
+                            "mapTo": "$INPUT['MQMD']",
+                            "type": "assign",
+                            "value": "$.MQMD"
+                        },
+                        {
+                            "mapTo": "$INPUT['Message']",
+                            "type": "assign",
+                            "value": "$.Message"
+                        }
+                    ],
+                    "output": []
+                }
+            }
+        }
+    ]
+}

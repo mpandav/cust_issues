@@ -1,0 +1,177 @@
+{
+    "name": "ucs",
+    "type": "flogo:function",
+    "version": "0.0.1",
+    "title": "UCSFunctions",
+    "description": "UCSFunctions",
+    "functions": [
+        {
+            "name": "equal",
+            "description": "Converts an equal experssion statement into a JSON object",
+            "example": "ucs.equal(\"Price\", \"123.00\") =>  {\"expr\": \"eq\", \"prop\": \"Price\", \"val\":123.00}",
+            "args": [
+                {
+                    "name": "propName",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "notEqual",
+            "description": "Converts an not equal experssion statement into a JSON object",
+            "example": "ucs.notEqual(\"Price\", \"123.00\") =>  {\"expr\": \"neq\", \"prop\": \"Price\", \"val\":123.00}",
+            "args": [
+                {
+                    "name": "propName",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "lessThan",
+            "description": "Converts an less than experssion statement into a JSON object",
+            "example": "ucs.lessThan(\"Price\", \"123.00\") =>  {\"expr\": \"lt\", \"prop\": \"Price\", \"val\":123.00}",
+            "args": [
+                {
+                    "name": "propName",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "greaterThan",
+            "description": "Converts an greater than experssion statement into a JSON object",
+            "example": "ucs.greaterThan(\"Price\", \"123.00\") =>  {\"expr\": \"gt\", \"prop\": \"Price\", \"val\":123.00}",
+            "args": [
+                {
+                    "name": "propName",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "greaterThanEqual",
+            "description": "Converts an greater than equal experssion statement into a JSON object",
+            "example": "ucs.greaterThanEqual(\"Price\", \"123.00\") =>  {\"expr\": \"gte\", \"prop\": \"Price\", \"val\":123.00}",
+            "args": [
+                {
+                    "name": "propName",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "lessThanEqual",
+            "description": "Converts an less than equal experssion statement into a JSON object",
+            "example": "ucs.lessThanEqual(\"Price\", \"123.00\") =>  {\"expr\": \"lte\", \"prop\": \"Price\", \"val\":123.00}",
+            "args": [
+                {
+                    "name": "propName",
+                    "type": "string"
+                },
+                {
+                    "name": "value",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "or",
+            "description": "Converts an OR experssion into a JSON object",
+            "example": "ucs.or(ucs.equal(\"Price\", 123.00), ucs.greaterThan(\"Salary\", 10000)) =>  {\"expr\":\"or\",\"left\":{\"expr\":\"eq\",\"prop\":\"Price\",\"val\":123.00},\"right\":{\"expr\":\"gt\",\"prop\":\"Salary\",\"val\":10000}}",
+            "args": [
+                {
+                    "name": "leftExpr",
+                    "type": "object"
+                },
+                {
+                    "name": "rightExpr",
+                    "type": "object"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "and",
+            "description": "Converts an AND experssion into a JSON object",
+            "example": "ucs.and(ucs.equal(\"Price\", 123.00), ucs.greaterThan(\"Salary\", 10000)) =>  {\"expr\":\"and\",\"left\":{\"expr\":\"eq\",\"prop\":\"Price\",\"val\":123.00},\"right\":{\"expr\":\"gt\",\"prop\":\"Salary\",\"val\":10000}}",
+            "args": [
+                {
+                    "name": "leftExpr",
+                    "type": "object"
+                },
+                {
+                    "name": "rightExpr",
+                    "type": "object"
+                }
+            ],
+            "return": {
+                "type": "object"
+            },
+            "display": {
+                "visible": true
+            }
+        }
+    ]
+}

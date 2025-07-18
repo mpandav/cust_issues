@@ -1,0 +1,88 @@
+{
+  "name": "put",
+  "title": "Put",
+  "version": "1.2.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon S3 Put Activity",
+    "category": "AmazonS3",
+    "smallIcon": "icons/put@2x.png",
+    "largeIcon": "icons/put@3x.png"
+  },
+  "ref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/put",
+  "inputs": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "serviceName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Service Name",
+        "description": "Select one service from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "putType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Put Type",
+        "description": "Select one operation from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "inputType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Input Type",
+        "description": "Select one input type from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "preserveACL",
+      "type": "boolean",
+      "value": false,
+      "display": {
+        "name": "Preserve Source Object ACL",
+        "description": "Determines whether the source object acl should be copied over to the target object"
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    },
+    {
+      "name": "error",
+      "type": "object"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+    "name": "data",
+    "type": "flogo:function",
+    "version": "0.0.1",
+    "title": "defaultFunctions",
+    "description": "Default functions supported by engine",
+    "functions": [
+        {
+            "name": "isDefined",
+            "description": "Specify a mapping reference to check if it is defined or not",
+            "example": "isDefined($activity[foo].book[2].price)\nisDefined($.foo.store.exit)",
+            "args": [
+                {
+                    "name": "mappingReference",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "boolean"
+            },
+            "display": {
+                "visible": true
+            }
+        },
+        {
+            "name": "GetValue",
+            "description": "Return a default value if mapping reference is not defined",
+            "example": "GetValue($activity[foo].book[2].price, 90)\nGetValue($.foo.store.addr, \"Some address\")",
+            "args": [
+                {
+                    "name": "mappingReference",
+                    "type": "any"
+                },
+                {
+                    "name": "default",
+                    "type": "any"
+                }
+            ],
+            "return": {
+                "type": "any"
+            },
+            "display": {
+                "visible": true
+            }
+        }
+    ]
+}

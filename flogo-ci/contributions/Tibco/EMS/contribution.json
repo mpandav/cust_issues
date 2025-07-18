@@ -1,0 +1,10 @@
+{
+  "name": "TIBCO Flogo® Connector for TIBCO Enterprise Message Service",
+  "version": "1.0.2",
+  "category": "EMS",
+  "description": "TIBCO Flogo® Connector for TIBCO Enterprise Message Service™ allows you to send and receive messages from your Flogo® applications in a format that conforms to the Jakarta Messaging specification.",
+  "supplement": true,
+  "supplementType": "internal",
+"tag": "1.0.2-b01",
+  "signature": "UHzoY2kauag20CJK7Vzi/eiJUM1ttXLvf0s5KAReeSRkL6ZqspDsE20gbJxMLMUD7LpdoWrQ1PDwVdBNJxhUdpCiIDoM2jwNSDX92lYyfmO+vW8RJ2RgJfUkF9WM6jc="
+}

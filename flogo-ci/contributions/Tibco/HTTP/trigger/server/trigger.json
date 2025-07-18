@@ -1,0 +1,146 @@
+{
+  "name": "tibco-flogo-http-trigger",
+  "type": "flogo:trigger",
+  "title": "HTTP Server",
+  "version": "1.1.0",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "A simple HTTP server",
+    "category": "HTTP",
+    "smallIcon": "icons/ic-http-server.png",
+    "largeIcon": "icons/ic-http-server.png",
+    "wizard": [
+      "Configurations"
+    ],
+    "tags": ["HTTP"]
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/http/src/app/HTTP/trigger/server",
+  "settings": [
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "display": {
+        "name": "Port",
+        "description": "Configure port for the HTTP server",
+        "appPropertySupport": true
+      },
+      "wizard": {
+        "step": "Configurations"
+      },
+      "value": 9173
+    },
+    {
+      "name": "processingMode",
+      "type": "string",
+      "display": {
+        "name": "Processing Mode",
+        "description": "Select processing mode. 1. In 'Proxy' mode, details like query params, request/response headers, method, request/response body etc. are opaquely passed to/from the flow. In this mode, no data conversion occurs. It is meant for implementing pass-through proxy services. 2. In 'Data' Mode users have more control over the header, params, method, and body of the request."
+      },
+      "wizard": {
+        "type": "dropdown",
+        "selection": "single",
+        "step": "Configurations"
+      },
+      "allowed": ["Proxy","Data"],
+      "value": "Proxy"
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "contextPath",
+        "type": "string",
+        "display": {
+          "name": "Context Path",
+          "description": "Configure optional context path for the request",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Configurations"
+        },
+        "value": "/"
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "display": {
+          "name": "Processing Mode Leagcy",
+          "description": "Select processing mode. 1. In 'Proxy' mode, details like query params, request/response headers, method, request/response body etc. are opaquely passed to/from the flow. In this mode, no data conversion occurs. It is meant for implementing pass-through proxy services. 2. In 'Data' Mode users have more control over the header, params, method, and body of the request.",
+          "visible": false
+        },
+        "allowed": ["Proxy","Data"],
+        "value": "Proxy"
+      },
+      {
+        "name": "reqMethod",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Method",
+          "description": "The HTTP method (ie. GET,POST,PUT,PATCH or DELETE)",
+          "visible": true
+        },
+        "allowed": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+        "value": "GET"
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "proxyData",
+      "type": "object"
+    },
+    {
+      "name": "pathParams",
+      "type": "params"
+    },
+    {
+      "name": "queryParams",
+      "type": "params"
+    },
+    {
+      "name": "headers",
+      "type": "params"
+    },
+    {
+      "name": "method",
+      "type": "string"
+    },
+    {
+      "name": "requestBody",
+      "type": "any",
+      "visible": false
+    }
+  ],
+  "reply": [
+    {
+      "name": "statusCode",
+      "type": "integer",
+      "visible": false
+    },
+    {
+      "name": "headers",
+      "type": "params",
+      "enablecoercing": "true",
+      "visible": false
+    },
+    {
+      "name": "responseBody",
+      "type": "any",
+      "enablecoercing": "true",
+      "visible": false
+    },
+    {
+      "name": "cookies",
+      "type": "array",
+      "enablecoercing": "true",
+      "visible": false
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

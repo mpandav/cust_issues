@@ -1,0 +1,135 @@
+{
+	"title": "Send Mail",
+	"name": "tibco-wi-sendmail",
+	"author": "TIBCO Software Inc.",
+	"version": "1.1.4",
+	"type": "flogo:activity",
+	"display": {
+		"visible": true,
+		"description": "Simple Send Mail Activity",
+		"category": "General",
+		"smallIcon": "icons/ic-tibco-wi-sendmail.svg",
+		"largeIcon": "icons/ic-tibco-wi-sendmail@2x.png",
+		"appPropertySupport": true
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/activity/sendmail",
+	"inputs": [
+		{
+			"name": "Server",
+			"type": "string",
+			"display": {
+				"description": "Host name or IP address for the mail server",
+				"name": "Server",
+				"appPropertySupport": true
+			},
+			"required": true,
+			"value": ""
+		},
+		{
+			"name": "Port",
+			"type": "integer",
+			"required": true,
+			"display": {
+				"name": "Port",
+				"description": "The port used to connect to the mail server",
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "Username",
+			"type": "string",
+			"value": "",
+			"display": {
+				"description": "The username to use when authenticating to the mail server",
+				"name": "Username",
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "Password",
+			"type": "string",
+			"value": "",
+			"display": {
+				"description": "The password to use when authenticating to the mail server",
+				"name": "Password",
+				"type": "password",
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "Connection Security",
+			"type": "string",
+			"required": true,
+			"allowed": [
+				"TLS",
+				"SSL",
+				"NONE"
+			],
+			"value": "TLS",
+			"display": {
+				"description": "The type of connection to be used to communicate with the mail server.",
+				"name": "Connection Type"
+			}
+		},
+		{
+			"name": "serverCertificate",
+			"type": "string",
+			"display": {
+				"description": "A PEM encoded CA or Server certificate file. If not configured, insecure connection is established with server",
+				"name": "Server Certificate",
+				"visible": false,
+				"type": "fileselector",
+				"appPropertySupport": true,
+				"fileExtensions": [
+					".pem",
+					".cert",
+					".cer",
+					".crt"
+				]
+			}
+		},
+		{
+			"name": "message_content_type",
+			"type": "string"
+		},
+		{
+			"name": "sender",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "recipients",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "cc_recipients",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "bcc_recipients",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "reply_to",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "subject",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "message",
+			"type": "string",
+			"value": ""
+		},
+		{
+			"name": "attachments",
+			"type": "array"
+		}
+	]
+}

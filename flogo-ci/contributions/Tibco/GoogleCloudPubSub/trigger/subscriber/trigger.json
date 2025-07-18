@@ -1,0 +1,145 @@
+{
+  "name": "gcp-pubsub-message-subscriber",
+  "title": "Google PubSub Message Subscriber",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:trigger",
+  "display": {
+    "category": "GoogleCloudPubSub",
+    "visible": true,
+    "smallIcon": "cloud_pub-sub_subscriber@2x.png",
+    "largeIcon": "cloud_pub-sub_subscriber@3x.png",
+    "description": "This trigger receives messages from the Google Pub/Sub Service",
+    "wizard": [
+      "Configuration"
+    ]
+  },
+  "ref": "github.com/tibco/flogo-google-pubsub/src/app/GoogleCloudPubSub/trigger/subscriber",
+  "settings": [
+    {
+      "name": "googleConnection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Google Pub/Sub Connection",
+        "description": "Select Google Pub/Sub Connection",
+        "type": "connection"
+      },
+      "wizard": {
+        "type": "dropdown",
+        "selection": "single",
+        "step": "Configuration"
+      },
+      "allowed": []
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "subscriptionId",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Subscription ID",
+          "description": "Configure the Id of subscription to receive messages. Subscription with given id or name must exist in Google project",
+          "appPropertySupport": true
+        },
+        "wizard": {
+          "step": "Configuration"
+        }
+      },
+      {
+        "name": "maxOutstandingMessages",
+        "type": "integer",
+        "display": {
+          "name": "Max Outstanding Messages",
+          "description": "Maximum number of unprocessed messages (unacknowledged but not yet expired) to be received by the subscriber before it is paused",
+          "appPropertySupport": true
+        },
+        "value": 1000,
+        "wizard": {
+          "step": "Configuration"
+        }
+      },
+      {
+        "name": "flowControlMode",
+        "type": "boolean",
+        "display": {
+          "name": "Enable Flow Control",
+          "description": "When enabled, trigger pulls MaxOutstandingMessages messages from the service and pause until all messages are processed. When disabled, trigger continuously receives messages from the service and process them concurrently. When total unprocessed messages >= MaxOutstandingMessages, server stops sending messages until unprocessed messages < MaxOutstandingMessages",
+          "visible": true,
+          "appPropertySupport": true
+        },
+        "value": false,
+        "wizard": {
+          "step": "Configuration"
+        }
+      },
+      {
+        "name": "messageDataFormat",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Message Data Format",
+          "description": "Format of the data to be received. For JSON format, configure JSON schema or sample JSON data on the `Output Settings`",
+          "visible": true
+        },
+        "value": "String",
+        "allowed": [
+          "String",
+          "JSON"
+        ],
+        "wizard": {
+          "step": "Configuration"
+        }
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "jsonSchema",
+      "type": "object",
+      "required": false,
+      "value": "",
+      "display": {
+        "name": "Schema for JSON data",
+        "description": "Enter JSON schema or JSON sample payload for the message data",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false,
+        "outputSettingsOnly": true
+      },
+      "wizard": {
+        "step": "Configuration"
+      }
+    },
+    {
+      "name": "messageAttributes",
+      "type": "object",
+      "display": {
+        "name": "Message Attributes",
+        "description": "Message attributes to be received",
+        "type": "params",
+        "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}",
+        "outputSettingsOnly": true
+      },
+      "wizard": {
+        "step": "Configuration"
+      }
+    },
+    {
+      "name": "message",
+      "type": "any",
+      "required": true
+    },
+    {
+      "name": "metadata",
+      "type": "object"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

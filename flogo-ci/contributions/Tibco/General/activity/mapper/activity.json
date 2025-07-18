@@ -1,0 +1,40 @@
+{
+	"title": "Mapper",
+	"name": "tibco-wi-mapper",
+	"author": "TIBCO Software Inc.",
+	"type": "flogo:activity",
+	"version": "1.1.2",
+	"display": {
+		"visible": true,
+		"description": "Mapper Activity",
+		"category": "General",
+		"smallIcon": "icons/ic-tibco-acivity-mapper@2x.png",
+		"largeIcon": "icons/ic-tibco-acivity-mapper@2x.png"
+	},
+	"feature": {
+		"iterator": {
+			"type": "iterator",
+			"enabled": true
+		}
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/activity/mapper",
+	"inputs": [
+		{
+			"name": "input",
+			"type": "object",
+			"display": {
+				"description": "An JSON data or schema for the input",
+				"type": "texteditor",
+				"syntax": "json",
+				"name": "Input Schema",
+				"mappable": true
+			}
+		}
+	],
+	"outputs": [
+		{
+			"name": "output",
+			"type": "object"
+		}
+	]
+}

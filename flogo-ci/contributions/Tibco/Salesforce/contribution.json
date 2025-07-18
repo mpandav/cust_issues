@@ -1,0 +1,91 @@
+{
+  "name": "TIBCO Flogo Connector for Salesforce",
+  "version": "1.3.7",
+  "category": "Salesforce",
+  "compatibility": {
+    "refs": [
+      {
+        "trigger": "salesforce",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Salesforce/trigger/salesforce",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/trigger/salesforce"
+      },
+      {
+        "trigger": "salesforce",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/trigger/salesforce",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/trigger/salesforce"
+      },
+      {
+        "activity": "delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Salesforce/activity/delete",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/delete"
+      },
+      {
+        "activity": "delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/delete",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/delete"
+      },
+      {
+        "activity": "create",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Salesforce/activity/create",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/create"
+      },
+      {
+        "activity": "create",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/create",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/create"
+      },
+      {
+        "activity": "query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Salesforce/activity/query",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/query"
+      },
+      {
+        "activity": "query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/query",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/query"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Salesforce/activity/update",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/update"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/update",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/update"
+      },
+      {
+        "activity": "checkjobstatus",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/checkjobstatus",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/checkjobstatus"
+      },
+      {
+        "activity": "createjob",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/createjob",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/createjob"
+      },
+      {
+        "activity": "getqueryjobresults",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/getqueryjobresults",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/getqueryjobresults"
+      },
+      {
+        "activity": "upsert",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/activity/upsert",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/activity/upsert"
+      },
+      {
+        "connection": "salesforce",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Salesforce/connector",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/connector"
+      },
+      {
+        "connection": "salesforce",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-salesforce.git/src/app/Salesforce/connector",
+        "newref": "github.com/tibco/wi-salesforce/src/app/Salesforce/connector"
+      }
+    ]
+  },
+"tag": "1.3.7-b01",
+  "signature": "27Wt6DC+a+zhXpVT2TnjnO0JvF52CzYvWeWN3Vi/joKlpijmUkajovVW1qr60/RuCQRYBurCMFrU/PPTOgBZJ+gHsLL1At/J27KAxXNG"
+}

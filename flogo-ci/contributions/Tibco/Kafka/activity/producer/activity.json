@@ -1,0 +1,224 @@
+{
+  "name": "tibco-kafka-producer-activity",
+  "type": "flogo:activity",
+  "title": "Kafka Producer",
+  "version": "1.3.3",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "Kafka",
+    "smallIcon": "icons/producer.png",
+    "largeIcon": "icons/producer@2x.png"
+  },
+  "feature": {
+    "retry": {
+      "enabled": true
+    }
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/activity/producer",
+  "inputs": [
+    {
+      "name": "kafkaConnection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Kafka Client Configuration",
+        "description": "Kafka client configuration to be used",
+        "type": "connection"
+      },
+      "allowed": []
+    },
+    {
+      "name": "ackMode",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Ack Mode",
+        "description": "Choose whether producer should wait for acknowledgement from the leader and in-sync replicas"
+      },
+      "allowed": [
+        "None",
+        "Leader",
+        "All"
+      ],
+      "value": "All"
+    },
+    {
+      "name": "ackTimeout",
+      "type": "integer",
+      "display": {
+        "name": "Ack Timeout",
+        "description": "Maximum duration in milliseconds the broker will wait for the receipt of the acknowledgement",
+        "appPropertySupport": true
+      },
+      "value": 10000
+    },
+    {
+      "name": "partitioner",
+      "type": "string",
+      "display": {
+        "name": "Partitioner",
+        "description": "Mechanism to select partition for sending the record. When 'Hash' mode is selected, if key is not set then a random partition is selected otherwise key hash is used for calculating partition to ensure all records with the same key are sent to same partition. When 'Manual' mode is selected, partition number configured in the input is used."
+      },
+      "allowed": [
+        "Hash",
+        "Manual"
+      ],
+      "value": "Hash"
+    },
+    {
+      "name": "compressionType",
+      "type": "string",
+      "display": {
+        "name": "Compression Type",
+        "description": "Type of compression to use for the record"
+      },
+      "allowed": [
+        "None",
+        "GZIP",
+        "LZ4"
+      ],
+      "value": "None"
+    },
+    {
+      "name": "valueType",
+      "type": "string",
+      "display": {
+        "name": "Value Serializer",
+        "description": "Type of record value to be send"
+      },
+      "allowed": [
+        "String",
+        "JSON",
+        "Avro"
+      ],
+      "value": "String"
+    },
+    {
+      "name": "subjects",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Subject",
+        "description": "List of subjects registered on Schema Registry",
+        "visible": false
+      },
+      "allowed": [],
+      "value": "String"
+    },
+    {
+      "name": "versions",
+      "type": "integer",
+      "display": {
+        "name": "Version",
+        "description": "Version of selected subject",
+        "visible": false
+      },
+      "allowed": [],
+      "value": 1
+    },
+    {
+      "name": "maxRequestSize",
+      "type": "integer",
+      "display": {
+        "name": "Max Request Size",
+        "description": "The best-effort number of bytes needed to trigger a flush",
+        "appPropertySupport": true
+      },
+      "value": 1048576
+    },
+    {
+      "name": "maxMessages",
+      "type": "integer",
+      "display": {
+        "name": "Max Messages",
+        "description": "The maximum number of records the producer will send in a single broker request. Defaults to 0 for unlimited.",
+        "appPropertySupport": true
+      },
+      "value": 0
+    },
+    {
+      "name": "frequency",
+      "type": "integer",
+      "display": {
+        "name": "Frequency",
+        "description": "The best-effort frequency of flushes in milliseconds"
+      },
+      "value": 100
+    },
+    {
+      "name": "topic",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "name": "partition",
+      "required": true,
+      "type": "integer",
+      "display": {
+        "visible": false,
+        "mappable": true,
+        "settings": false
+      }
+    },
+    {
+      "name": "key",
+      "type": "string"
+    },
+    {
+      "name": "stringValue",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "name": "jsonValue",
+      "type": "object",
+      "required": true,
+      "display": {
+        "name": "Schema for JSON value",
+        "description": "The JSON schema for the Kafka record value",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false,
+        "mappable": true
+      }
+    },
+    {
+      "name": "avroData",
+      "type": "object",
+      "required": true,
+      "display": {
+        "name": "Schema for Avro value",
+        "description": "The JSON schema for the Kafka record value",
+        "type": "texteditor",
+        "syntax": "avro",
+        "visible": false,
+        "mappable": true
+      }
+    },
+    {
+      "name": "headers",
+      "type": "object",
+      "display": {
+        "name": "Headers",
+        "description": "Record headers to be sent",
+        "type": "params",
+        "mappable": true,
+        "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "topic",
+      "type": "string"
+    },
+    {
+      "name": "partition",
+      "type": "integer"
+    },
+    {
+      "name": "offset",
+      "type": "integer"
+    }
+  ]
+}

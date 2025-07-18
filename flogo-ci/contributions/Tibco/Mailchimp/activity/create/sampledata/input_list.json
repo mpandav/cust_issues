@@ -1,0 +1,25 @@
+{
+  "name": "x",
+  "contact": {
+    "company": "d",
+    "address1": "xx",
+    "address2": "xx",
+    "city": "x",
+    "state": "x",
+    "zip": "xxx",
+    "country": "xx",
+    "phone": "xx"
+  },
+  "permission_reminder": "",
+  "use_archive_bar": true,
+  "campaign_defaults": {
+    "from_name": "d",
+    "from_email": "d",
+    "subject": "dd",
+    "language": "d"
+  },
+  "notify_on_subscribe": "xx",
+  "notify_on_unsubscribe": "xx",
+  "email_type_option": true,
+  "visibility": "xx"
+}

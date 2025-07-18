@@ -1,0 +1,38 @@
+{
+  "name": "TIBCO Flogo Connector for Amazon Kinesis",
+  "version": "1.1.1",
+  "category": "AWSKINESIS",
+  "description": "TIBCO Flogo Connector for Amazon Kinesis",
+  "image": "ic-flogo-aws-connector.png",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "createstreams",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/AWSKINESIS/activity/createstreams",
+        "newref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/createstreams"
+      },
+      {
+        "activity": "deletestream",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/AWSKINESIS/activity/deletestream",
+        "newref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/deletestream"
+      },
+      {
+        "activity": "describestream",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/AWSKINESIS/activity/describestream",
+        "newref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/describestream"
+      },
+      {
+        "activity": "get",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/AWSKINESIS/activity/get",
+        "newref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/get"
+      },
+      {
+        "activity": "put",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/AWSKINESIS/activity/put",
+        "newref": "github.com/tibco/wi-plugins/contributions/awsKinesis/src/app/AWSKINESIS/activity/put"
+      }
+    ]
+  },
+"tag": "1.1.1-b01-flogo-2.25.0",
+  "signature": "/70Ykf9UrY2FIUdPBsmPDocxnZZwKZ/eZ9L4o2o4/8aGFykHrsggqjlxXQBgaLaZPPabaFCDikAaW/8R8OSGzBLgDdpx7ipwu9H0a0KlWuxKEA=="
+}

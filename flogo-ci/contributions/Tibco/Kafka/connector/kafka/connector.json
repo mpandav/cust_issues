@@ -1,0 +1,278 @@
+{
+  "name": "tibco-kafka",
+  "type": "flogo:connector",
+  "title": "Apache Kafka Client Configuration",
+  "version": "1.3.0",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "Kafka",
+    "smallIcon": "icons/kafka.png",
+    "largeIcon": "icons/kafka.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/connector/kafka",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Name",
+        "description": "Name of the configuration"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "description": "Connection description"
+      },
+      "value": "Apache Kafka client configuration"
+    },
+    {
+      "name": "brokers",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Brokers",
+        "description": "A list of host/port pairs to use for establishing the initial connection to the Kafka cluster",
+        "appPropertySupport" : true
+      }
+    },    
+    {
+      "name": "authMode",
+      "type": "string",
+      "display": {
+        "name": "Auth Mode",
+        "description": "Choose authentication mode to connect to Kafka cluster"
+      },
+      "allowed": [
+        "None",
+        "SSL",
+        "SASL/PLAIN",
+        "SASL/SCRAM-SHA-256",
+        "SASL/SCRAM-SHA-512",
+        "SASL/OAUTHBEARER"
+      ],
+      "value": "None"
+    },
+    {
+      "name": "userName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User Name",
+        "visible": false,
+        "description": "User name for SASL authentication",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "type": "password",
+        "visible": false,
+        "description": "Password for SASL authentication",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "clientID",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client ID",
+        "visible": false,
+        "description": "Client ID for SASL/OAUTHBEARER authentication",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "clientSecret",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client Secret",
+        "type": "password",
+        "visible": false,
+        "description": "Client Secret for SASL/OAUTHBEARER authentication",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "tokenURL",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Token URL",
+        "visible": false,
+        "description": "Token URL for SASL/OAUTHBEARER authentication",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Scope",
+        "visible": false,
+        "description": "List of scopes required for OAUTHBEARER token (seperated by comma)",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "securityProtocol",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Security Protocol",
+        "visible": false,
+        "description": "Select appropriate security protocol for the broker connection. When 'SASL_PLAINTEXT' is selected, connection is insecure and not recommended for production. When 'SASL_SSL' is selected, connection is secured.",
+        "appPropertySupport" : false
+      },
+      "allowed": ["SASL_PLAINTEXT", "SASL_SSL"],
+      "value": "SASL_SSL"
+    },
+    {
+      "name": "clientCert",
+      "type": "string",
+      "display": {
+        "description": "A PEM encoded certificate file",
+        "name": "Client Certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".cert",
+          ".cer",
+          ".crt"
+        ],
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "clientKey",
+      "type": "string",
+      "display": {
+        "description": "A PEM encoded private key file",
+        "name": "Client Key",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".cert",
+          ".cer",
+          ".crt",
+          ".key"
+        ],
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "caCert",
+      "type": "string",
+      "display": {
+        "description": "A PEM encoded CA or Server certificate file",
+        "name": "CA or Server Certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".cert",
+          ".cer",
+          ".crt"
+        ],
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "connectionTimeout",
+      "type": "integer",
+      "display": {
+        "name": "Connection Timeout",
+        "description": "The amount of time in seconds to wait for the initial connection",
+        "appPropertySupport" : true
+      },
+      "value": 30
+    },
+    {
+      "name": "retryBackoff",
+      "type": "integer",
+      "display": {
+        "name": "Retry Backoff",
+        "description": "The amount of time in milliseconds to wait for leader election to occur before retrying",
+        "appPropertySupport" : true
+      },
+      "value": 250
+    },
+    {
+      "name": "retryMax",
+      "type": "integer",
+      "display": {
+        "name": "Max Retry",
+        "description": "The total number of times to retry a metadata request when the cluster is in the middle of a leader election"
+      },
+      "value": 3
+    },
+    {
+      "name": "refreshFrequency",
+      "type": "integer",
+      "display": {
+        "name": "Refresh Frequency",
+        "description": "The amount of time in seconds after which metadata is refreshed in the background. Set 0 to disable it."
+      },
+      "value": 40
+    },
+    {
+      "name": "useSchmaRegistry",
+      "type": "boolean",
+      "required": true,
+      "display": {
+         "name": "Use Schema Registry",
+         "description": "Set to true , If you want to use Schema Registry"
+      },
+      "value": false
+     },
+    {
+      "name": "url",
+      "type": "string",  
+      "required": true,    
+      "display": {
+          "description": "The URL of the Schema Registery, In case of TIBCO Schema Registry endpoint should be url/schema/v1 format",
+          "name": "Schema Registry URL",
+          "visible": false
+      }
+    },
+    {
+      "name": "userName_schemaRegistry",
+      "type": "string",
+      "display": {
+        "name": "Schema Registry Username",
+        "description": "Provide Username to connect to Schema Registry with Basic Authentication"
+      }
+    },
+    {
+      "name": "password_schemaRegistry",
+      "type": "string",
+      "display": {
+        "name": "Schema Registry Password",
+        "type": "password",
+        "description": "Provide Password to connect to Schema Registry with Basic Authentication"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Save",
+      "display": {
+        "readonly": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+
+{
+    "name": "rename",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Rename File",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity renames the file or directory",
+        "smallIcon": "icons/file-rename@2x.png",
+		"largeIcon": "icons/file-rename@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/rename",
+    "inputs": [
+        {
+            "name": "createNonExistingDir",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Create Non-Existing Directories",
+                "description": "When set to true, the activity creates all directories in the specified path, if they do not already exist",
+                "visible": true
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

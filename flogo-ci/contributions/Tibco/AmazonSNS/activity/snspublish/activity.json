@@ -1,0 +1,63 @@
+{
+  "name": "snspublish",
+  "title": "SNS Publish",
+  "version": "1.0.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon SNS Publish Activity",
+    "category": "AmazonSNS",
+    "smallIcon": "icons/snspublish@2x.png",
+    "largeIcon": "icons/snspublish@3x.png"
+  },
+  "ref": "github.com/tibco/flogo-aws-sns/src/app/AmazonSNS/activity/snspublish",
+  "inputs": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    },
+    {
+      "name": "messageType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Message Type",
+        "description": "Select message type from the dropdown",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": []
+    },
+    {
+      "name": "messageAttributeNames",
+      "type": "array",
+      "required": false,
+      "display": {
+        "name": "Message Attributes",
+        "description": "Set user defined message attribute keys and data types",
+        "type": "table",
+        "schema": "{\"$schema\": \"http:\/\/json-schema.org\/draft-04\/schema#\", \"definitions\": {}, \"id\": \"http:\/\/example.com\/example.json\", \"items\": {\"id\": \"\/items\", \"properties\": { \"AttributeName\": { \"id\": \"\/items\/properties\/Name\", \"type\": \"string\" }, \"AttributeType\": { \"id\": \"\/items\/properties\/Type\", \"type\": {\"enum\":[\"String\", \"String.Array\", \"Number\", \"Binary\"]}}}, \"type\": \"object\" }, \"type\": \"array\"}",
+        "inputSettingsOnly":true
+      }
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "object"
+    }
+  ]
+}

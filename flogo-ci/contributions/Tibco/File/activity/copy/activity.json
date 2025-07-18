@@ -1,0 +1,44 @@
+
+{
+    "name": "copy",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Copy File",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity copies the file or directory to a new location",
+        "smallIcon": "icons/file-copy@2x.png",
+		"largeIcon": "icons/file-copy@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/copy",
+    "inputs": [
+        {
+            "name": "createNonExistingDir",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Create Non-Existing Directories",
+                "description": "When set to true, the activity creates all directories in the specified path, if they do not already exist",
+                "visible": true
+            }
+        },
+        {
+            "name": "includeSubDirectories",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Include Sub-Directories",
+                "description": "When set to true, includes all sub-directories in the source directory, when the source to copy is a directory",
+                "visible": true
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ]
+}

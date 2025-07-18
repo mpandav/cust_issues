@@ -1,0 +1,348 @@
+{
+  "title": "Receive HTTP Message",
+  "version": "1.2.4",
+  "type": "flogo:trigger",
+  "name": "tibco-wi-rest",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "Simple REST Trigger",
+    "uploadField": "swagger",
+    "category": "General",
+    "visible": true,
+    "smallIcon": "icons/ic-tibco-wi-rest.svg",
+    "largeIcon": "icons/ic-tibco-wi-rest@2x.png",
+    "wizard": [
+      "Step 1"
+    ]
+  },
+  "ref": "github.com/tibco/flogo-general/src/app/General/trigger/rest",
+  "useReplyHandler": true,
+  "settings": [
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "display": {
+        "description": "The port for rest trigger",
+        "name": "Port",
+        "appPropertySupport": true
+      },
+      "value": 9999,
+      "wizard": {
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "APISpecUpdate",
+      "type": "boolean",
+      "required": false,
+      "display": {
+        "description": "Configure trigger using API Spec",
+        "name": "Configure Using API Specs"
+      },
+      "value": false,
+      "wizard": {
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "swagger",
+      "type": "string",
+      "display": {
+        "name": "API Spec",
+        "type": "specselector",
+        "visible": false,
+        "supportedSpecTypes": [
+          "OpenAPI"
+        ]
+      },
+      "action": {
+        "name": "Refresh API"
+      },
+      "value": "",
+      "wizard": {
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "swaggerVersion",
+      "type": "string",
+      "display": {
+        "visible": false
+      },
+      "value": "v2"
+    },
+    {
+      "name": "apiVersion",
+      "type": "string",
+      "display": {
+        "name": "API Version",
+        "readonly": true,
+        "description": "API version is stored in info.version key in OpenAPI definition"
+      },
+      "value": "1.0.0"
+    },
+    {
+      "name": "secureConnection",
+      "type": "boolean",
+      "required": false,
+      "display": {
+        "description": "Enable secure connection",
+        "name": "Secure Connection",
+        "visible": false
+      },
+      "value": false
+    },
+    {
+      "name": "serverKey",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "A PEM encoded private key file",
+        "name": "Server Key",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".cert",
+          ".cer",
+          ".crt",
+          ".key"
+        ],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "caCertificate",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "A PEM encoded CA or Server certificate file",
+        "name": "CA or Server Certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [
+          ".pem",
+          ".cert",
+          ".cer",
+          ".crt"
+        ],
+        "appPropertySupport": true
+      }
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "APISpecPath",
+        "type": "string",
+        "display": {
+          "description": "Paths from the API Spec File",
+          "name": "Path",
+          "visible": false,
+          "type": "dropdown"
+        },
+        "wizard": {
+          "step": "Step 1"
+        }
+      },
+      {
+        "name": "Method",
+        "type": "string",
+        "required": true,
+        "allowed": [
+          "GET",
+          "POST",
+          "PUT",
+          "PATCH",
+          "DELETE"
+        ],
+        "value": "GET",
+        "display": {
+          "readonly": true,
+          "description": "The type of the HTTP method",
+          "name": "Method",
+          "type": "dropdown",
+          "selection": "single"
+        },
+        "wizard": {
+          "step": "Step 1"
+        }
+      },
+      {
+        "name": "reqType",
+        "type": "string",
+        "required": true,
+        "allowed": [
+          "application/json",
+          "application/x-www-form-urlencoded",
+          "multipart/form-data"
+        ],
+        "value": "application/json",
+        "display": {
+          "description": "Select the Request Type for Incoming HTTP request",
+          "name": "Request Type",
+          "visible": false
+        }
+      },
+      {
+        "name": "Path",
+        "type": "string",
+        "required": true,
+        "display": {
+          "description": "The resource path you have selected. Use {} to configure path parameters. e.g. /users/{id}",
+          "name": "Path"
+        },
+        "wizard": {
+          "name": "Resource Path",
+          "type": "string",
+          "step": "Step 1"
+        }
+      },
+      {
+        "name": "OutputValidation",
+        "type": "boolean",
+        "required": false,
+        "display": {
+          "description": "Validate trigger output against request schema defined",
+          "name": "Output Validation",
+          "appPropertySupport": true
+        },
+        "value": false
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "name": "queryParams",
+      "type": "complex_object",
+      "display": {
+        "type": "params",
+        "name": "Query Parameters",
+        "description": "The query parameters you want to receive when this flow is started",
+        "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}"
+      }
+    },
+    {
+      "name": "pathParams",
+      "type": "complex_object",
+      "display": {
+        "readonly": true,
+        "type": "params",
+        "name": "Path Parameters",
+        "description": "The path parameters for the trigger",
+        "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\",\"number\",\"boolean\"]}}}}}"
+      }
+    },
+    {
+      "name": "headers",
+      "type": "complex_object",
+      "display": {
+        "type": "params",
+        "name": "Headers",
+        "description": "The HTTP header parameters you want to receive when this flow is started",
+        "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}"
+      },
+      "value": {
+        "metadata": "",
+        "value": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+      }
+    },
+    {
+      "name": "body",
+      "type": "complex_object",
+      "display": {
+        "name": "Request Schema",
+        "description": "The request schema of the trigger",
+        "type": "texteditor",
+        "syntax": "json"
+      },
+      "wizard": {
+        "name": "Request Schema",
+        "type": "texteditor",
+        "syntax": "json",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "multipartFormData",
+      "type": "object"
+    },
+    {
+      "name": "multipartForm",
+      "type": "complex_object",
+      "display": {
+        "name": "Multipart Data",
+        "description": "Define Form Data Values",
+        "readonly": false,
+        "type": "schemaTable",
+        "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\",\"displayName\":\"Name\"},\"type\":{\"type\":{\"enum\":[\"string\",\"object\",\"filecontent\"]},\"displayName\":\"Type\"},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"displayName\":\"Required\"},\"schema\":{\"displayName\":\"Schema\",\"type\":\"texteditor\",\"dependOn\":\"type\",\"displayWhen\":[\"object\",\"array\"]}}}}"
+      }
+    },
+    {
+      "name": "requestURI",
+      "type": "string"
+    },
+    {
+      "name": "method",
+      "type": "string"
+    }
+  ],
+  "reply": [
+    {
+      "name": "code",
+      "type": "integer"
+    },
+    {
+      "name": "configureResponseCodes",
+      "type": "boolean",
+      "value": false,
+      "display": {
+        "description": "Enable to configure response codes for this trigger. When enabled, you must use 'Configure HTTP Response' activity before 'Return' activity in the flow to configure appropriate response code.",
+        "name": "Configure Response Codes"
+      }
+    },
+    {
+      "name": "data",
+      "type": "complex_object",
+      "display": {
+        "name": "Response Schema",
+        "description": "The response schema of the trigger",
+        "type": "texteditor",
+        "syntax": "json",
+        "mappable": true
+      },
+      "wizard": {
+        "name": "Response Schema",
+        "type": "texteditor",
+        "syntax": "json",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "responseBody",
+      "type": "object",
+      "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+    },
+    {
+      "name": "responseCodesSchema",
+      "type": "complex_object",
+      "display": {
+        "name": "Response Codes",
+        "description": "Define response codes you expect to return",
+        "readonly": false,
+        "type": "schemaTable",
+        "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\",\"displayName\":\"Code\"},\"responseType\":{\"type\":{\"enum\":[\"string\",\"object\"]},\"displayName\":\"Type\"},\"responseSchema\":{\"displayName\":\"Response Body\",\"type\":\"texteditor\",\"dependOn\":\"responseType\",\"displayWhen\":[\"object\",\"array\"]},\"responseHeaders\":{\"displayName\":\"Response Headers\",\"type\":\"texteditor\"}}}}"
+      }
+    },
+    {
+      "name": "message",
+      "type": "string"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Finish"
+    }
+  ]
+}

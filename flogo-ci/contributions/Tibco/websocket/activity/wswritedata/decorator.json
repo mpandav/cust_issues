@@ -1,0 +1,44 @@
+{
+  "type": "flogo:activity",
+  "description": "Websocket Write Data Activity will write data to existing Websocket connection",
+  "ref": "github.com/project-flogo/websocket/activity/wswritedata",
+
+  "display": {
+    "category": "websocket",
+    "visible": true,
+    "smallIcon": "icons/wswritedata_activity@2x.png",
+    "largeIcon": "icons/wswritedata_activity@3x.png"
+  },
+  "settings": {
+    "newAttributes": [
+      {
+        "name": "format",
+        "type": "string",
+        "required": true,
+        "value": "String",
+        "allowed": [
+          "String",
+          "JSON"
+        ],
+        "display": {
+          "name": "Message Format",
+          "description": "Select the format for the message body",
+          "visible": true
+        }
+      },
+      {
+        "name": "jsonSchema",
+        "type": "object",
+        "required": false,
+        "value": "",
+        "display": {
+          "name": "Schema for JSON value",
+          "description": "The JSON schema for the websocket message",
+          "type": "texteditor",
+          "syntax": "json",
+          "visible": false
+        }
+      }
+    ]
+  }
+}

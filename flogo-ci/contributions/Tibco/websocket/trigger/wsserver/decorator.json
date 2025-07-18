@@ -1,0 +1,198 @@
+{
+	"type": "flogo:trigger",
+	"display": {
+		"description": "Websocket server listens for connection request from the client",
+		"category": "websocket",
+		"visible": true,
+		"smallIcon": "icons/ws_serverTrigger@2x.png",
+		"largeIcon": "icons/ws_serverTrigger@3x.png",
+		"wizard": [
+			"Configuration"
+		]
+	},
+	"useReplyHandler": false,
+	"ref": "github.com/project-flogo/websocket/trigger/wsserver",
+	"settings": {
+		"modelAttributes": {
+			"port": {
+				"display": {
+					"name": "Port",
+					"description": "The port to listen on",
+					"type": "integer",
+					"appPropertySupport": true
+				},
+				"value": 9998
+			},
+			"enableTLS": {
+				"display": {
+					"name": "Enable TLS",
+					"description": "True - To enable TLS (Transport Layer Security), False - No TLS Security",
+					"type":"boolean",
+					"appPropertySupport": true,
+					"visible": false
+				},
+				"value": false
+			},
+			"serverCert": {
+				"display": {
+					"name": "Server Cert",
+					"description": "Server certificate file in PEM format. Need to provide file name along with path. Path can be relative to gateway binary location.",
+      				"type": "fileselector",
+        			"fileExtensions": [
+						".pem",
+						".cert",
+						".cer",
+						".crt"
+					],
+					"appPropertySupport": true
+				}
+			},
+			"serverKey": {
+				"display": {
+					"name": "Server Key",
+					"description": "Server private key file in PEM format. Need to provide file name along with path. Path can be relative to gateway binary location.",
+					"type": "fileselector",
+        			"fileExtensions": [
+						".pem",
+						".cert",
+						".cer",
+						".crt",
+						".key"
+					],
+					"appPropertySupport": true
+				}
+			},
+			"enableClientAuth": {
+				"display": {
+					"name": "Enable ClientAuth",
+					"description": "True - To enable client AUTH, False - Client AUTH is not enabled",
+					"type":"boolean",
+					"visible":false
+				},
+				"value": false
+			},
+			"trustStore": {
+				"display": {
+					"name": "TrustStore",
+					"description": "Trust dir containing clinet CAs",
+					"visible":false
+				}
+			}
+		}
+	},
+	"output": {
+		"modelAttributes": {
+			"pathParams": {
+				"display": {
+					"name": "Path Parameters",
+					"description": "The path parameters for the trigger",
+					"type": "params",
+					"readonly": true,
+					"schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\",\"number\",\"boolean\"]}}}}}"
+				}
+			},
+			"queryParams": {				
+				"display": {
+					"name": "Query Parameters",
+					"type": "params",
+					"description": "The query parameters you want to receive for the flow",
+					"schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}"
+				}
+			},
+			"headers": {
+				"display": {
+					"name": "Headers",
+					"type": "params",
+					"description": "The HTTP header you want to receive for the flow. Header key gets converted in to canonical format, i.e. the first letter and any letter following a hyphen to upper case, the rest are converted to lowercase. For example, the canonical key for \"accept-encoding\" and \"host\" are \"Accept-Encoding\" and \"Host\" respectively",
+					"schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"repeating\":{\"type\":{\"enum\":[\"true\",\"false\"]}},\"required\":{\"type\":{\"enum\":[\"true\",\"false\"]}}}}}"
+				},
+				"value": "[{\"parameterName\":\"Accept\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Charset\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Accept-Encoding\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Type\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Content-Length\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Connection\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Cookie\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Pragma\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Sec-Websocket-Key\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Sec-Websocket-Version\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false},{\"parameterName\":\"Upgrade\",\"type\":\"string\",\"repeating\":\"false\",\"required\":\"false\",\"visible\":false}]"
+			}
+		}
+	},
+	"handlers": {
+			"modelAttributes": {
+				"method": {
+					"display": {
+						"visible": false,
+						"name": "Method",
+						"description": "HTTP request method."
+					},
+					"value": "GET",
+					"wizard": {
+						"step": "Configuration"
+					}
+				},
+				"path": {
+					"display": {
+						"name": "URI Path",
+						"description": "The path you have configured. Use {} to configure path parameters. e.g. /users/{id}",
+						"appPropertySupport": true
+					},
+					"wizard": {
+						"step": "Configuration"
+					}
+				},
+				"mode": {
+					"display": {
+						"name": "Mode",
+						"description": "\"Data\" for output with content and \"Connection\" for output with wsconnection"
+					},
+					"wizard": {
+						"type": "dropdown",
+						"selection": "single",
+						"step": "Configuration"
+					},
+					"value": "Data"
+				}
+			},
+		"newAttributes": [
+			{
+				"name": "format",
+				"type": "string",
+				"required": true,
+				"value": "String",
+				"allowed": [
+					"String",
+					"JSON"
+				],
+				"display": {
+					"name": "Message Format",
+					"description": "Select the format for the message body",
+					"appPropertySupport": false,
+					"visible": true,
+					"outputSettingsOnly": true
+				},
+				"wizard": {
+					"type": "dropdown",
+					"selection": "single",
+					"step": "Configuration"
+				}
+			},
+			{
+				"name": "jsonSchema",
+				"type": "object",
+				"required": false,
+				"value": "",
+				"display": {
+					"name": "Schema for JSON value",
+					"description": "The JSON schema for the received WebSocket message",
+					"type": "texteditor",
+					"syntax": "json",
+					"visible": false
+				},
+				"wizard": {
+					"type": "object",
+					"step": "Configuration"
+				}
+			}
+		]
+	},
+	"actions": {
+		"newAttributes": [
+			{
+				"name": "Finish"
+			}
+		]
+	}
+}

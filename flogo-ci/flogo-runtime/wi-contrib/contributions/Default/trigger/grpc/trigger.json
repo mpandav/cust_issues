@@ -1,0 +1,237 @@
+{
+  "name": "grpc-trigger",
+  "type": "flogo:trigger",
+  "shim": "plugin",
+  "version": "0.0.2",
+  "title": "gRPC Trigger",
+  "description": "gRPC Trigger",
+  "ref":"github.com/project-flogo/grpc/trigger/grpc",
+  "homepage": "https://github.com/project-flogo/grpc/tree/master/trigger",
+  "display": {
+    "description": "Simple gRPC Trigger",
+    "uploadField": "protoFile",
+    "visible": true,
+    "wizard": [
+        "Step 1"
+    ],
+    "smallIcon": "icons/grpc_32.png",
+    "largeIcon": "icons/grpc_48.png"
+  },
+  "settings": [
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "display": {
+        "name": "Port",
+        "description": "The port to listen for requests",
+        "type": "integer",
+        "appPropertySupport": true
+      },
+      "wizard": {
+        "name": "Port",
+        "type": "integer",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "protoName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Proto Name",
+        "description": "The name of the proto file (without .proto extension)",
+        "type": "string",
+        "visible":false
+      }
+    },
+    {
+      "name": "protoFile",
+      "type": "string",
+      "display": {
+        "name": "Proto File",
+        "description": "The Proto file for the trigger",
+        "type": "specselector",
+        "supportedSpecTypes":["gRPC"]
+      },
+      "required": true,
+      "wizard": {
+        "name": "Proto File",
+        "type": "specselector",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name":"enableTLS",
+      "type":"boolean",
+      "value": false,
+      "display": {
+        "name": "Secure Connection",
+        "description": "Set to \"true\" for a secure connection",
+        "type": "boolean"
+      },
+      "wizard": {
+        "name": "Secure Connection",
+        "type": "boolean",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "enableMTLS",
+      "type": "boolean",
+      "value": false,
+      "display": {
+        "name": "Mutual TLS",
+        "description": "To enable mTLS (Mutual Transport Layer Security)",
+        "type": "boolean",
+        "visible": false
+      },
+      "wizard": {
+        "name": "Mutual TLS",
+        "type": "boolean",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "rootCA",
+      "type": "string",
+      "display": {
+        "name": "CA Certificate",
+        "description": "A PEM encoded CA certificate file",
+        "type": "fileselector",
+        "fileExtensions": [
+            ".pem",
+            ".cert",
+            ".cer",
+            ".crt"
+        ],
+        "appPropertySupport": true
+      },
+      "required": true,
+      "wizard": {
+        "name": "CA Certificate",
+        "type": "fileselector",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "serverCert",
+      "type": "string",
+      "display": {
+        "name": "Server Certificate",
+        "description": "A PEM encoded Server certificate file",
+        "type": "fileselector",
+        "fileExtensions": [
+            ".pem",
+            ".cert",
+            ".cer",
+            ".crt"
+        ],
+        "appPropertySupport": true
+      },
+      "required": true,
+      "wizard": {
+        "name": "Server Certificate",
+        "type": "fileselector",
+        "step": "Step 1"
+      }
+    },
+    {
+      "name": "serverKey",
+      "type": "string",
+      "display": {
+        "name": "Server Key",
+        "description": "A PEM encoded private key file",
+        "type": "fileselector",
+        "fileExtensions": [
+            ".pem",
+            ".cert",
+            ".cer",
+            ".crt",
+            ".key"
+        ],
+        "appPropertySupport": true
+      },
+      "required": true,
+      "wizard": {
+        "name": "Server Key",
+        "type": "fileselector",
+        "step": "Step 1"
+      }
+    }
+  ],
+  "handler": {
+    "settings": [
+      {
+        "name": "serviceName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Service Name",
+          "description": "Name of the service",
+          "type": "dropdown",
+          "selection": "single"
+        },
+        "wizard": {
+          "name": "Service Name",
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Step 1"
+        }
+      },
+      {
+        "name": "methodName",
+        "type": "string",
+        "required": true,
+        "display": {
+          "name": "Method Name",
+          "description": "Name of rpc method in proto file",
+          "type": "dropdown",
+          "selection": "single"
+        },
+        "wizard": {
+          "name": "Method Name",
+          "type": "dropdown",
+          "selection": "single",
+          "step": "Step 1"
+        }
+      }
+    ]
+  },
+  "output": [
+    {
+      "name": "params",
+      "type": "object"
+    },
+    {
+      "name": "grpcData",
+      "type": "object",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "content",
+      "type": "any",
+      "display": {
+        "visible": false
+      }
+    }
+  ],
+  "reply": [
+    {
+      "name": "code",
+      "type": "integer",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "data",
+      "type": "any"
+    }
+  ],
+  "actions": [{
+      "name": "Finish"
+  }]
+}

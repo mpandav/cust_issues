@@ -1,0 +1,99 @@
+{
+    "name": "delete",
+    "version": "1.2.1",
+    "author": "Cloud Software Group Inc.",
+    "type": "flogo:activity",
+    "title": "Oracle Database Delete",
+    "display": {
+        "category": "OracleDatabase",
+        "visible": true,
+        "description": "This activity executes delete statement on Oracle Database",
+        "smallIcon": "icons/oracledb-delete@2x.png",
+        "largeIcon": "icons/oracledb-delete@3x.png"
+    },
+    "ref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/delete",
+    "inputs": [
+        {
+            "name": "Oracle Database Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "Oracle Database Connection",
+                "description": "Select Oracle Database Connection",
+                "type": "connection",
+                "selection": "single",
+                "visible": true
+            }
+        },
+        {
+            "name": "Schema",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Enter schema",
+                "description": "Enter the Oracle Database schema to use",
+                "visible": true
+            }
+        },
+        {
+            "name": "Query",
+            "type": "string",
+            "required": false,
+            "display": {
+                "name": "Delete Statement",
+                "description": "Enter an SQL Delete statement that you want to execute, terminated by a semi-colon. If metadata acquisition fails configure metadata manually",
+                "inputSettingsOnly": true,
+                "type": "texteditor",
+                "mode": "StandardSQL"
+            },
+            "meta": {
+                "canProvide": true
+            }
+        },
+        {
+            "name": "manualmode",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Manually Configure Metadata",
+                "description": "Enable to use separate queries to acquire the fields metadata",
+                "inputSettingsOnly": true,
+                "visible": true
+            }
+        },
+        {
+            "name": "Fields",
+            "type": "array",
+            "required": false,
+            "display": {
+                "name": "Table Schema",
+                "description": "Displays input and output fields",
+                "type": "table",
+                "inputSettingsOnly": true,
+                "readonly": true,
+                "enableClear": true,
+                "manualFetch": true,
+                "schema": "{\"items\":{\"properties\":{\"FieldName\":{\"type\":\"string\",\"isEditable\":true},\"Type\":{\"type\":\"string\",\"isEditable\":true},\"Selected\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":true},\"Parameter\":{\"type\":{\"enum\":[\"true\",\"false\"]},\"isEditable\":true}},\"type\":\"object\"},\"type\":\"array\"}"
+            }
+        },
+        {
+            "name": "State",
+            "type": "string",
+            "display": {
+                "visible": false
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "Output",
+            "type": "object"
+        }
+    ]
+}

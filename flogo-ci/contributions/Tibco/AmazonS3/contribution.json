@@ -1,0 +1,73 @@
+{
+  "name": "TIBCO Flogo® Connector for Amazon S3",
+  "version": "1.3.1",
+  "category": "AmazonS3",
+  "description": "TIBCO Flogo® Connector for AWS S3 allows you to perform various activities on S3 buckets and objects",
+  "image": "amazonS3.png",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/amazonS3/src/app/AmazonS3/activity/delete",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/delete"
+      },
+      {
+        "activity": "get",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/amazonS3/src/app/AmazonS3/activity/get",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/get"
+      },
+      {
+        "activity": "presign",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/amazonS3/src/app/AmazonS3/activity/presign",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/presign"
+      },
+      {
+        "activity": "put",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/amazonS3/src/app/AmazonS3/activity/put",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/put"
+      },
+      {
+        "activity": "selectObjectContent",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/amazonS3/src/app/AmazonS3/activity/selectObjectContent",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/selectObjectContent"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/amazonS3/src/app/AmazonS3/activity/update",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/update"
+      },
+      {
+        "activity": "delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-amazons3.git/src/app/AmazonS3/activity/delete",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/delete"
+      },
+      {
+        "activity": "get",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-amazons3.git/src/app/AmazonS3/activity/get",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/get"
+      },
+      {
+        "activity": "presign",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-amazons3.git/src/app/AmazonS3/activity/presign",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/presign"
+      },
+      {
+        "activity": "put",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-amazons3.git/src/app/AmazonS3/activity/put",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/put"
+      },
+      {
+        "activity": "selectObjectContent",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-amazons3.git/src/app/AmazonS3/activity/selectObjectContent",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/selectObjectContent"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-amazons3.git/src/app/AmazonS3/activity/update",
+        "newref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/update"
+      }
+    ]
+  },
+"tag": "1.3.1-b02",
+  "signature": "E9qz6X3zVEuuH8xQq74XxtNCV5yZTodeUPS6IeeNknoGYdLyNB0psg5ifrdNdcIKZ3g4CHBhbNW5K4iQALUvmYRJNlwm2ikzZyCNypI="
+}

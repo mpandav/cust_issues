@@ -1,0 +1,78 @@
+
+{
+    "name": "put",
+    "version": "1.0.1",
+    "type": "flogo:activity",
+    "title": "SFTP Put",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "SFTP",
+        "visible": true,
+        "description": "This activity executes put operation on SFTP server",
+        "smallIcon": "icons/sftp-put@2x.png",
+		"largeIcon": "icons/sftp-put@3x.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/flogo-sftp/src/app/SFTP/activity/put",
+    "inputs": [
+        {
+            "name": "SFTP Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "SFTP Connection",
+                "description": "Select SFTP Connection",
+                "type": "connection",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "processdata",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Use Process Data",
+                "description": "Enable to use the content of the file to place on SFTP server",
+                "visible": true
+            }
+        },
+        {
+            "name": "binary",
+            "type": "boolean",
+            "required": true,
+            "value": true,
+            "display": {
+                "name": "Binary",
+                "description": "Enable to send the binary base64 encoded content",
+                "visible": false
+            }
+        },
+        {
+            "name": "overwrite",
+            "type": "boolean",
+            "required": true,
+            "value": true,
+            "display": {
+                "name": "Overwrite Existing File",
+                "description": "When set to true, allows to overwrite if a file exists else create a new file on the SFTP server. When set to false, allows to append to a file if it exists else create a new file on the SFTP server.",
+                "visible": true
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "output",
+            "type": "object"
+         }
+    ]
+}

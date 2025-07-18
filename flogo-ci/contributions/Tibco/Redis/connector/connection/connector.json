@@ -1,0 +1,158 @@
+{
+	"name": "redis-connector",
+	"title": "Redis Connector",
+	"author": "TIBCO Software Inc.",
+	"type": "flogo:connector",
+	"version": "1.1.0",
+	"display": {
+		"description": "This is Redis Connector",
+		"category": "Redis",
+		"visible": true,
+		"smallIcon":"icons/redis.png",
+		"largeIcon":"icons/redis.png",
+		"connectionsupport": true
+	},
+	"ref": "github.com/tibco/wi-redis/src/app/Redis/connector/connection",
+	"keyfield": "Name",
+	"settings": [
+		{
+			"name": "Name",
+			"type": "string",
+			"required": true,
+			"display": {
+				"name": "Connection Name",
+				"description": "Name of the connection"
+			}
+		},
+		{
+			"name": "Description",
+			"type": "string",
+			"display": {
+				"name": "Description",
+				"description": "Connection description"
+			}
+		},
+		 
+		{
+			"name": "Host",
+			"type": "string",
+			"required": true,
+			"display": {
+				"name": "Host Name",
+				"description": "Redis Host Name",
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "Port",
+			"type": "integer",
+			"required": true,
+			"display": {
+				"name": "Port",
+				"description": "Redis Port",
+				"type": " integer",
+				"visible": true,
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "DefaultDatabaseIndex",
+			"type": "integer",
+			"required": false,
+			"display": {
+				"name": "Default Database Index",
+				"description": "Default Database Index",
+				"appPropertySupport": true
+			},
+			"value": 0 
+		},
+		{
+			"name": "Password",
+			"type": "string",
+			"required": false,
+			"display": {
+				"name": "Password",
+				"encryptable": true,
+				"required": false,
+				"description": "Redis Password",
+				"type": "password",
+				"appPropertySupport": true
+			}
+		},
+		{
+			"name": "AuthMode",
+			"type": "boolean",
+			"required": true,
+			"value": false,
+			"display": {
+			  "name": "Secure Connection",
+			  "description": "Choose authentication mode to connect to Redis cluster"
+			 
+			}
+					
+		  },
+		  {
+			"name": "ClientCert",
+			"type": "string",
+			"display": {
+			  "description": "A PEM encoded certificate file",
+			  "name": "Client Certificate",
+			  "visible": false,
+			  "type": "fileselector",
+			  "fileExtensions": [
+				".pem",
+				".cert",
+				".cer",
+				".crt"
+			  ],"appPropertySupport": true
+			}
+			
+		  },
+		  {
+			"name": "ClientKey",
+			"type": "string",
+			"display": {
+			  "description": "A PEM encoded private key file",
+			  "name": "Client Key",
+			  "visible": false,
+			  "type": "fileselector",
+			  "fileExtensions": [
+				".pem",
+				".cert",
+				".cer",
+				".crt",
+				".key"
+			  ],"appPropertySupport": true
+			}
+		  },
+		  {
+			"name": "CaCert",
+			"type": "string",
+			"display": {
+			  "description": "A PEM encoded CA or Server certificate file",
+			  "name": "CA or Server Certificate",
+			  "visible": false,
+			  "type": "fileselector",
+			  "fileExtensions": [
+				".pem",
+				".cert",
+				".cer",
+				".crt"
+			  ],"appPropertySupport": true
+			}
+		  },
+		{
+			"name": "DocsMetadata",
+			"type": "string",
+			"required": true,
+			"display": {
+				"visible": false
+			}
+		}
+	],
+	"actions": [
+		{
+			"name": "Save"
+		}
+	]
+}

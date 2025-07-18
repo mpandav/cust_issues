@@ -1,0 +1,48 @@
+
+{
+    "name": "file-archive",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Archive Files",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity creates archives of a file/directory",
+        "smallIcon": "icons/file-archive@2x.png",
+		"largeIcon": "icons/file-archive@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/archive",
+    "inputs": [
+        {
+            "name": "archiveType",
+            "type": "string",
+            "required": true,
+            "allowed": ["zip"],
+            "value": "zip",
+            "display": {
+              "name": "Archive Type",
+              "description": "Type of archive to create",
+              "type": "dropdown",
+              "selection": "single",
+              "visible": true
+            }
+        },
+        {
+            "name": "sourcePath",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "destinationFilePath",
+            "type": "string",
+            "required": true
+        }
+    ],
+    "outputs": [
+        {
+            "name": "archivePath",
+            "type": "string"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "Tibco Flogo Connector for Microsoft SQL Server",
+  "version": "2.6.1 HF-1",
+  "category": "SQLServer",
+  "description": "TIBCO Flogo® Connector for Microsoft SQL Server allows you to execute SQL queries to create, read, update, and delete on a SQL Server database instance.",
+  "image": "connector/connection/icons/ic-sql-server.png",
+  "compatibility": {
+    "refs": [
+      {
+        "connector": "mssql",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mssql.git/src/app/SQLServer/connector/connection",
+        "newref": "github.com/tibco/wi-mssql/src/app/SQLServer/connector/connection"
+      },
+      {
+        "activity": "sqlserver-update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mssql.git/src/app/SQLServer/activity/update",
+        "newref": "github.com/tibco/wi-mssql/src/app/SQLServer/activity/update"
+      },
+      {
+        "activity": "sqlserver-query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mssql.git/src/app/SQLServer/activity/query",
+        "newref": "github.com/tibco/wi-mssql/src/app/SQLServer/activity/query"
+      },
+      {
+        "activity": "sqlserver-delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mssql.git/src/app/SQLServer/activity/delete",
+        "newref": "github.com/tibco/wi-mssql/src/app/SQLServer/activity/delete"
+      },
+      {
+        "activity": "sqlserver-insert",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-mssql.git/src/app/SQLServer/activity/insert",
+        "newref": "github.com/tibco/wi-mssql/src/app/SQLServer/activity/insert"
+      }
+    ]
+  },
+"tag": "2.6.1-b03",
+  "signature": "e2RcEFrXhm0da4FWXs2e1+8FFoelMLji0ARLDzwGQxRpl40CEwBI97AXiBbaeldsHlwxzffVZLzUL9EzBz3M/ZycUL82KzQ+spxbjXrMvedMqfGMX+1RkPbAqfs="
+}

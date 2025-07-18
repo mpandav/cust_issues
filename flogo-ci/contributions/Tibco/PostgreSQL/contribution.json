@@ -1,0 +1,38 @@
+{
+  "name": "TIBCO Flogo connector for PostgreSQL",
+  "version": "2.7.1",
+  "category": "PostgreSQL",
+  "description": "TIBCO Flogo Connector for PostgreSQL allows you to execute SQL queries to insert, query, update, and delete on a PostgreSQL database instance.",
+  "image": "connector/connection/icons/ic-postgres-connection.png",
+  "compatibility": {
+    "refs": [
+      {
+        "connector": "postgres",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-postgres.git/src/app/PostgreSQL/connector/connection",
+        "newref": "github.com/tibco/wi-postgres/src/app/PostgreSQL/connector/connection"
+      },
+      {
+        "activity": "postgresql-update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-postgres.git/src/app/PostgreSQL/activity/update",
+        "newref": "github.com/tibco/wi-postgres/src/app/PostgreSQL/activity/update"
+      },
+      {
+        "activity": "postgresql-query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-postgres.git/src/app/PostgreSQL/activity/query",
+        "newref": "github.com/tibco/wi-postgres/src/app/PostgreSQL/activity/query"
+      },
+      {
+        "activity": "postgresql-insert",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-postgres.git/src/app/PostgreSQL/activity/insert",
+        "newref": "github.com/tibco/wi-postgres/src/app/PostgreSQL/activity/insert"
+      },
+      {
+        "activity": "postgresql-delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-postgres.git/src/app/PostgreSQL/activity/delete",
+        "newref": "github.com/tibco/wi-postgres/src/app/PostgreSQL/activity/delete"
+      }
+    ]
+  },
+"tag": "2.7.1-b01",
+  "signature": "+pV8qnPefup8Ajn67nIIZNu7yepLLJpRXQzUVZJWhQ9VyddTFp/XQlg3/b1oEaBDZYI895rY9Kw8HjMh+sGlR23Oa5PwpcIShCCovS2j"
+}

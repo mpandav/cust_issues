@@ -1,0 +1,8 @@
+{
+  "name": "TIBCO Flogo connector for Mongodb",
+  "version": "1.1.1",
+  "category": "mongodb",
+  "description": "TIBCO Flogo® Connector for Mongodb allows you to Insert, Query, Delete, Update the document.",
+"tag": "1.1.1-b01",
+  "signature": "VY2cj+X15+ouwU4GYYLwdtFDCULdEFEQ6YsJ8ktLklyRoW/wrKZ8WfHVQjkrXk5JWZpRyTaH+8d/l/cgGyZLN7f5ijFYtkQx"
+}

@@ -1,0 +1,65 @@
+{
+  "type": "flogo:activity",
+  "ref": "github.com/project-flogo/datastore-contrib/mongodb/activity/insertDocument",
+  "description": "Mongodb Insert Document activity",
+  "display": {
+    "category": "mongodb",
+    "visible": true,
+    "smallIcon": "icons/insert@2x.png",
+    "largeIcon": "icons/insert@3x.png",
+    "tags":["Database","NoSQL","MongoDB"]
+  },
+  "settings": {
+    "modelAttributes": {
+      "connection": {
+        "display": {
+          "name": "Connection",
+          "description": "Select a mongodb Connection",
+          "type": "connection",
+          "selection": "single",
+          "visible": true
+        }
+      },
+      "operation": {
+        "display": {
+          "name": "Operation",
+          "description": "Select an insert operation",
+          "visible": true
+        }
+      },
+      "databaseName": {
+        "display": {
+          "name": "Database Name",
+          "visible": true,
+          "description": "MongoDB databse to update documents",
+          "appPropertySupport": true
+        }
+      },
+      "collectionName": {
+        "display": {
+          "name": "Collection Name",
+          "visible": true,
+          "description": "The collection within the MongoDB database to update Documents",
+          "appPropertySupport": true
+        }
+      },
+      "timeout": {
+        "display": {
+          "name": "Timeout",
+          "visible": true,
+          "description": "Timeout in seconds for the activity's operations",
+          "appPropertySupport": true
+        }
+      },
+      "continueOnErr": {
+        "display": {
+          "description": "Should insert document continue if the previous insert document operation was not successful?",
+          "name": "Continue on Error",
+          "type": "boolean",
+          "visible": false
+        }
+      }
+    },
+    "newAttributes": []
+  }
+}

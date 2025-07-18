@@ -1,0 +1,40 @@
+{
+	"title": "error",
+	"version": "1.0.1",
+	"type": "flogo:trigger",
+	"name": "tibco-wi-error",
+	"author": "TIBCO Software Inc.",
+	"display": {
+		"description": "Flow Error Handler",
+		"category": "General",
+		"visible": true,
+		"smallIcon": "icons/ic-tibco-wi-error.svg",
+		"largeIcon": "icons/ic-tibco-wi-error@2x.png"
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/trigger/error",
+	"settings": [],
+	"handler": {
+		"settings": []
+	},
+	"outputs": [
+		{
+			"name": "activity",
+			"type": "string"
+		},
+		{
+			"name": "message",
+			"type": "string"
+		},
+		{
+			"name": "code",
+			"type": "string",
+			"display": {
+				"visible": false
+			}
+		},
+		{
+			"name": "data",
+			"type": "any"
+		}
+	]
+}

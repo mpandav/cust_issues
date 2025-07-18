@@ -1,0 +1,66 @@
+{
+  "title": "Protobuf To JSON",
+  "name": "protobuf2json",
+  "version": "1.0.1",
+  "type": "flogo:activity",
+  "author": "TIBCO Software Inc.",
+  "shim": "plugin",
+  "ref": "github.com/tibco/flogo-general/src/app/General/activity/protobuf2json",
+  "display": {
+    "visible": true,
+    "description": "Converts base64 encoded protobuf message to JSON, based on the uploaded proto file",
+    "category": "General",
+    "smallIcon": "icons/ic-tibco-protobuf2json.png",
+    "largeIcon": "icons/ic-tibco-protobuf2json@2x.png"
+  },
+  "settings": [
+    {
+      "name": "protoFile",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Proto File",
+        "description": "The Proto file",
+        "type": "fileselector",
+        "fileExtensions": [".proto"]
+      }
+    },
+    {
+      "name": "messageTypeName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Message Type Name",
+        "description": "Name of the message type defined in proto file e.g. GetBookResponse",
+        "type": "dropdown",
+        "selection": "single"
+      }
+    },
+    {
+      "name": "includeDefaultValues",
+      "type": "boolean",
+      "required": true,
+      "value": false,
+      "display": {
+        "name": "Include Default Values",
+        "description": "If set to true, JSON will include absent fields as well as fields with default values",
+        "type": "boolean"
+      }
+    }
+  ],
+  "input": [
+    {
+      "name": "protoMessage",
+      "type": "string",
+      "required": true,
+      "description": "Base64 encoded proto message"
+    }
+  ],
+  "output": [
+    {
+      "name": "jsonMessage",
+      "type": "object",
+      "description": "Converted JSON message"
+    }
+  ]
+}

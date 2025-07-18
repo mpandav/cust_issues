@@ -1,0 +1,121 @@
+{
+  "type": "flogo:activity",
+  "shim": "plugin",
+  "ref": "github.com/project-flogo/grpc/activity/grpc",
+  "display": {
+    "description": "gRPC client activity",
+    "visible": true,
+    "smallIcon": "icons/grpc_32.png",
+    "largeIcon": "icons/grpc_48.png"
+  },
+  "settings": {
+    "modelAttributes": {
+       "operatingMode" : {
+         "display": {
+           "name": "Operating Mode",
+           "description": "\"Either 'grpc-to-grpc' or 'rest-to-grpc'\"",
+           "type": "dropdown",
+           "selection": "single",
+           "visible": false
+         }
+       },
+      "hosturl": {
+        "display": {
+          "name": "Host URL",
+          "description": "gRPC server address e.g. <HOSTNAME>:<PORT>",
+          "type": "string",
+          "appPropertySupport": true
+        }
+      },
+      "protoFile": {
+        "display": {
+          "name": "Proto File",
+          "description": "The Proto file for the trigger",
+          "type": "fileselector",
+          "fileExtensions": [
+            ".proto"
+          ]
+        }
+      },
+      "enableTLS": {
+        "display": {
+          "name": "Secure Connection",
+          "description": "Set to \"true\" for a secure connection",
+          "type": "boolean"
+        }
+      },
+      "clientCert": {
+        "display": {
+          "name": "Client Certificate",
+          "description": "Server certificate file in PEM format",
+          "type": "fileselector",
+          "fileExtensions": [
+            ".pem"
+          ],
+          "appPropertySupport": true
+        }
+      }
+    }
+  },
+
+  "input": {
+    "modelAttributes": {
+      "grpcMthdParamtrs": {
+        "display": {
+          "visible": true
+        }
+      },
+      "serviceName": {
+        "display": {
+          "name": "Service Name",
+          "description": "Name of the service",
+          "type": "dropdown",
+          "selection": "single"
+        }
+      },
+      "protoName": {
+        "display": {
+          "visible": false
+        }
+      },
+      "methodName": {
+        "display": {
+          "name": "Method Name",
+          "description": "Name of rpc method in proto file",
+          "type": "dropdown",
+          "selection": "single"
+        }
+      },
+      "params": {
+        "display": {
+          "visible": false
+        }
+      },
+      "queryParams": {
+        "display": {
+          "visible": false
+        }
+      },
+      "content": {
+        "display": {
+          "visible": false
+        }
+      },
+      "pathParams": {
+        "display": {
+          "visible": false
+        }
+      }
+    }
+  },
+
+  "output": {
+    "modelAttributes": {
+      "body": {
+        "display": {
+          "visible": true
+        }
+      }
+    }
+  }
+}

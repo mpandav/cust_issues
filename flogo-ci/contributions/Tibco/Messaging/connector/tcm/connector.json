@@ -1,0 +1,108 @@
+{
+  "name": "tibco-eftl",
+  "title": "TIBCO Cloud Messaging eFTL Connection",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "1.1.3",
+  "display": {
+    "description": "This is TIBCO Cloud Messaging(eFTL) connection configuration",
+    "category": "Messaging",
+    "visible": true,
+    "smallIcon": "tcm.png",
+    "connectionsupport": true
+
+  },
+  "ref": "github.com/tibco/flogo-messaging/src/app/Messaging/connector/tcm",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "description": "Name of the connection"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "description": "Connection description"
+      }
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection URL",
+        "description": "TIBCO Cloud Messaging connection url",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "authKey",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Authentication Key",
+        "description": "Authentication key",
+        "appPropertySupport": true,
+        "type": "password"
+      }
+    },
+    {
+      "name": "timeout",
+      "type": "integer",
+      "required": false,
+      "display": {
+        "name": "Timeout",
+        "description": "Timeout value in seconds",
+        "appPropertySupport": true
+      },
+      "value": 10
+    },
+    {
+      "name": "autoReconnectAttempts",
+      "type": "integer",
+      "required": false,
+      "display": {
+        "name": "AutoReconnectAttempts",
+        "description": "Specifies the number of times the client attempts to automatically reconnect to the server following a loss of connection",
+        "appPropertySupport": true
+      },
+      "value": 256
+    },
+    {
+      "name": "autoReconnectMaxDelay",
+      "type": "integer",
+      "required": false,
+      "display": {
+        "name": "AutoReconnectMaxDelay",
+        "description": "Determines the maximum delay between auto reconnect attempts in seconds",
+        "appPropertySupport": true
+      },
+      "value": 30
+    },
+    {
+      "name": "maxPendingAcks",
+      "type": "integer",
+      "display": {
+        "name": "Max Pending Acks",
+        "description": "Specify the maximum number of unacknowledged messages allowed for the client. Once reached the client will stop receiving more messages until previously received messages are acknowledged. Any value less than or equal to zero is considered no limit.",
+        "appPropertySupport": true
+      },
+      "value": -1
+    }
+  ],
+  "actions": [
+    {
+      "name": "Save",
+      "display": {
+        "readonly": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var Schema=function(){return function(){}}();Schema.INPUT={properties:{fileName:{type:"string"}},required:["fileName"],type:"object"},Schema.OUTPUT={properties:{fileMetadata:{items:{properties:{fullPath:{type:"string"},name:{type:"string"},size:{type:"number"},mode:{type:"string"},modTime:{type:"string",format:"date-time"},isDir:{type:"boolean"}},type:"object"},type:"array"}},type:"object"},exports.Schema=Schema;
+//# sourceMappingURL=activity.jsonschema.js.map

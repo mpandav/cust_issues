@@ -1,0 +1,131 @@
+{
+  "type": "flogo:trigger",
+  "display": {
+    "description": "Websocket Subscriber connects to a websocket server and reads the data over connection",
+    "category": "websocket",
+    "visible": true,
+    "smallIcon": "icons/ws_clientTrigger@2x.png",
+    "largeIcon": "icons/ws_clientTrigger@3x.png"
+  },
+  "useReplyHandler": false,
+  "ref": "github.com/project-flogo/websocket/trigger/wsclient",
+  "settings": {
+    "modelAttributes": {
+      "url": {
+        "display": {
+          "name": "URI",
+          "description": "The websocket uri to connect to.",
+          "required": true,
+          "type": "string",
+          "appPropertySupport": true
+        }
+      },
+      "allowInsecure": {
+        "display": {
+          "name": "Allow Insecure Connection",
+          "visible": false,
+          "type": "boolean",
+          "appPropertySupport": true,
+          "description": "Enable to support self signed CA's"
+        }
+      },
+      "caCert": {
+        "display": {
+          "name": "Server CA",
+          "description": "Select the PEM encoded certificate authority file used to sign the server's certificate",
+          "visible": false,
+          "type": "fileselector",
+          "fileExtensions": [
+            ".crt",
+            ".cert",
+            ".pem",
+            ".cer"
+          ],
+          "appPropertySupport": false
+        }
+      },
+      "headers": {
+        "display": {
+          "visible": false,
+          "type": "table"
+        }
+      },
+      "queryParams": {
+        "display": {
+          "visible": false,
+          "type": "table"
+        }
+      },
+      "autoReconnectAttempts": {
+        "display": {
+          "name": "AutoReconnectAttempts",
+          "description": "Specifies the number of times the client attempts to automatically reconnect to the server following a loss of connection",
+          "appPropertySupport": true
+        },
+        "value": 15
+      },
+      "autoReconnectMaxDelay": {
+        "display": {
+          "name": "AutoReconnectMaxDelay",
+          "description": "Determines the maximum delay between auto reconnect attempts in seconds",
+          "appPropertySupport": true
+        },
+        "value": 30
+      }
+    },
+    "newAttributes": [
+      {
+        "name": "queryParamsConfig",
+        "type": "params",
+        "description": "HTTP request query params",
+        "display": {
+          "name": "Query Params",
+          "description": "The query parameters for request",
+          "type": "table",
+          "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"value\":{\"type\":\"string\"}}}}"
+        }
+      },
+      {
+        "name": "headersConfig",
+        "type": "params",
+        "description": "HTTP request header params. Header key gets converted in to canonical format, i.e. the first letter and any letter following a hyphen to upper case, the rest are converted to lowercase. For example, the canonical key for \"accept-encoding\" and \"host\" are \"Accept-Encoding\" and \"Host\" respectively",
+        "display": {
+          "name": "Request Headers",
+          "description": "The headers you want to send",
+          "type": "table",
+          "schema": "{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"parameterName\":{\"type\":\"string\"},\"type\":{\"type\":{\"enum\":[\"string\",\"number\",\"boolean\"]}},\"value\":{\"type\":\"string\"}}}}"
+        }
+      },
+      {
+        "name": "format",
+        "type": "string",
+        "required": true,
+        "value": "String",
+        "allowed": [
+          "String",
+          "JSON"
+        ],
+        "display": {
+          "name": "Message Format",
+          "description": "Select the format for the message body",
+          "visible": true,
+          "outputSettingsOnly": true
+        }
+      },
+      {
+        "name": "jsonSchema",
+        "type": "object",
+        "required": false,
+        "value": "",
+        "display": {
+          "name": "Schema for JSON value",
+          "description": "The JSON schema for the Websocket message payload",
+          "type": "texteditor",
+          "syntax": "json",
+          "visible": false,
+          "outputSettingsOnly": true
+        }
+      }
+    ]
+  }
+}

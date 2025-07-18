@@ -1,0 +1,201 @@
+package connection
+
+import (
+	"encoding/json"
+	"fmt"
+	"os"
+	"testing"
+
+	"github.com/project-flogo/core/support/log"
+)
+
+var connectionLog = log.ChildLogger(log.RootLogger(), "SFTP-connection")
+
+var sftpUserPasswordConnectionJSON = []byte(`{
+	"name": "sftp",
+	"description": "",
+	"host": "52.73.250.243",
+	"port": 22,
+	"user": "ruby",
+	"password": "tibco123",
+	"publicKeyFlag": false,
+	"hostKeyFlag": false
+}`)
+
+var sftpUserPasswordHostKeyConnectionJSON = []byte(`{
+	"name": "sftpHostKey",
+	"description": "",
+	"host": "52.73.250.243",
+	"port": 22,
+	"user": "ruby",
+	"password": "tibco123",
+	"publicKeyFlag": false,
+	"hostKeyFlag": true,
+	"knownHostFile": {
+		"filename": "knownhost",
+        "content": "data:application/octet-stream;base64,NTIuNzMuMjUwLjI0MyBzc2gtcnNhIEFBQUFCM056YUMxeWMyRUFBQUFEQVFBQkFBQUJBUUNxSi9MRjNqMnJ5NS81bmY2KzhNWHdPb2RFZE04a2VrS1NIUTMzYkJ4eWF2dG83TnlzOVpRNVRhd0FkZTZRRnV1dnhOMXVHaTFoQ0o0NGJlTUMvNkpVWTlhWVgvRldFNERkbW5tY25PbDFpOHlCUGFjSzB6YzNYamduZSsrOENManNqMTF0RDBXRjZvSUZrME9EZWFCOU5yR08wQzNRNzk2Y2k1YXJBUmgxL3djN0VrdXFVQ3M5VVIzSldaNWpZSHFkbkgxZ3lQS2JUQ0F4Qk0xUUNBYWVtRGpKWm5aVlk4LzJ0UCtjSGNOSWZRQ1RmQmhIeWdDd2dQRjlRV2IyVzR4L0NZbWdoN0Q2NHBBWTUxTTRuYVY2azFHQnpvdm10cWhKV2w0d1MybktCTlJCbFR4VzdBM2pyRjBvallyOHk2K1U5Q2xtNFVkVmgrLy96RHk2bVp5OQo="
+	}
+}`)
+
+var sftpPrivateKeyConnectionJSON = []byte(`{
+	"name": "sftpPrivateKey",
+	"description": "",
+	"host": "52.73.250.243",
+	"port": 22,
+	"user": "ruby",
+	"publicKeyFlag": true,
+	"privateKey": {
+		"filename": "ruby_22_24.prv",
+		"content": "data:application/octet-stream;base64,LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpQcm9jLVR5cGU6IDQsRU5DUllQVEVECkRFSy1JbmZvOiBBRVMtMTI4LUNCQyxGMUVCRjY3RjM1Q0Q0RUQ3QzA0NTkyNjJGNTlERTZERAoKZXYzTHE3K2FMUlRRWUtoeGZsa1ZSalZhRTh2TTlPcUdGeTdkTmsyeXIzd2owdFhlbG1lRXN5SVQ3K042QnF3UwowcWNqcHMwYUJJdTFjWHBGRFIvR2cySlJneTZYR3JDdVppdVNOR0o2UTRmRTZEVkVlNjhwQzBsVDg5a0l5azhsCk9Pb0dqbFJZREtmWkp4bmpkNmZrdHBUU0Z4Z3p5d3QwdXZhRU5yYS9QczhXS1ZoUW1oS2VVOXIwU1YycG9LZVkKTlA1c3laOWFLS2RMQ05INnR5Wm5yVG9mZjNlbkhhOGVXU3Q2bytRVkVmbDRCUEpnQ0xKejVoZmFHWUZsa21hTwpwZ0dOcGxBOWZ1VE5yc3FHZmJ5N1RkRk5lOWhkL0FzdmZEVU9UaVFrTm9tWEwvbmZLRmlaclpaTEtFbjJIeUIvCjNiL0xoRTNwK1g4STRyeHBxZXJxTno1eVhxSlBDMFRHNldDVno2V1pnM1IwbE9tSDdMUGpFOXJFZWpxMlk5WHYKaThzcVpoSy95ZWFVbzJlNUFJNVhETGZUb0Q0ZHg2Q2NJNWxZRG1acWFDNmY1SkQxaUp1YnpHYkU3L2h4OXozbwpGc3pXalZpMVYxMWRHYURTUGNYRHFRdXFoS3FvU2xzcUMyZ3lEWkhaemVRd0RLVGxCWk9xQXptNWprSEgxQ2dKCitRNWF1R1NUNWYwbTZQQVYyQXlWRFk2Z011aGVBODZadUNXR29nUldqWDBxMkI1aU5idjg2RGtVRzN4cjlNZ0MKOG9ULzUyMXU2MitzQVM0SjY2NUZsVzdCRXUrUVVUUHZrZ0orbXZYeDRIZ29lWkZBTy9JMkd6cml5aUJyd1hWeQp4dHZiSDdrL3RPQXZ4aFg1T2RjUUtmUVFkQUVvejBWR3JNV3VLN3JMWTdVSFVvZndEcDFEUktwSnM4c2greFJSCnpWT3d4UnN6ZmNleTFxMzdGSnEyUEtneVdUTWxQb280WkhSN2JrYTFWbEQwVmRTVlh6eWlqWTVWUW5FckJJS2MKWDNpYU1wYkQyZFlUU215YmIvU3B2S1VQNHgxWWRaSVdXUXF5ZXRZVk4vL2hqby9ZYy9pTUZNQ1VzZXdremNFWgpoZnFRZUtpS1hwWUVBZ1N1aU1hRXZGTVFFNVFsQm9VdEVZV3dSNTcrbkJCR2NiSk5RNFZ3cnMwVzhRSk83QUtLCjkzazlKZm9QcWlkV3RtUHFTV1dHNm82OG1HZjFvNE41eTlxL0FYdUhLM0h1UUxDdjYvUFJEMVdtaklKWWcxNm4KWlFYcVV1M2c4VG93R1pVMmQzV0RZcUFPU1lvT3FVNTRoNjBFUVNpbGhJcWw1THp6bXpLcDBYdXhqb0lpOVJ2TQpabVdmdHAzbC9PQ0xTYXBGK2xYUDYyYkpMdFFjbjB4RkIwNW9UUFJZbncyUGVKN2lreGF3SEtxNmpUKzVaZlFJCmFmb3dnQ2RZRDJ4SWxKQnpEQ0ZuYlZwb3ovWnhScURMMm56Q1JKQUVjZnVGL0VUcDkrcmY1OVRibzB2bzY0ejEKU0czb0JEVU1DeDlwNHg1TjNkZlFydnF0T2pPWWNzZW04LzB3Q3lCbDZKZ1FEdHlJNUoyU3hYQzJaUkg1Slp1VQp4R2Izb09KQi9qd0lkSnhJelVJSFZ1aFFlVThuak5pWGlLdXREWXJ2dGNKUUs1bXpBdmd5eG9ESStHK0JCb201CkQzNWdyZkxvdXovQWJBakVPSW9xellQRzhBMTVxeEVtdkE3SWRKbU5UMkhJMG42bUt1Y2ptdWUyM3ZWZmVWdHUKbVh6elI5TnUwRzlxemRFQVpmcnhoZmpMaUtHQWtndjQ4ZkRwa25BMCtkQnRyR2NKWFBpTWZuSERHdEs1eW5UWApwTUxKbnY3UGxTNks5MzBySnNGRFNETUpKOHRGajR5aHNDRHVMUVllR1BNc09hVHRmSlZ1U1VPNzZaTjFEVm9QCnJSZEh3MEoyNWUxdnZpQWRzSklUUUg2SjhSd3lpaWZ0bjdBOUJuRXQvM1F2eHNJd0h0bjRUMzlBSEZDMEFCZEYKdndJMDdISkdTMXAvZlR5WitsSjd1VmFwR21QL2NMbWRUWHVjZG5oK1lrVTN6WEdvYkd6MCt4M0RPQU53bkkrZwotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+	},
+	"privateKeyPassword": "tibco321",
+	"hostKeyFlag": false
+}`)
+
+/*var sftpPrivateKeyConnectionJSON = []byte(`{
+	"name": "sftpPrivateKey",
+	"description": "",
+	"host": "52.73.250.243",
+	"port": 22,
+	"user": "ruby",
+	"publicKeyFlag": true,
+	"privateKey": {
+		"filename": "ashapassword.prv",
+		"content": "data:application/octet-stream;base64,LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQ0KUHJvYy1UeXBlOiA0LEVOQ1JZUFRFRA0KREVLLUluZm86IEFFUy0xMjgtQ0JDLDM5RUMzODE1MkYyRTlGNDk0MjZBQzVBRTM2QTQxOEZGDQoNCjF5WHFBU1BTdWdOYkxQMkZVRllKQ3JOQitseWNtRERtckpTWDFxZkdGVHlKQjNscnBaODJZeGFuOXR4TExubXUNCjhSN2tBWVE2eFBOalBScE5sZXdveXFldVhnQnF5QVhZR2JXK3gzTXdXQWMwcVFYb1lURHJYazdCRy8vbHFVTkMNCnZkazV3ZkM0Rm9ER2dtaUNCWXIrTkNDdzdUUEkzdzJjWXhKWGlkZFR6bnpqT0kxcnZOZy82bnhEYzFnakNXS24NCk4xdW9GTHR1SDRnM1BlVlY5dVkreVJGWG02WitiTVJrNC9ZYzhRbDRzbUJQK2M3c3dOOXpMWVVNTjk3d29CTksNCjFYOTBtWjRJbWhOS2FuN3RMWTM2cEtZbjRMUDJSbzF4Wnl2U3hwR2VRM3BIOCtEdnlEU0lzTlMzSUhsMWYyVFINCjBPb29lWm1UK2ZIS1N0NldWSU9BK1R1ZjFPcXVkMXNHRFUzbzE0N1lQL2hsSVNqYWhmYlRmNUlwbSsxL0kweWENCkFlWmRJV2c2Y3JrL0dKVG12bG9zUE0zTTRkY2c5cGdTaWhzcnMxWTR0WXpCeFNMTmMzYTRTK2VxTjg3U0lEb2cNCmdoOGs2bnp0NWN1cTFFOXBkQ3BvSEljMnQyc25wWlZRSk8yWkRnQlBaaWpVWldLZ3pMVEN5OFBLd0M1blRMbjcNCjV6TDR4amM4UXN4eklEdE11RWZvME54TFlFRnMvVXdRSEJkUTlEb3c3TzJWUTIyNmFKZ0grL2Y3c0N2SlExZm8NCjlVaHNVQS9xaDJML1hUTDBqMUxQV0ZwWkRGaG9TaGVsRkRadllpd0FBaWxjbjc0MjJLVFZYWnJmeG83WDk2M0kNCk9lUHRGaTVKdzdhaTJTMDhOMkRSY3h2VzFTYVc3dC9KeFRZVVQwaFBqdHM5RzhaMWJZSFNMT2t4YXhmc3JHUFINCkljVW5LcGx4YXFaajVralFDMGNMWW0wdnRwVXRpbktjWEpUZXRPVTlQU3RvQzBLc1ExeUlmVk5ybDdjTHRudVMNClNMTG5RQXcxOVcydnZRQ2d1U3h5NW1mVkJWaTlPc3AxeU81QlFOSEVJSFVZY052TjNXQUZRamZ4T1N2dzVmemYNCjRsK3gxNklHY29MbHhqc09HTWFVVFRSSlhOUGdMSzRNOXVrV3VHR2pyeFRJdVpjM2RLYVhZWi9yc0RVT05wcW8NCjg3cDBzK29VWVFkN2tKanJHNUtUQXprbWNNcWJBTXZvS0EyU21lMzhUNjlZYWpoVnMrNzJqZWFnSTZLeHZxcm8NCjErejdHYVQ4ZWhpY2laa0pOVWF5a3c5bU9TdnJ1V0p5UW9PRHJMMTBlYzBwcy9hcVhNZXpNcWZ6WGZzMWpHUGMNCk1lSitQRmtZNnlyMUx2TWhvckxKTE42WC9pdWlLRGdjQ29PUlgrbjF3bkZJa1RKdzdvbGovdU43TjMwK3B4VDcNClRKQ2YwampQUTNuaEtlbVNVOUoxb01XNGpFMUdUZzNINzBJWHVJTGtORll5Z01oSndjbWgyUnl5V2hORFlYVXUNCm9CeVFuQnptcVh4MEFKVVhOa0hyQnNWdi9UaC83M0pudmlVcFRSZGxqaDBCd3FVQjJKK29KYUxQRVJkUmNnVlUNCnlkZEk1WGttUGtaOFloZ01YUFdkMnVVUkRoakxTK1gwTkNQVDRYQ1lFQXA5RlZoYnUzYitPVHNCekNTUFR0U28NCnZkd2xBZVJmUWJSNkNOZ0Z1UlVna1NCekNZUzJFZ2NXd3QzVWxRdmxFYitpSVBNM1ZoM0xkREZKc0FKNEI3WmENCjBYWkpZdnR5eUJPZ3FWc3FmTk1aM01YOFgva2kvWTdQOXBHN0dNc0RJbTFQbExVSm5WV1dSVUdiejF1Zllnd1UNCk1IYlFOOG5WSTJDVVhRMHNwNlFRLzVGYUJyVjUwYzhTUzhrM2NnSkorTWxNaW9NcldkUlIwUG5TMjBCOGpyZ3QNCm9tWUd4eHFxMXJqeWhuVHBNV293WnF4QS9zTXV0RVVGV0JJQ2lhaDQveVoxVCt6SElFT3pSdUZraTAyMTViMnUNCkJOekg5QTd2Tm9yT25PcUVSY0JCclc1Tno1bUM3N2Y3MTc0endDcHB0ZkFSZUVkWndUWlJhSDc0MFpXekFIS0MNCi0tLS0tRU5EIFJTQSBQUklWQVRFIEtFWS0tLS0tDQo="
+	},
+	"privateKeyPassword": "tibco321",
+	"hostKeyFlag": false
+}`)*/
+
+var sftpPrivateKeyWithoutPasswordConnectionJSON = []byte(`{
+	"name": "sftpPrivateKeyWithoutPassword",
+	"description": "",
+	"host": "52.73.250.243",
+	"port": 22,
+	"user": "ruby",
+	"publicKeyFlag": true,
+	"privateKey": {
+		"filename": "ashanopassword.prv",
+		"content": "data:application/octet-stream;base64,LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQ0KTUlJRW93SUJBQUtDQVFFQWl0ODJCVnp6UFlmbGNxdi80OUwxS2I4ZHhmb2RVYmRsQWExOGM0cTR2enR6Q3hjZQ0KZzk3OC9wd0h6U3hHaWpGcExhbnRaVlhITmFPN08xY1lPblZxenVRdVhyTzd3bHIxcnp6M1VvWVRsUDBvamZiSQ0KTVZobnVDWUdTQzd3M0JDZUdYV2dNTjRHdTNJWXNoWkhNS1UydU1pM3hHQU93MVhRVDEybExtM3hQcHgrMjZrVA0KdFl2NkkwTjNlYjg1dmVRcjUxOXZZVVNHNk1RTElKM3l3TUlVbVF0WWNzeSsvOEZDeWFrRi9UNUtwUlpCZ2hUeQ0KYUc0QTJKYk03dUtGMkdCb0I1OThVTGZiNDRjUjJHZklTTnRnVGtWV3R5bzFNK1RaZHprYThYRW9KSFVpR3BINg0KVjFMS3JPN1Y3SHNjdEExbjhHTjJQbk03SHRaSGQ2YWJkUVA3VXdJREFRQUJBb0lCQURNZ3YvSlVpT2RYLzZWcQ0KNXVDNWUvS2RQdmh6UDlVa21LYjMrUEJQRy9xb0NCQ0d1QURrR2JBaHdRdU1hQUliOC9YUWNLc1UzQzJHOVBtQg0KZE5XZEFqQmV1U1c3dFg1Mlg2cmZYczArdUxuclJNR1RvSnZ1U08xMjdtd29BQng5YjcrKzJ6WHlvSGJscUdyMA0Kb2N3cW40MkR0SWl6dHV1NnplRlNnR3lxSko0Z2xBaWs1WFpQM0FuN2RvNUQwZXZkTDhHZ3JPYW5NckErNmdnKw0KQ1VFQlRjQXBDSCtQN25tNXR1a2dqNTJ1T1RrSFc2Zlc1aDRUb2VCK0dsbVVLUHhsZkNMV3J5dDN1MVVaMlBVQg0KNGczZWptaERybkdRL0VteGVGMXFLaElGUFRXeFNnWHhCY2hvQnMwSGlkd3RFaDZUUlFKVllVWE5XNGNRTnFwWQ0KUkJlbm5rMENnWUVBdnZ5Nk83MVM0YjFNWDVZeG1sT0NNcHZKLzBTTnJVSFdWSkFhNTk0aFZFaDVyejlGRktjNA0KSmxwMmh4aG56dENZREFzZDZFMGExalpNaDI5eGxKVE1uNkpLcEpwaU1UcStoTlNoU2JDMlNvTTRJbGFlUUFCcA0Kdk5GeWwxcGxRUmlzZEVrc3FaeHpvMTFFcUc1dnZWbVdSL2Z4cUZxS0ZHVU5rRTRDcmFBOS8rVUNnWUVBdWlUNg0KNG50V0ZVRVFhSFV1SHhPbFhjbmJrdmtCZHptWklqbjB0M0xxaGpCaGh4TGJqVWRKaVF5VzZsa1dJaDc2aWQweQ0KR3VMeEFTNE4xQ3FyRlhMRDB1clpDVHpLQkRnS2h4TWo0R1N3OFAxTjRxbWs0eUZ2cEZ3SUE1OWZPQ1NwL2pONw0Kd2hUR3Y2bXlTT2xJeU5YR09ISkRTTUY5c096ZmpsdEV5U2kwcXRjQ2dZQUtpK1F3MWxTVVdLSzJDSkkycG5Qag0KSFkwN0Jtc1liVEZMdkNWd05tajZ3WUhPdHB5MjlrRDRoVGhVWDNta0J3ck9aM0xBV0RtcUtKZHpSeWtyZmtnSw0KYktqWWpCbnVCQU52VEZxWHVpVm0yZllvbDBYbjNOMzU2a3I4cHFZK3dRRU03dG1EaURzdWcwRCtXQkxkanV2bw0KajMyTndXb3NsQ1A2bXdRMDJFdDBMUUtCZ0Q2QUxqRWZnbjd1Y3Nqd0Y0VmR2bGVvY0c1LzUwc1Y3dUg4SGJ2Kw0KL05vRG9xdU0zR1VxZTNsbDNjSmdHVHRwdFd2VzluenFtRXR5SURpTi94WGJpLzdrMWV6eEdVK2pWWDJYSXFPMA0KaTJqUFZIaDN4Nkp2MXFHVU9TaW1PWDJMYWZ5dFlxOSs5R0RrWkxWd2h2elFNcGMvWG5JdWJicWJQbEQ1T2paaw0KMFl6UEFvR0JBTHlaNnJCV2ZCaHFjbXFqL3BBZmtkRzBkNFF0MUVtYW1lM05tenpoKzQvUjlGR21nb3F1UmkvYw0KZXhsSlNDWlBITGRIY0pCTmZUK01wVVJ2QzB3QU5SUVp3OENPQ1Uyb2kzQ3pIZEdYYWhYelRzQnp4T3RzZzZIVQ0KeXBSeDJJMTFnR0dpVzNjL1FNek9kc2Q4WGZLSkxkaGg3Qy81dlF3ekhNTTdTNkZuQnZKRQ0KLS0tLS1FTkQgUlNBIFBSSVZBVEUgS0VZLS0tLS0NCg=="
+	},
+	"hostKeyFlag": false
+}`)
+
+var sftpPrivateKeyHostKeyConnectionJSON = []byte(`{
+	"name": "sftpPrivateKeyHostKey",
+	"description": "",
+	"host": "52.73.250.243",
+	"port": 22,
+	"user": "ruby",
+	"publicKeyFlag": true,
+	"privateKey": {
+		"filename": "ruby_22_24.prv",
+		"content": "data:application/octet-stream;base64,LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpQcm9jLVR5cGU6IDQsRU5DUllQVEVECkRFSy1JbmZvOiBBRVMtMTI4LUNCQyxGMUVCRjY3RjM1Q0Q0RUQ3QzA0NTkyNjJGNTlERTZERAoKZXYzTHE3K2FMUlRRWUtoeGZsa1ZSalZhRTh2TTlPcUdGeTdkTmsyeXIzd2owdFhlbG1lRXN5SVQ3K042QnF3UwowcWNqcHMwYUJJdTFjWHBGRFIvR2cySlJneTZYR3JDdVppdVNOR0o2UTRmRTZEVkVlNjhwQzBsVDg5a0l5azhsCk9Pb0dqbFJZREtmWkp4bmpkNmZrdHBUU0Z4Z3p5d3QwdXZhRU5yYS9QczhXS1ZoUW1oS2VVOXIwU1YycG9LZVkKTlA1c3laOWFLS2RMQ05INnR5Wm5yVG9mZjNlbkhhOGVXU3Q2bytRVkVmbDRCUEpnQ0xKejVoZmFHWUZsa21hTwpwZ0dOcGxBOWZ1VE5yc3FHZmJ5N1RkRk5lOWhkL0FzdmZEVU9UaVFrTm9tWEwvbmZLRmlaclpaTEtFbjJIeUIvCjNiL0xoRTNwK1g4STRyeHBxZXJxTno1eVhxSlBDMFRHNldDVno2V1pnM1IwbE9tSDdMUGpFOXJFZWpxMlk5WHYKaThzcVpoSy95ZWFVbzJlNUFJNVhETGZUb0Q0ZHg2Q2NJNWxZRG1acWFDNmY1SkQxaUp1YnpHYkU3L2h4OXozbwpGc3pXalZpMVYxMWRHYURTUGNYRHFRdXFoS3FvU2xzcUMyZ3lEWkhaemVRd0RLVGxCWk9xQXptNWprSEgxQ2dKCitRNWF1R1NUNWYwbTZQQVYyQXlWRFk2Z011aGVBODZadUNXR29nUldqWDBxMkI1aU5idjg2RGtVRzN4cjlNZ0MKOG9ULzUyMXU2MitzQVM0SjY2NUZsVzdCRXUrUVVUUHZrZ0orbXZYeDRIZ29lWkZBTy9JMkd6cml5aUJyd1hWeQp4dHZiSDdrL3RPQXZ4aFg1T2RjUUtmUVFkQUVvejBWR3JNV3VLN3JMWTdVSFVvZndEcDFEUktwSnM4c2greFJSCnpWT3d4UnN6ZmNleTFxMzdGSnEyUEtneVdUTWxQb280WkhSN2JrYTFWbEQwVmRTVlh6eWlqWTVWUW5FckJJS2MKWDNpYU1wYkQyZFlUU215YmIvU3B2S1VQNHgxWWRaSVdXUXF5ZXRZVk4vL2hqby9ZYy9pTUZNQ1VzZXdremNFWgpoZnFRZUtpS1hwWUVBZ1N1aU1hRXZGTVFFNVFsQm9VdEVZV3dSNTcrbkJCR2NiSk5RNFZ3cnMwVzhRSk83QUtLCjkzazlKZm9QcWlkV3RtUHFTV1dHNm82OG1HZjFvNE41eTlxL0FYdUhLM0h1UUxDdjYvUFJEMVdtaklKWWcxNm4KWlFYcVV1M2c4VG93R1pVMmQzV0RZcUFPU1lvT3FVNTRoNjBFUVNpbGhJcWw1THp6bXpLcDBYdXhqb0lpOVJ2TQpabVdmdHAzbC9PQ0xTYXBGK2xYUDYyYkpMdFFjbjB4RkIwNW9UUFJZbncyUGVKN2lreGF3SEtxNmpUKzVaZlFJCmFmb3dnQ2RZRDJ4SWxKQnpEQ0ZuYlZwb3ovWnhScURMMm56Q1JKQUVjZnVGL0VUcDkrcmY1OVRibzB2bzY0ejEKU0czb0JEVU1DeDlwNHg1TjNkZlFydnF0T2pPWWNzZW04LzB3Q3lCbDZKZ1FEdHlJNUoyU3hYQzJaUkg1Slp1VQp4R2Izb09KQi9qd0lkSnhJelVJSFZ1aFFlVThuak5pWGlLdXREWXJ2dGNKUUs1bXpBdmd5eG9ESStHK0JCb201CkQzNWdyZkxvdXovQWJBakVPSW9xellQRzhBMTVxeEVtdkE3SWRKbU5UMkhJMG42bUt1Y2ptdWUyM3ZWZmVWdHUKbVh6elI5TnUwRzlxemRFQVpmcnhoZmpMaUtHQWtndjQ4ZkRwa25BMCtkQnRyR2NKWFBpTWZuSERHdEs1eW5UWApwTUxKbnY3UGxTNks5MzBySnNGRFNETUpKOHRGajR5aHNDRHVMUVllR1BNc09hVHRmSlZ1U1VPNzZaTjFEVm9QCnJSZEh3MEoyNWUxdnZpQWRzSklUUUg2SjhSd3lpaWZ0bjdBOUJuRXQvM1F2eHNJd0h0bjRUMzlBSEZDMEFCZEYKdndJMDdISkdTMXAvZlR5WitsSjd1VmFwR21QL2NMbWRUWHVjZG5oK1lrVTN6WEdvYkd6MCt4M0RPQU53bkkrZwotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo="
+	},
+	"privateKeyPassword": "tibco321",
+	"hostKeyFlag": true,
+	"knownHostFile": {
+		"filename": "knownhost",
+        "content": "data:application/octet-stream;base64,NTIuNzMuMjUwLjI0MyBzc2gtcnNhIEFBQUFCM056YUMxeWMyRUFBQUFEQVFBQkFBQUJBUUNxSi9MRjNqMnJ5NS81bmY2KzhNWHdPb2RFZE04a2VrS1NIUTMzYkJ4eWF2dG83TnlzOVpRNVRhd0FkZTZRRnV1dnhOMXVHaTFoQ0o0NGJlTUMvNkpVWTlhWVgvRldFNERkbW5tY25PbDFpOHlCUGFjSzB6YzNYamduZSsrOENManNqMTF0RDBXRjZvSUZrME9EZWFCOU5yR08wQzNRNzk2Y2k1YXJBUmgxL3djN0VrdXFVQ3M5VVIzSldaNWpZSHFkbkgxZ3lQS2JUQ0F4Qk0xUUNBYWVtRGpKWm5aVlk4LzJ0UCtjSGNOSWZRQ1RmQmhIeWdDd2dQRjlRV2IyVzR4L0NZbWdoN0Q2NHBBWTUxTTRuYVY2azFHQnpvdm10cWhKV2w0d1MybktCTlJCbFR4VzdBM2pyRjBvallyOHk2K1U5Q2xtNFVkVmgrLy96RHk2bVp5OQo="
+	}
+}`)
+
+func TestSftpUserPassword(t *testing.T) {
+	//set logging to debug level
+	log.SetLogLevel(connectionLog, log.DebugLevel)
+
+	conn := make(map[string]interface{})
+	err := json.Unmarshal([]byte(sftpUserPasswordConnectionJSON), &conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	sdb := SftpFactory{}
+	s, err := sdb.NewManager(conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	s.(*SftpSharedConfigManager).Stop()
+}
+
+func TestSftpUserPasswordWithStrictHostKey(t *testing.T) {
+	//set logging to debug level
+	log.SetLogLevel(connectionLog, log.DebugLevel)
+
+	conn := make(map[string]interface{})
+	err := json.Unmarshal([]byte(sftpUserPasswordHostKeyConnectionJSON), &conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	sdb := SftpFactory{}
+	s, err := sdb.NewManager(conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	s.(*SftpSharedConfigManager).Stop()
+}
+
+func TestSftpPrivateKey(t *testing.T) {
+	//set logging to debug level
+	log.SetLogLevel(connectionLog, log.DebugLevel)
+
+	conn := make(map[string]interface{})
+	err := json.Unmarshal([]byte(sftpPrivateKeyConnectionJSON), &conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	sdb := SftpFactory{}
+	s, err := sdb.NewManager(conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	s.(*SftpSharedConfigManager).Stop()
+}
+
+func TestSftpPrivateKeyWithoutPassword(t *testing.T) {
+	//set logging to debug level
+	log.SetLogLevel(connectionLog, log.DebugLevel)
+
+	conn := make(map[string]interface{})
+	err := json.Unmarshal([]byte(sftpPrivateKeyWithoutPasswordConnectionJSON), &conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	sdb := SftpFactory{}
+	s, err := sdb.NewManager(conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	s.(*SftpSharedConfigManager).Stop()
+}
+
+func TestSftpPrivateKeyWithStrictHostKey(t *testing.T) {
+	//set logging to debug level
+	log.SetLogLevel(connectionLog, log.DebugLevel)
+
+	conn := make(map[string]interface{})
+	err := json.Unmarshal([]byte(sftpPrivateKeyHostKeyConnectionJSON), &conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	sdb := SftpFactory{}
+	s, err := sdb.NewManager(conn)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	s.(*SftpSharedConfigManager).Stop()
+}

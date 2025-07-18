@@ -1,0 +1,43 @@
+{
+  "name": "tibco-parsejson-activity",
+  "type": "flogo:activity",
+  "ref": "github.com/tibco/flogo-general/src/app/General/activity/parsejson",
+  "version": "0.0.2",
+  "title": "ParseJSON",
+  "description": "Parses JSON string into JSON object",
+  "display": {
+    "visible": true,
+    "description": "Simple ParseJSON Activity",
+    "category": "General",
+    "smallIcon": "json-string-to-json-object@2x.png",
+    "largeIcon": "json-string-to-json-object@2x.png"
+  },
+  "input": [
+    {
+      "name": "validate",
+      "type": "boolean",
+      "value": false,
+      "display": {
+        "description": "Validate output JSON object against configured JSON schema",
+        "name": "Output Validation",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "jsonString",
+      "type": "string"
+    }
+  ],
+  "output": [
+    {
+      "name": "jsonObject",
+      "type": "any",
+      "display": {
+        "name": "Schema",
+        "description": "Configure expected object structure using JSON schema or JSON sample",
+        "type": "texteditor",
+        "syntax": "json"
+      }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+
+{
+    "name": "mkdir",
+    "version": "1.0.1",
+    "type": "flogo:activity",
+    "title": "SFTP Make Remote Directory",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "SFTP",
+        "visible": true,
+        "description": "This activity creates remote directory on SFTP server",
+        "smallIcon": "icons/sftp-mkdir@2x.png",
+		"largeIcon": "icons/sftp-mkdir@3x.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/flogo-sftp/src/app/SFTP/activity/mkdir",
+    "inputs": [
+        {
+            "name": "SFTP Connection",
+            "type": "connection",
+            "required": true,
+            "allowed": [],
+            "display": {
+                "name": "SFTP Connection",
+                "description": "Select SFTP Connection",
+                "type": "connection",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

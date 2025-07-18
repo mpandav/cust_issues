@@ -1,0 +1,30 @@
+{
+    "title": "EMS Acknowledge",
+    "name": "ems-acknowledge",
+    "version": "1.0.2",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "display": {
+      "category": "EMS",
+      "visible": true,
+      "description": "EMS acknowledge activity acknowledges message in explicit client ack mode",
+      "smallIcon": "icons/acknowledge@64px.png",
+      "largeIcon": "icons/acknowledge@96px.png"
+    },
+    "feature": {
+      "iterator": {
+        "type": "iterator",
+        "enabled": false
+      },
+      "repeater": {
+        "type": "repeater",
+        "enabled": false
+      }  
+    },
+    "ref": "github.com/tibco/flogo-ems/src/app/EMS/activity/acknowledge",
+    "inputs": [
+    ],
+    "outputs": [
+    ]
+  }
+  

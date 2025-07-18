@@ -1,0 +1,231 @@
+
+{
+    "name": "connection",
+    "version": "2.2.0",
+    "type": "flogo:connector",
+    "title": "IBM MQ Connection",
+    "display": {
+        "category": "IBM-MQ",
+        "smallIcon": "icons/MQConnectionSharedResource_48x48.png",
+        "largeIcon": "icons/MQConnectionSharedResource_48x48.png",
+        "visible": true,
+        "description": "IBM MQ Connection"
+        },
+    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/connector/connection",
+    "keyfield": "name",
+    "settings": [
+        {
+            "name": "name",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "Connection Name",
+              "visible": true
+            }
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "display": {
+              "name": "Description",
+              "visible": true
+            }
+          },
+          {
+            "name": "connectionType",
+            "type": "string",
+            "display": {
+              "name": "Connection Type",
+              "description": "Choose the type of MQ connection to use"
+            },
+            "allowed": [
+              "Remote",
+              "CCDT"
+            ],
+            "value": "Remote"
+          },
+          {
+            "name": "ccdtUrlType",
+            "type": "string",
+            "display": {
+              "name": "CCDT URL Type",
+              "description": "Choose the CCDT URL type",
+              "visible": false
+            },
+            "allowed": [
+              "CCDT-File",
+              "CCDT-URL-Auth",
+              "CCDT-URL-NonAuth"
+            ],
+            "value": "CCDT-File"
+          },
+          {
+            "name": "ccdturl",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "CCDT URL",
+              "description": "Enter the CCDT URL in http/ftp protocol for this connection",
+              "appPropertySupport": true,
+              "visible": false
+            }
+          },
+          {
+            "name": "ccdtUrlUsername",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "CCDT URL User Name",
+              "appPropertySupport": true,
+              "visible": false,
+              "description": "Enter a user name for CCDT URL"
+            }
+          },
+          {
+            "name": "ccdtUrlPassword",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "CCDT URL Password",
+              "visible": false,
+              "type": "password",
+              "encryptable": true,
+              "appPropertySupport": true,
+              "description": "Enter a password for CCDT URL"
+            }
+          },
+          {
+            "name": "ccdtfile",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "CCDT File",
+              "description": "Select the CCDT file to be used for this connection. Must be a TAB or JSON file",
+              "visible": false,
+              "type": "fileselector",
+              "fileExtensions": [".tab",".TAB",".json",".JSON"]
+            }
+          },
+          {
+            "name": "qmname",
+            "type": "string",
+            "display": {
+              "name": "Queue Manager Name",
+              "appPropertySupport": true,
+              "visible": true
+            }
+          },
+          {
+            "name": "host",
+            "type": "string",
+            "display": {
+              "name": "Host Name",
+              "appPropertySupport": true,
+              "visible": true
+            }
+          },
+          {
+            "name": "port",
+            "type": "number",
+            "display": {
+              "name": "Port",
+              "appPropertySupport": true,
+              "visible": true
+            },
+            "value":1414
+          },
+          {
+            "name": "chname",
+            "type": "string",
+            "display": {
+              "name": "Server Connection Channel Name",
+              "appPropertySupport": true,
+              "visible": true
+            },
+            "value":"SVRCONN"
+          },
+          {
+            "name": "username",
+            "type": "string",
+            "display": {
+              "name": "User Name",
+              "appPropertySupport": true,
+              "visible": true
+            }
+          },
+          {
+            "name": "password",
+            "type": "string",
+            "required": false,
+            "display": {
+              "name": "Password",
+              "visible": true,
+              "type": "password",
+              "encryptable": true,
+              "appPropertySupport": true,
+              "Description": "Enter a password if this connection requires one"
+            }
+          },
+          {
+            "name": "encryptionMode",
+            "type": "string",
+            "display": {
+              "name": "Encryption Mode",
+              "description": "Choose the type of authentication to use"
+            },
+            "allowed": [
+              "None",
+              "TLS-ServerAuth",
+              "TLS-MutualAuth"
+            ],
+            "value": "None"
+          },
+          {
+            "name": "keystore",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "Keystore",
+              "description": "Select the IBM keystore to be used for this connection.  Must be a KDB keystore",
+              "visible": false,
+              "type": "fileselector",
+              "fileExtensions": [".kdb",".KDB"]
+            }
+          },
+          {
+            "name": "keystorestash",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "Keystore Stashfile",
+              "description": "Select the IBM keystore stashfile to be used for this connection",
+              "visible": false,
+              "type": "fileselector",
+              "fileExtensions": [".sth",".STH"]
+            }
+          },
+          {
+            "name": "keystoreLabel",
+            "type": "string",
+            "display": {
+              "name": "Keystore Cert Label",
+              "description": "Enter the label of the client cerificate to use for mutual authentication.  If not specified the default certificate will be used",
+              "visible": false
+            }
+          },
+          {
+            "name": "cipherspec",
+            "type": "string",
+            "required": true,
+            "display": {
+              "name": "CipherSpec",
+              "description": "Enter the cipher specification used on the server connection channel",
+              "visible": false
+            }
+          }
+          
+    ],
+    "actions": [{
+        "name": "Save"
+    }]
+}

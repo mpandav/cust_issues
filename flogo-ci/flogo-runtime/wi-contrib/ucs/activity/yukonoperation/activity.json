@@ -1,0 +1,104 @@
+{
+  "name":"yukonoperation-activity",
+  "title":"Yukon Operation Activity",
+  "version":"0.0.1",
+  "type":"flogo:activity",
+  "author":"Rakshit Ashtekar <arakshit@tibco.com>",
+  "display":{
+      "category":"yukon",
+      "visible":true,
+      "smallIcon":"yukon.png",
+      "description":"Allows Flogo apps to execute operations using Yukon(Scribe) connectors"
+  },
+  "feature":{
+      "retry":{
+          "enabled":true
+      }
+  },
+  "ref":"github.com/tibco/ucs/poc/flogo-yukon-connector/src/app/yukon/activity/yukonoperation",
+  "settings":[
+      {
+          "name":"connection",
+          "type":"object",
+          "required":true,
+          "display":{
+              "name":"Connection",
+              "description":"Select your Connection",
+              "type":"connection"
+          }
+      }
+  ],
+  "inputs":[
+      {
+          "name":"dataObject",
+          "type":"string",
+          "required":true,
+          "display":{
+              "name":"Object",
+              "description":"Data object name",
+              "type":"string"
+          }
+      },
+      {
+          "name":"action",
+          "type":"string",
+          "required":true,
+          "display":{
+              "name":"Operation",
+              "description":"Operation to perform",
+              "type":"string"
+          }
+      },
+      {
+          "name":"lookupCondition",
+          "type":"array",
+          "required":false,
+          "display":{
+              "name":"Lookup Condition",
+              "description":"Operation input lookup condition",
+              "type":"string"
+          }
+      },
+      {
+          "name":"requiresLookupCondition",
+          "type":"boolean",
+          "required":true,
+          "description":"",
+          "value":false,
+          "display":{
+              "name":"requiresLookupCondition",
+              "description":"",
+              "visible":false
+          }
+      },
+      {
+          "name":"requiresInputData",
+          "type":"boolean",
+          "required":true,
+          "description":"",
+          "value":true,
+          "display":{
+              "name":"requiresInputData",
+              "description":"",
+              "visible":false
+          }
+      },
+      {
+          "name":"inputData",
+          "type":"any",
+          "required":false,
+          "display":{
+              "name":"Input Data",
+              "description":"Operation input data",
+              "type":"any"
+          }
+      }
+  ],
+  "outputs":[
+      {
+          "name":"output",
+          "type":"object",
+          "description":"Operation output"
+      }
+  ]
+}

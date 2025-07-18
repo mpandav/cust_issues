@@ -1,0 +1,23 @@
+{
+  "name": "tibco-kafka-commit-activity",
+  "type": "flogo:activity",
+  "title": "Kafka Commit Offset",
+  "version": "1.2.0",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "category": "Kafka",
+    "smallIcon": "icons/commit.png",
+    "largeIcon": "icons/commit@2x.png"
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    }
+  },
+  "ref": "github.com/tibco/wi-plugins/contributions/kafka/src/app/Kafka/activity/commit",
+  "inputs": [
+  ],
+  "outputs": [
+  ]
+}

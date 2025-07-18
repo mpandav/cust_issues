@@ -1,0 +1,239 @@
+{
+  "title": "HTTP Client Authorization Configuration",
+  "name": "tibco-restconnector",
+  "version": "1.0.4",
+  "type": "flogo:connector",
+  "author": "TIBCO Software Inc.",
+  "display": {
+    "description": "HTTP Client Authorization Configuration",
+    "visible": true,
+    "category": "General",
+    "smallIcon": "icons/authorization.png",
+    "largeIcon": "icons/authorization@2x.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/flogo-general/src/app/General/connector/authorization",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "inputType": "text",
+      "display": {
+        "name": "Name",
+        "visible": true,
+        "placeholder": "Connection name"
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "required": false,
+      "inputType": "text",
+      "display": {
+        "name": "Description",
+        "description": "Connection description",
+        "visible": true
+      }
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Authorization Type",
+        "description": "Indicate the type of authorization",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": ["Basic", "OAuth2"],
+      "value": "Basic"
+    },
+    {
+      "name": "userName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User Name",
+        "description": "User Name for basic auth",
+        "appPropertySupport": true,
+        "visible": false
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Password",
+        "description": "Password for basic auth",
+        "type": "password",
+        "appPropertySupport": true,
+        "visible": false
+      }
+    },
+    {
+      "name": "token",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Bearer Token",
+        "description": "Bearer Token",
+        "type": "password",
+        "appPropertySupport": true,
+        "visible": false
+      }
+    },
+    {
+      "name": "grantType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Grant Type",
+        "description": "Indicate the way of the application to get the token",
+        "type": "dropdown",
+        "selection": "single"
+      },
+      "allowed": ["Authorization Code", "Client Credentials"],
+      "value": "Authorization Code"
+    },
+    {
+      "name": "callbackURL",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Callback URL",
+        "description": "You will be redirected to this URL once your application is authorized. Your application's callback URL should match this URL. The URL is read-only",
+        "visible": true
+      },
+      "value": "https://localdev-integration.cloud.tibco.com/wistudio/connectiondetails"
+    },
+    {
+      "name": "authURL",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Auth URL",
+        "description": "Authorization server API endpoint",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "authQueryParameters",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Additional Auth URL Query Parameters",
+        "description": "Additional query parameters to get refresh token based on the service you request for",
+        "visible": false
+      }
+    },
+    {
+      "name": "accessTokenURL",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Access Token URL",
+        "description": "Token API endpoint used to get the access token",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientId",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client Id",
+        "description": "The client id of OAuth2 application",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientSecret",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Client Secret",
+        "type": "password",
+        "description": "The client secret of OAuth2 application",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Scope",
+        "description": "Specifies the level of access that the application is requesting",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "audience",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Audience",
+        "description": "The audience value is either the application Client ID for an ID Token or the API that is being called for an Access Token.",
+        "visible": false,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientAuthentication",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "The way of sending auth parameters. Based on the service request, you can send auth parameters in Body or Header or Query",
+        "name": "Client Authentication",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": false
+      },
+      "allowed": ["Header", "Body", "Query"],
+      "value": "Body"
+    },
+    {
+      "name": "method",
+      "type": "string",
+      "required": true,
+      "display": {
+        "description": "Select type of HTTP method for sending request to authorization service",
+        "name": "Method",
+        "type": "dropdown",
+        "selection": "single",
+        "visible": false
+      },
+      "allowed": ["GET", "POST"],
+      "value": "GET"
+    },
+    {
+      "name": "WI_STUDIO_OAUTH_CONNECTOR_INFO",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Token",
+        "description": "Base64 encoded token",
+        "visible": true,
+        "encryptable": true,
+        "readonly": true,
+        "appPropertySupport": true
+      }
+    }
+  ],
+  "actions": [
+    {
+      "name": "Save"
+    },
+    {
+      "name": "Login"
+    }
+  ]
+}

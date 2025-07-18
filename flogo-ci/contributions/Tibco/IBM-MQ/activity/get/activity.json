@@ -1,0 +1,164 @@
+{
+  "name": "get",
+  "version": "2.2.0",
+  "type": "flogo:activity",
+  "title": "Get",
+  "display": {
+    "category": "IBM-MQ",
+    "visible": true,
+    "description": "",
+    "smallIcon": "icon/MQGetActivity_48x48.png",
+    "largeIcon": "icon/MQGetActivity_48x48.png"
+  },
+  "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/get",
+  "settings": [
+    {
+      "name": "Connection",
+      "type": "connection",
+      "required": true,
+      "allowed": [],
+      "display": {
+        "name": "Connection",
+        "description": "Select an IBM MQ connection",
+        "type": "connection",
+        "selection": "single",
+        "visible": true
+      }
+    },
+    {
+      "name": "queue",
+      "required": false,
+      "type": "string",
+      "display": {
+        "name": "Destination",
+        "mappable": true,
+        "appPropertySupport": true,
+        "description": "Enter the queue name"
+      }
+    },
+    {
+      "name": "corellId",
+      "required": false,
+      "type": "string",
+      "display": {
+        "name": "CorrelID",
+        "mappable": true,
+        "appPropertySupport": true,
+        "description": "Enter the base64 encoded correlation ID filter"
+      },
+      "value":""
+    },
+    {
+      "name": "msgId",
+      "required": false,
+      "type": "string",
+      "display": {
+        "name": "MsgId",
+        "mappable": true,
+        "appPropertySupport": true,
+        "description": "Enter the base64 encoded message ID filter"
+      },
+      "value":""
+    },
+    {
+      "name": "gmoConvert",
+      "required": false,
+      "type": "boolean",
+      "display": {
+        "name": "GMO Convert",
+        "appPropertySupport": true,
+        "description": "Enable the get message option \"convert\""
+      },
+      "value": false
+    },
+    {
+      "name": "maxSize",
+      "required": false,
+      "type": "number",
+      "value": 50000,
+      "display": {
+        "name": "Max Message Size",
+        "mappable": false,
+        "appPropertySupport": true,
+        "description": "Enter maximum expected message size"
+      }
+    },
+    {
+      "name": "waitInterval",
+      "required": false,
+      "type": "number",
+      "value": 1000,
+      "display": {
+        "name": "Wait Interval",
+        "mappable": true,
+        "appPropertySupport": true,
+        "description": "Enter the timeout value for the get"
+      }
+    },
+    {
+      "name": "valueType",
+      "type": "string",
+      "display": {
+        "name": "Value Deserializer",
+        "description": "Type of record value to be sent"
+      },
+      "allowed": [
+        "String",
+        "JSON"
+      ],
+      "value": "String"
+    }
+  ],
+  "input": [
+    {
+      "name": "queue",
+      "type": "string"
+    },
+    {
+      "name": "corellId",
+      "type": "string"
+    },
+    {
+      "name": "msgId",
+      "type": "string"
+    },
+    {
+      "name": "waitInterval",
+      "type": "number"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "MessageJson",
+      "type": "object",
+      "required": false,
+      "display": {
+        "name": "Schema for JSON value",
+        "description": "The JSON schema for the IBM MQ record value",
+        "type": "texteditor",
+        "syntax": "json",
+        "visible": false,
+        "mappable": true
+      }
+    },
+    {
+      "name": "MessageProperties",
+      "type": "object",
+      "display": {
+        "name": "Properties",
+        "description": "Message properties to be received",
+        "type": "params",
+        "mappable": true,
+        "schema": "{\"type\": \"array\",\"items\": {\"type\": \"object\",\"properties\": {\"parameterName\": {\"type\": \"string\"},\"type\": {\"type\": {\"enum\": [\"string\"]}}}}}"
+      }
+    },
+    {
+      "name": "MQMD",
+      "type": "object"
+    },
+    {
+      "name": "Message",
+      "type": "object"
+    }
+  ]
+}

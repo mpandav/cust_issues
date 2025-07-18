@@ -1,0 +1,29 @@
+{
+  "title": "AzureServiceBus Acknowledge",
+  "name": "azservicebus-acknowledge",
+  "version": "1.0.0",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "AzureServiceBus",
+    "visible": true,
+    "description": "AzureServiceBus acknowledge activity can only be used when the subscriber has been opened with ModePeekLock",
+    "smallIcon": "icons/acknowledge@64px.png",
+    "largeIcon": "icons/acknowledge@96px.png"
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": false
+    },
+    "repeater": {
+      "type": "repeater",
+      "enabled": false
+    }  
+  },
+  "ref": "github.com/tibco/wi-azservicebus/src/app/AzureServiceBus/activity/acknowledge",
+  "inputs": [
+  ],
+  "outputs": [
+  ]
+}

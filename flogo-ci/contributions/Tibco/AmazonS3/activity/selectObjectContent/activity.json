@@ -1,0 +1,90 @@
+{
+  "name": "selectObjectContent",
+  "title": "SelectObjectContent",
+  "version": "1.0.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "visible": true,
+    "description": "Amazon S3 Select Object Content activity",
+    "category": "AmazonS3",
+    "smallIcon": "icons/select_object_content@2x.png",
+    "largeIcon": "icons/select_object_content@3x.png"
+  }, 
+  "ref": "github.com/tibco/wi-amazons3/src/app/AmazonS3/activity/selectObjectContent",
+  "settings": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "AWS Connection Name",
+        "description": "Select a AWS Connection",
+        "type": "connection",
+        "visible": true
+      },
+      "allowed": []
+    }
+  ],
+  "inputs": [
+    {
+      "name": "inputSerialization",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Input Serialization",
+        "description": "Select the data format in which you want to read from the bucket.",
+        "type": "dropdown",
+        "selection": "single",
+        "inputSettingsOnly": true
+      },
+      "value":"csv"
+    },
+    {
+      "name": "compressionType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Compression Type",
+        "description": "Select data compression type from the dropdown",
+        "type": "dropdown",
+        "selection": "single",
+        "inputSettingsOnly": true
+      },
+      "value":"none"
+    },
+    {
+      "name": "outputSerialization",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Output Serialization",
+        "description": "Select the data format for output serialization.",
+        "type": "dropdown",
+        "selection": "single",
+        "inputSettingsOnly": true
+      },
+      "value":"csv"
+    },
+    {
+      "name": "input",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "output",
+      "type": "string",
+      "visible": true
+    },
+    {
+      "name": "outputSerialization",
+      "type": "string",
+      "visible": true
+    },
+    {
+      "name": "error",
+      "type": "object"
+    }
+  ]
+}

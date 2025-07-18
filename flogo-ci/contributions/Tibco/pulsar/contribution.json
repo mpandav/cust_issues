@@ -1,0 +1,9 @@
+{
+  "name": "Tibco Flogo Connector for Apache Pulsar",
+  "version": "1.3.4",
+  "category": "pulsar",
+  "description": "TIBCO Flogo® Connector for Apache Pulsar provides out-of-the-box activities and triggers to send and receive messages. Connect to your Apache Pulsar broker using TLS or JSON Web Token (JWT). Configure triggers that subscribe to messages published to a topic, including Exclusive, Shared, Failover, or KeyShared subscription types. Use activities to send messages to a topic by mapping string or JSON content, with optional compression.",
+  "image": "connection/icons/pulsar.png",
+"tag": "1.3.4-b03",
+  "signature": "J1b/8EpIJvYikyF1eMpasUrvsHbn3GuKu63xMTbN5qfkeor7ErVHMr38jRRKSmsoRZ1Qsqb9jVf93Zw3icMxG7H2ZScUBy9qTcq73CE="
+}

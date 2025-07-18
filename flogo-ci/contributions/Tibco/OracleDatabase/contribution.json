@@ -1,0 +1,44 @@
+{
+  "name": "TIBCO Flogo Connector for Oracle Database",
+  "version": "1.2.2",
+  "category": "OracleDatabase",
+  "description": "TIBCO Flogo® Connector for Oracle Database allows you to run Query, Insert, Update, Delete operations, and call stored procedures on an Oracle Database.",
+  "image": "connector/oracledb/icons/oracledb-connection.png",
+  "supplement": true,
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "callprocedure",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-oracledb.git/src/app/OracleDatabase/activity/callprocedure",
+        "newref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/callprocedure"
+      },
+      {
+        "activity": "delete",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-oracledb.git/src/app/OracleDatabase/activity/delete",
+        "newref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/delete"
+      },
+      {
+        "activity": "insert",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-oracledb.git/src/app/OracleDatabase/activity/insert",
+        "newref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/insert"
+      },
+      {
+        "activity": "query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-oracledb.git/src/app/OracleDatabase/activity/query",
+        "newref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/query"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-oracledb.git/src/app/OracleDatabase/activity/update",
+        "newref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/update"
+      },
+      {
+        "connector": "oracledb",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-oracledb.git/src/app/OracleDatabase/connector/oracledb",
+        "newref": "github.com/tibco/wi-oracledb/src/app/OracleDatabase/connector/oracledb"
+      }
+    ]
+  },
+"tag": "1.2.2-b03",
+  "signature": "FxLRgg/5iGZQAT/apSfaiQu55wFGfRDmTi0gk+L4nWGdSu8CPBcDCt3oCly6ia2GPqkRRGd5hzyASOIcYXSDhCy1n+z+4lc3MvkxB3lUUonVPQy5bc8J"
+}

@@ -1,0 +1,29 @@
+
+{
+    "name": "confirm",
+    "version": "2.2.0",
+    "type": "flogo:activity",
+    "title": "confirm",
+    "display": {
+        "category": "IBM-MQ",
+        "description": "MQ confirm activity does explicit confirmation of a received confirmable message",
+        "smallIcon": "icon/MQLocalTransactionGroup_48x48.png",
+        "largeIcon": "icon/MQLocalTransactionGroup_48x48.png"
+    
+    },
+    "feature": {
+      "iterator": {
+        "type": "iterator",
+        "enabled": false
+      },
+      "repeater": {
+        "type": "repeater",
+        "enabled": false
+      }  
+    },
+    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/activity/confirm",
+    "inputs": [
+    ],
+    "outputs": [
+    ]
+}

@@ -1,0 +1,225 @@
+{
+  "name": "sqlserver-connector",
+  "title": "SQLServer Connector",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "2.4.7",
+  "display": {
+    "name": "SqlServer Connection",
+    "description": "SqlServer Connector",
+    "category": "SQLServer",
+    "visible": true,
+    "smallIcon": "icons/ic-sql-server@2x.png",
+    "largeIcon": "icons/ic-sql-server@3x.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/wi-mssql/src/app/SQLServer/connector/connection",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Name",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "visible": true
+      }
+    },
+    {
+      "name": "host",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Host",
+        "description": "SQLServer Database Host",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "port",
+      "type": "integer",
+      "required": true,
+      "value": 1433,
+      "display": {
+        "name": "Port",
+        "description": "SQLServer Database Port",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "databaseName",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Database Name",
+        "description": "SQLServer Database Name",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "User",
+        "description": "SQLServer Database User",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Password",
+        "description": "SQLServer Database Password",
+        "type": "password",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "maxOpenConnection",
+      "type": "integer",
+      "required": false,
+      "value": 0,
+      "display": {
+        "name": "Maximum Open Connections",
+        "description": "Number of total open connections to the database. Default is 0 which means there is no maximum limit",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "maxIdleConnection",
+      "type": "integer",
+      "required": false,
+      "value": 2,
+      "display": {
+        "name": "Maximum Idle Connections",
+        "description": "Number of idle connections in the connection pool. Default is 2. If value <= 0 means no idle connections are retained",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "connectionMaxLifetime",
+      "type": "string",
+      "required": false,
+      "value": 0,
+      "display": {
+        "name": "Maximum Connection Lifetime",
+        "description": "Maximum amount of time a connection may be reused. Valid time units are ns, us (or µs), ms, s, m, h. Example: 300ms, -1.5h or 2h45m. Default value is 0 which means connection will be used forever",
+        "type": "string",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "maxconnectattempts",
+      "type": "integer",
+      "required": false,
+      "value": 3,
+      "display": {
+        "name": "Maximum Connection Retry Attempts",
+        "description": "Maximum number of attempts to reconnect with a database server",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "connectionretrydelay",
+      "type": "integer",
+      "required": false,
+      "value": 5,
+      "display": {
+        "name": "Connection Retry Delay",
+        "description": "Number of seconds to wait between connection retry attempts",
+        "type": "integer",
+        "visible": true,
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "connectiontimeout",
+      "type": "integer",
+      "required": false,
+      "value": 20,
+      "display": {
+        "name": "Connection Timeout",
+        "description": "Timeout (in sec) for establishing connection. Set it to 0 for no timeout",
+        "type": "integer",
+        "visible": "true",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "onprem",
+      "type": "boolean",
+      "required": true,
+      "value":false,
+      "display": {
+        "name": "On-Premise Database",
+        "description": "Flag to indicate whether database is running on-premise",
+        "visible": false
+      }
+    },
+    {
+			"name": "tlsparam",
+			"type": "boolean",
+			"required": true,
+			"value":false,
+			"display": {
+			  "name": "Secure Connection",
+			  "description": "Enable to use secure connection",
+        "visible": true,
+        "type": "boolean"
+			}
+    },
+    {
+      "name": "cacert",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "CA Certificate",
+        "description": "Select the file that contains the public key certificate of the CA that signed the SQL Server certificate.",
+        "visible": true,
+        "type": "fileselector",
+        "fileExtensions": [".pem", ".cer"],
+        "appPropertySupport": true
+      }
+    },
+    {
+			"name": "validatecert",
+			"type": "boolean",
+			"required": true,
+			"value": false,
+			"display": {
+			  "name": "Validate Server Certificate",
+			  "description": "Server certificate will be verified when set to true.",
+        "visible": true,
+        "type": "boolean"
+			}
+    }
+  ],
+  "actions": [{
+    "name": "Connect"
+  }]
+}

@@ -1,0 +1,499 @@
+{
+    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/trigger/listener",
+    "name": "IBMMQListener",
+    "description": "",
+    "settings": {
+        "clientconfirm": false,
+        "islistener": true,
+        "pollinginterval": 1000
+    },
+    "id": "IBMMQListener",
+    "handlers": [
+        {
+            "description": "",
+            "settings": {
+                "Connection": {
+                    "id": "1d43c980-5f8d-11e9-8528-b53abec2e1ba",
+                    "type": "flogo:connector",
+                    "version": "1.0.0",
+                    "name": "connection",
+                    "inputMappings": {},
+                    "outputMappings": {},
+                    "iteratorMappings": {},
+                    "title": "IBM MQ Connection",
+                    "description": "IBM MQ Connection",
+                    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/connector/connection",
+                    "settings": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "required": true,
+                            "display": {
+                                "name": "Connection Name",
+                                "visible": true
+                            },
+                            "value": "centosmq9"
+                        },
+                        {
+                            "name": "description",
+                            "type": "string",
+                            "display": {
+                                "name": "Description",
+                                "visible": true
+                            },
+                            "value": "mq9"
+                        },
+                        {
+                            "name": "qmname",
+                            "type": "string",
+                            "display": {
+                                "name": "Queue Manager Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "centosmq9"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "display": {
+                                "name": "Host Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "centosmq9"
+                        },
+                        {
+                            "name": "port",
+                            "type": "string",
+                            "display": {
+                                "name": "Port",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "1414"
+                        },
+                        {
+                            "name": "chname",
+                            "type": "string",
+                            "display": {
+                                "name": "Server Connection Channel Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "SVRCONN"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "display": {
+                                "name": "User Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "password",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Password",
+                                "visible": true,
+                                "type": "password",
+                                "encryptable": true,
+                                "appPropertySupport": true,
+                                "Description": "Enter a password if this connection requires one"
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "encryptionMode",
+                            "type": "string",
+                            "display": {
+                                "name": "Encryption Mode",
+                                "description": "Choose the type of authentication to use"
+                            },
+                            "allowed": [
+                                "None",
+                                "TLS-ServerAuth",
+                                "TLS-MutualAuth"
+                            ],
+                            "value": "None"
+                        },
+                        {
+                            "name": "keystore",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore",
+                                "description": "Select the IBM keystore to be used for this connection.  Must be a KDB keystore",
+                                "visible": true,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".kdb",
+                                    ".KDB"
+                                ],
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": {
+                                "filename": "client.kdb",
+                                "content": "data:application/octet-stream;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+                            }
+                        },
+                        {
+                            "name": "keystorestash",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore Stashfile",
+                                "description": "Select the IBM keystore stashfile to be used for this connection",
+                                "visible": true,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".sth",
+                                    ".STH"
+                                ],
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": {
+                                "filename": "client.sth",
+                                "content": "data:application/octet-stream;base64,6nD5vGE9cN6z8ugSRTGkLBfiiQRQLSSKBvcP4djSDmHSe5UwrOfBY5LU46kEIsGokaVU4X16IBmYc7ZcMpH4hjCxZBR1dipn6vdn7bNILb/JyhK23XCw/gaFiE6kiDk5S6Kf9586OpLuQ8tObG+kdNofI1I3WMBJatsso41+A1GgITRcozId+2nyH0VwSTnK+1QFfjo7HVRJv7gmXx+5a7EGRH75Xw3B3598e2/MmEolQ9ciLPCLA4joPB1nhCT1eA=="
+                            }
+                        },
+                        {
+                            "name": "keystoreLabel",
+                            "type": "string",
+                            "display": {
+                                "name": "Keystore Cert Label",
+                                "description": "Enter the label of the client cerificate to use for mutual authentication.  If not specified the default certificate will be used",
+                                "visible": true,
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": "clientidentity"
+                        },
+                        {
+                            "name": "cipherspec",
+                            "type": "string",
+                            "display": {
+                                "name": "CipherSpec",
+                                "description": "Enter the cipher specification used on the server connection channel",
+                                "visible": true,
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": "TLS_RSA_WITH_AES_256_CBC_SHA"
+                        }
+                    ],
+                    "outputs": [],
+                    "inputs": [],
+                    "handler": {
+                        "settings": []
+                    },
+                    "reply": [],
+                    "s3Prefix": "Tibco",
+                    "key": "Tibco/IBM-MQ/connector/connection/connector.json",
+                    "display": {
+                        "category": "IBM-MQ",
+                        "smallIcon": "icons/IBM-MQ-large.png",
+                        "largeIcon": "icons/IBM-MQ-large.png",
+                        "visible": true,
+                        "description": "IBM MQ Connection"
+                    },
+                    "actions": [
+                        {
+                            "name": "Save"
+                        }
+                    ],
+                    "feature": {},
+                    "propertyMap": {},
+                    "keyfield": "name",
+                    "isValid": true,
+                    "lastUpdatedTime": 1555450761135,
+                    "user": "flogo",
+                    "connectorName": "centosmq9",
+                    "connectorDescription": " "
+                },
+                "queue": "flogo.request",
+                "valueType": "String"
+            },
+            "outputs": {
+                "MQMD": {
+                    "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"MsgType\":{\"type\":\"string\"},\"MsgId\":{\"type\":\"string\"},\"CorrelId\":{\"type\":\"string\"},\"Encoding\":{\"type\":\"number\"},\"CodedCharSetId\":{\"type\":\"number\"},\"Format\":{\"type\":\"string\"},\"Priority\":{\"type\":\"number\"},\"BackoutCount\":{\"type\":\"number\"},\"ReplyToQ\":{\"type\":\"string\"},\"ReplyToQmgr\":{\"type\":\"string\"},\"UserIdentifier\":{\"type\":\"string\"},\"AccountingToken\":{\"type\":\"string\"},\"ApplIdentityData\":{\"type\":\"string\"},\"PutApplType\":{\"type\":\"number\"},\"PutApplName\":{\"type\":\"string\"},\"PutDate\":{\"type\":\"string\"},\"PutTime\":{\"type\":\"string\"},\"ApplOriginData\":{\"type\":\"string\"}}}",
+                    "value": "",
+                    "fe_metadata": "{\"MsgType\": \"string\", \"MsgId\": \"string\",\"CorrelId\":\"string\",\"Encoding\": 0,\"CodedCharSetId\":0,\"Format\":\"string\",\"Priority\":0, \"BackoutCount\": 0 ,\"ReplyToQ\":\"string\",\"ReplyToQmgr\":\"string\",\"UserIdentifier\":\"string\",\"AccountingToken\":\"string\",\"ApplIdentityData\":\"string\",\"PutApplType\":0,\"PutApplName\":\"string\",\"PutDate\":\"string\",\"PutTime\":\"string\",\"ApplOriginData\":\"string\"}"
+                },
+                "Message": {
+                    "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"String\":{\"type\":\"string\"}}}",
+                    "value": "",
+                    "fe_metadata": "{ \"String\": \"string\" }"
+                }
+            },
+            "action": {
+                "id":"dummy",
+                "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+                "data": {
+                    "flowURI": "res://flow:ListenCentosmq9"
+                },
+                "mappings": {
+                    "input": [
+                        {
+                            "mapTo": "$INPUT['MQMD']",
+                            "type": "assign",
+                            "value": "$.MQMD"
+                        },
+                        {
+                            "mapTo": "$INPUT['Message']",
+                            "type": "assign",
+                            "value": "$.Message"
+                        }
+                    ],
+                    "output": []
+                }
+            }
+        },
+        {
+            "description": "",
+            "settings": {
+                "Connection": {
+                    "id": "a3fcee70-5f9c-11e9-8528-b53abec2e1ba",
+                    "type": "flogo:connector",
+                    "version": "1.0.0",
+                    "name": "connection",
+                    "inputMappings": {},
+                    "outputMappings": {},
+                    "iteratorMappings": {},
+                    "title": "IBM MQ Connection",
+                    "description": "IBM MQ Connection",
+                    "ref": "github.com/tibco/wi-ibmmq/src/app/IBM-MQ/connector/connection",
+                    "settings": [
+                        {
+                            "name": "name",
+                            "type": "string",
+                            "required": true,
+                            "display": {
+                                "name": "Connection Name",
+                                "visible": true
+                            },
+                            "value": "gandalf"
+                        },
+                        {
+                            "name": "description",
+                            "type": "string",
+                            "display": {
+                                "name": "Description",
+                                "visible": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "qmname",
+                            "type": "string",
+                            "display": {
+                                "name": "Queue Manager Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "gandalfmq91"
+                        },
+                        {
+                            "name": "host",
+                            "type": "string",
+                            "display": {
+                                "name": "Host Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "gandalf"
+                        },
+                        {
+                            "name": "port",
+                            "type": "string",
+                            "display": {
+                                "name": "Port",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "1414"
+                        },
+                        {
+                            "name": "chname",
+                            "type": "string",
+                            "display": {
+                                "name": "Server Connection Channel Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "SVRCONN"
+                        },
+                        {
+                            "name": "username",
+                            "type": "string",
+                            "display": {
+                                "name": "User Name",
+                                "appPropertySupport": true,
+                                "visible": true
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "password",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Password",
+                                "visible": true,
+                                "type": "password",
+                                "encryptable": true,
+                                "appPropertySupport": true,
+                                "Description": "Enter a password if this connection requires one"
+                            },
+                            "value": "mqm"
+                        },
+                        {
+                            "name": "encryptionMode",
+                            "type": "string",
+                            "display": {
+                                "name": "Encryption Mode",
+                                "description": "Choose the type of authentication to use"
+                            },
+                            "allowed": [
+                                "None",
+                                "TLS-ServerAuth",
+                                "TLS-MutualAuth"
+                            ],
+                            "value": "None"
+                        },
+                        {
+                            "name": "keystore",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore",
+                                "description": "Select the IBM keystore to be used for this connection.  Must be a KDB keystore",
+                                "visible": false,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".kdb",
+                                    ".KDB"
+                                ],
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "keystorestash",
+                            "type": "string",
+                            "required": false,
+                            "display": {
+                                "name": "Keystore Stashfile",
+                                "description": "Select the IBM keystore stashfile to be used for this connection",
+                                "visible": false,
+                                "type": "fileselector",
+                                "fileExtensions": [
+                                    ".sth",
+                                    ".STH"
+                                ],
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "keystoreLabel",
+                            "type": "string",
+                            "display": {
+                                "name": "Keystore Cert Label",
+                                "description": "Enter the label of the client cerificate to use for mutual authentication.  If not specified the default certificate will be used",
+                                "visible": false,
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        },
+                        {
+                            "name": "cipherspec",
+                            "type": "string",
+                            "display": {
+                                "name": "CipherSpec",
+                                "description": "Enter the cipher specification used on the server connection channel",
+                                "visible": false,
+                                "readonly": false,
+                                "valid": true
+                            },
+                            "value": ""
+                        }
+                    ],
+                    "outputs": [],
+                    "inputs": [],
+                    "handler": {
+                        "settings": []
+                    },
+                    "reply": [],
+                    "s3Prefix": "Tibco",
+                    "key": "Tibco/IBM-MQ/connector/connection/connector.json",
+                    "display": {
+                        "category": "IBM-MQ",
+                        "smallIcon": "icons/IBM-MQ-large.png",
+                        "largeIcon": "icons/IBM-MQ-large.png",
+                        "visible": true,
+                        "description": "IBM MQ Connection"
+                    },
+                    "actions": [
+                        {
+                            "name": "Save"
+                        }
+                    ],
+                    "feature": {},
+                    "propertyMap": {},
+                    "keyfield": "name",
+                    "isValid": true,
+                    "lastUpdatedTime": 1555424167369,
+                    "user": "flogo",
+                    "connectorName": "gandalf",
+                    "connectorDescription": " "
+                },
+                "queue": "flogo.request",
+                "valueType": "String"
+            },
+            "outputs": {
+                "MQMD": {
+                    "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"MsgType\":{\"type\":\"string\"},\"MsgId\":{\"type\":\"string\"},\"CorrelId\":{\"type\":\"string\"},\"Encoding\":{\"type\":\"number\"},\"CodedCharSetId\":{\"type\":\"number\"},\"Format\":{\"type\":\"string\"},\"Priority\":{\"type\":\"number\"},\"BackoutCount\":{\"type\":\"number\"},\"ReplyToQ\":{\"type\":\"string\"},\"ReplyToQmgr\":{\"type\":\"string\"},\"UserIdentifier\":{\"type\":\"string\"},\"AccountingToken\":{\"type\":\"string\"},\"ApplIdentityData\":{\"type\":\"string\"},\"PutApplType\":{\"type\":\"number\"},\"PutApplName\":{\"type\":\"string\"},\"PutDate\":{\"type\":\"string\"},\"PutTime\":{\"type\":\"string\"},\"ApplOriginData\":{\"type\":\"string\"}}}",
+                    "value": "",
+                    "fe_metadata": "{\"MsgType\": \"string\", \"MsgId\": \"string\",\"CorrelId\":\"string\",\"Encoding\": 0,\"CodedCharSetId\":0,\"Format\":\"string\",\"Priority\":0, \"BackoutCount\": 0 ,\"ReplyToQ\":\"string\",\"ReplyToQmgr\":\"string\",\"UserIdentifier\":\"string\",\"AccountingToken\":\"string\",\"ApplIdentityData\":\"string\",\"PutApplType\":0,\"PutApplName\":\"string\",\"PutDate\":\"string\",\"PutTime\":\"string\",\"ApplOriginData\":\"string\"}"
+                },
+                "Message": {
+                    "metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"properties\":{\"String\":{\"type\":\"string\"}}}",
+                    "value": "",
+                    "fe_metadata": "{ \"String\": \"string\" }"
+                }
+            },
+            "action": {
+                "id":"dummy",
+                "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+                "data": {
+                    "flowURI": "res://flow:ListenCentosmq9"
+                },
+                "mappings": {
+                    "input": [
+                        {
+                            "mapTo": "$INPUT['MQMD']",
+                            "type": "assign",
+                            "value": "$.MQMD"
+                        },
+                        {
+                            "mapTo": "$INPUT['Message']",
+                            "type": "assign",
+                            "value": "$.Message"
+                        }
+                    ],
+                    "output": []
+                }
+            }
+        }
+    ]
+}

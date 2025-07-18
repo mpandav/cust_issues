@@ -1,0 +1,83 @@
+{
+    "title": "DocuSign RetrieveDocument",
+    "name": "docusign-retrievedocument",
+    "version": "2.1.1",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "display": {
+        "category": "Docusign",
+        "visible": true,
+        "description": "DocuSign RetrieveDocument Activity",
+        "smallIcon": "icons/ic-docusign-get@2x.png",
+        "largeIcon": "icons/ic-docusign-get@3x.png"
+    },
+    "feature": {
+        "retry": {
+          "enabled": true
+        }
+      },
+    "ref": "github.com/tibco/wi-docusign/src/app/Docusign/activity/get",
+    "inputs": [
+        {
+            "name": "docusignConnection",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "name": "Connection",
+                "description": "Select a DocuSign connection",
+                "type": "connection",
+                "visible": true
+            },
+            "allowed": []
+        },
+        {
+            "name": "envelopeId",
+            "type": "string",
+            "required": true
+        },
+        {
+            "name": "documentId",
+            "type": "string",
+            "description": "set documentId of required document. documentId field can be empty if envelope contains single document"
+        },
+        {
+            "name": "getAllDocuments",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Get All Documents",
+                "description": "Get all the documents from envelope",
+                "required": true,
+                "inputSettingsOnly": true
+            }
+        }
+    ],
+    "outputs": [
+        {
+            "name": "outputType",
+            "type":"string",
+            "required": true,
+            "value":"PDF",
+            "allowed":["PDF","ZIP"],
+            "display":{
+                "name":"Output file Type",
+                "description":"Select type of output file as zip or pdf.",
+                "visible": false,
+                "outputSettingsOnly": true       
+            }
+        },
+        {
+            "name": "fileContent",
+            "type": "string"
+        },
+        {
+            "name": "fileType",
+            "type": "string"
+        },
+        {
+            "name": "error",
+            "type": "object"
+        }
+    ]
+}

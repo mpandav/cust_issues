@@ -1,0 +1,64 @@
+{
+  "name": "tibco-messaging-tcm-pub",
+  "version": "1.2.1",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "title": "eFTL Message Publisher",
+  "display": {
+    "category": "Messaging",
+    "visible": true,
+    "smallIcon": "icons/tcm_message_publisher.png",
+    "largeIcon": "icons/tcm_message_publisher@2x.png",
+    "description": "This activity sends a message to TIBCO Cloud Messaging(eFTL) service"
+  },
+  "feature": {
+    "retry": {
+      "enabled": true
+    }
+  },
+  "ref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmpublisher",
+  "inputs": [
+    {
+      "name": "tcmConnection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "Connection",
+        "description": "Select your TIBCO Cloud Messaging eFTL connection",
+        "type": "connection"
+      },
+      "allowed": []
+    },
+    {
+      "name": "destination",
+      "type": "string"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "authKey",
+      "type": "string",
+      "display": {
+        "visible": false
+      }
+    },
+    {
+      "name": "message",
+      "type": "object",
+      "display": {
+        "name": "Message Schema",
+        "description": "An example JSON object that you want to send to TIBCO Cloud Messaging",
+        "type": "texteditor",
+        "syntax": "json",
+        "mappable": true
+      }
+    }
+  ],
+  "outputs": [
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "name": "tibco-ems-requestreply",
+  "title": "EMS Request Reply",
+  "version": "1.0.2",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:activity",
+  "display": {
+    "category": "EMS",
+    "visible": true,
+    "description": "This activity sends request to an EMS destination and wait for a response from the EMS client",
+    "smallIcon": "icons/requestreply@64px.png",
+    "largeIcon": "icons/requestreply@96px.png"
+  },
+  "feature": {
+    "iterator": {
+      "type": "iterator",
+      "enabled": true
+    }
+  },
+  "ref": "github.com/tibco/flogo-ems/src/app/EMS/activity/requestreply",
+  "settings": [
+    {
+      "name": "connection",
+      "type": "connection",
+      "required": true,
+      "display": {
+        "name": "EMS Connection",
+        "description": "Ems Connection Configuration",
+        "type": "connection"
+      },
+      "allowed": []
+    },
+    {
+      "name": "destinationType",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Destination Type",
+        "description": "A destination type can be queue or topic",
+        "appPropertySupport": true
+      },
+      "allowed": ["Queue", "Topic"],
+      "value": "Queue"
+    },
+    {
+      "name": "settingDestination",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Destination",
+        "description": "The destination where the message is sent",
+        "appPropertySupport" : true
+      }
+    },
+    {
+      "name": "replyDestination",
+      "type": "string",
+      "display": {
+        "name": "Reply To Destination",
+        "description": "The destination to use for replies for this activity",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "deliveryDelay",
+      "type": "integer",
+      "display": {
+        "name": "Delivery Delay",
+        "description": "Minimum time in milliseconds that must elapse before delivering message to consumer",
+        "type": "integer" ,
+        "appPropertySupport": true     
+      },
+      "value": 0
+    },
+    {
+      "name": "requestTimeout",
+      "type": "integer",
+      "required": true,
+      "display": {
+        "name": "Request Timeout",
+        "description": "Time in milliseconds before activity waits to complete its operation",
+        "appPropertySupport": true
+      },
+      "value": 0
+    }
+  ],
+  "inputs": [
+    {
+      "name": "message",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "destination",
+      "type": "string"
+    },
+    {
+      "name": "headers",
+      "type": "object"
+    },
+    {
+      "name": "messageProperties",
+      "type": "object"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "replyMessage",
+      "type": "string"
+    },
+    {
+      "name": "outputHeaders",
+      "type": "object"
+    },
+    {
+      "name": "messageProperties",
+      "type": "object"
+    }
+  ]
+}

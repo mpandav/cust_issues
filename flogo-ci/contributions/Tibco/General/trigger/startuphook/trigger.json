@@ -1,0 +1,20 @@
+{
+  "title": "App Startup Trigger",
+  "version": "1.0.1",
+  "type": "flogo:trigger",
+  "name": "tibco-appstartup",
+  "author": "TIBCO Software Inc.",
+  "ref": "github.com/tibco/flogo-general/src/app/General/trigger/startuphook",
+  "display": {
+    "description": "This trigger allows you to execute flows before other triggers in the application are started. This is useful in initializing application specific tasks.",
+    "category": "General",
+    "smallIcon": "ic-appStartup.png",
+    "largeIcon": "ic-appStartup.png"
+  },
+  "settings":[
+  ],
+  "handler": {
+    "settings":[
+    ]
+  }
+}

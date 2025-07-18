@@ -1,0 +1,53 @@
+{
+  "name": "TIBCO Flogo® Connector for TIBCO Cloud Messaging - eFTL",
+  "version": "1.3.3",
+  "description": "TIBCO Flogo® Connector for TIBCO Cloud™ Messaging provides secure and reliable bi-directional data exchange among WebSocket-supported mobile and web apps, IoT devices, and backend systems using eFTL.",
+  "image": "connector/tcm/tcm.png",
+  "category": "Messaging",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "tibco-messaging-tcm-pub",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Messaging/activity/tcmpublisher",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmpublisher"
+      },
+      {
+        "trigger": "tibco-messaging-tcm-trigger",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Messaging/trigger/tcmtrigger",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/trigger/tcmtrigger"
+      },
+      {
+        "connection": "tibco-eftl",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-plugins.git/contributions/Messaging/connector/tcm",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/connector/tcm"
+      },
+      {
+        "activity": "tibco-messaging-tcm-get",
+        "oldref": "git.tibco.com/git/product/flogo-messaging.git/Messaging/activity/tcmgetmessage",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmgetmessage"
+      },
+      {
+        "activity": "tcm-messageack-activity",
+        "oldref": "git.tibco.com/git/product/flogo-messaging.git/Messaging/activity/tcmmessageack",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmmessageack"
+      },
+      {
+        "activity": "tibco-messaging-tcm-pub",
+        "oldref": "git.tibco.com/git/product/flogo-messaging.git/Messaging/activity/tcmpublisher",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/activity/tcmpublisher"
+      },
+      {
+        "connection": "tibco-eftl",
+        "oldref": "git.tibco.com/git/product/flogo-messaging.git/Messaging/connector/tcm",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/connector/tcm"
+      },
+      {
+        "trigger": "tibco-messaging-tcm-trigger",
+        "oldref": "git.tibco.com/git/product/flogo-messaging.git/Messaging/trigger/tcmtrigger",
+        "newref": "github.com/tibco/flogo-messaging/src/app/Messaging/trigger/tcmtrigger"
+      }
+    ]
+  },
+"tag": "1.3.3-b01",
+  "signature": "ngElXaxFWPngTKXaIkXViXVdmYTiPHY7S2VVRQWL/c4pR5sVnJGMIV2u4GHnu7fSpRbDlaJXfCEJ67ayeVvr7njXhzzJmq/JCJQdjPgY1FFfApOygsVOtZvnp9u9C98ZsQ=="
+}

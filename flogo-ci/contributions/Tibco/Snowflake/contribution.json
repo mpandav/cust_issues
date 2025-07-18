@@ -1,0 +1,33 @@
+{
+  "name": "TIBCO Flogo Connector for Snowflake",
+  "version": "1.2.0",
+  "category": "Snowflake",
+  "description": "Snowflake is a cloud-based data storage and analytics service or data warehouse-as-a-service. It allows corporate users to store and analyze data using cloud-based hardware and software. TIBCO Flogo® Connector for Snowflake allows Query, Insert, Update, Delete, Merge and Command operations against a Snowflake tenant.",
+  "image": "connector/connection/icons/snowflake-connection.png",
+  "compatibility": {
+    "refs": [
+      {
+        "activity": "insert",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-snowflake.git/src/app/Snowflake/activity/insert",
+        "newref": "github.com/tibco/wi-snowflake/src/app/Snowflake/activity/insert"
+      },
+      {
+        "activity": "query",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-snowflake.git/src/app/Snowflake/activity/query",
+        "newref": "github.com/tibco/wi-snowflake/src/app/Snowflake/activity/query"
+      },
+      {
+        "activity": "update",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-snowflake.git/src/app/Snowflake/activity/update",
+        "newref": "github.com/tibco/wi-snowflake/src/app/Snowflake/activity/update"
+      },
+      {
+        "connector": "connection",
+        "oldref": "git.tibco.com/git/product/ipaas/wi-snowflake.git/src/app/Snowflake/connector/connection",
+        "newref": "github.com/tibco/wi-snowflake/src/app/Snowflake/connector/connection"
+      }
+    ]
+  },
+"tag": "1.2.0-b05",
+  "signature": "dadMGTlijRst/ZiP38ORkRLY2IyPzb0HxZb0jxiFma1rWh3qVTeK7ZiWGcPVJ915uqs5Li/0PGD8N4gUuP76P71u0TnhgqjoxaTt0A=="
+}

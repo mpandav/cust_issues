@@ -1,0 +1,135 @@
+{
+  "title": "MQTT Connector",
+  "name": "connection",
+  "author": "TIBCO Software Inc.",
+  "type": "flogo:connector",
+  "version": "1.2.2",
+  "display": {
+    "description": "MQTT Connector",
+    "category": "Mqtt",
+    "visible": true,
+    "smallIcon": "icons/mqtt.png",
+    "largeIcon": "icons/mqtt.png",
+    "connectionsupport": true
+  },
+  "ref": "github.com/tibco/wi-mqtt/src/app/Mqtt/connector/connection",
+  "keyfield": "name",
+  "settings": [
+    {
+      "name": "name",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Connection Name",
+        "description": "Name of the connection",
+        "visible": true
+      }
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "display": {
+        "name": "Description",
+        "description": "Connection description",
+        "visible": true
+      }
+    },
+    {
+      "name": "broker",
+      "type": "string",
+      "required": true,
+      "display": {
+        "name": "Broker URL",
+        "visible": true,
+        "appPropertySupport": true,
+        "description": "Enter broker URL in the form '<protocol>://<host>:<port>'"
+      }
+    },
+    {
+      "name": "user",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Username",
+        "visible": true,
+        "description": "Enter username if this connection requires one",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Password",
+        "visible": true,
+        "type": "password",
+        "encryptable": true,
+        "description": "Enter a password if this connection requires one",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientid",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Client Id",
+        "visible": true,
+        "description": "Enter client id if this connection requires one",
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "encryptionMode",
+      "type": "string",
+      "display": {
+        "name": "Encryption Mode",
+        "description": "Choose the type of authentication to use",
+        "appPropertySupport": true
+      },
+      "allowed": ["None", "TLS-Cert", "TLS-ClientAuth"],
+      "value": "None"
+    },
+    {
+      "name": "cacert",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "CA Certificate",
+        "description": "Select the CA certificate file used to sign the broker's certificate",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".crt", ".cert", ".pem"],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientcert",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Client Certificate",
+        "description": "Select the client certificate file for connections requiring client auth",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".crt", ".cert", ".pem"],
+        "appPropertySupport": true
+      }
+    },
+    {
+      "name": "clientkey",
+      "type": "string",
+      "required": false,
+      "display": {
+        "name": "Client Key",
+        "description": "Select the client key file used for connections requiring client auth",
+        "visible": false,
+        "type": "fileselector",
+        "fileExtensions": [".key", ".pem"],
+        "appPropertySupport": true
+      }
+    }
+  ],
+  "actions": [{ "name": "Save" }]
+}

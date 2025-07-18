@@ -1,0 +1,20 @@
+{
+  "id": "dced9cf0-1d8f-11ea-944c-a3c37b809a37",
+  "name": "aws",
+  "ref": "#connector",
+  "settings": {
+    "name": "aws",
+    "description": "",
+    "customEndpoint": false,
+    "endpoint": "",
+    "region": "us-west-2",
+    "accessKey": "AKIA2QVW7ZM4FWH4QRDB",
+    "secretKey": "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",
+    "assumeRole": true,
+    "roleArn": "arn:aws:iam::159020444217:role/TIBCO/Administrator",
+    "roleSessionName": "awakchau-via-go-test",
+    "externalId": "",
+    "expirationDuration": 900,
+    "LAMBDA_CONNECTION_INFO": ""
+  }
+}

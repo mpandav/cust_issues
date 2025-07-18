@@ -1,0 +1,59 @@
+{
+    "title": "Mailchimp Query",
+    "name": "mailchimp-query",
+    "version": "1.0.1",
+    "author": "TIBCO Software Inc.",
+    "type": "flogo:activity",
+    "display": {
+        "category": "Mailchimp",
+        "visible": true,
+        "description": "",
+        "smallIcon": "icons/ic-mailchimp-query.png",
+        "largeIcon": "icons/ic-mailchimp-query.png@2x.png"
+    },
+    "feature": {
+        "retry": {
+            "enabled": true
+        }
+    },
+    "ref": "github.com/tibco/wi-mailchimp/src/app/Mailchimp/activity/query",
+    "inputs": [
+        {
+            "name": "Connection",
+            "type": "connection",
+            "required": true,
+            "display": {
+                "name": "Connection",
+                "description": "Select a Mailchimp connection",
+                "type": "connection",
+                "visible": true
+            },
+            "allowed": []
+        },
+        {
+            "name": "Resource",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "Campaigns"
+            ],
+            "display": {
+                "description": "Select resource type",
+                "name": "Resource",
+                "type": "dropdown",
+                "selection": "single",
+                "visible": true
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+            "name": "output",
+            "type": "object"
+        }
+    ]
+}

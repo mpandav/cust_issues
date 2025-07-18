@@ -1,0 +1,69 @@
+{
+	"title": "Reply To HTTP Message",
+	"type": "flogo:activity",
+	"name": "tibco-wi-reply",
+	"author": "TIBCO Software Inc.",
+	"version": "1.0.1",
+	"display": {
+		"description": "Simple HTTP Reply Activity",
+		"category": "General",
+		"visible": false,
+		"smallIcon": "icons/ic-tibco-wi-reply.svg",
+		"largeIcon": "icons/ic-tibco-wi-reply@2x.png"
+	},
+	"feature": {
+		"iterator": {
+			"type": "iterator",
+			"enabled": false
+		}
+	},
+	"ref": "github.com/tibco/flogo-general/src/app/General/activity/reply",
+	"inputs": [
+		{
+			"name": "Reply",
+			"allowed": [
+				"Success with Data",
+				"Error with Message"
+			],
+			"type": "string",
+			"required": true,
+			"value": "Success with Data",
+			"display": {
+				"description": "Select a reply for the request",
+				"name": "Reply",
+				"type": "dropdown",
+				"selection": "single"
+			}
+		},
+		{
+			"name": "code",
+			"type": "integer",
+			"required": true,
+			"display": {
+				"visible": false
+			},
+			"value": 200,
+			"allowed": [
+				200,
+				500
+			]
+		},
+		{
+			"name": "message",
+			"type": "string",
+			"required": true
+		},
+		{
+			"name": "data",
+			"type": "complex_object",
+			"display": {
+				"description": "An example JSON data that you want to return to the caller of your REST flow",
+				"type": "texteditor",
+				"syntax": "json",
+				"name": "Schema",
+				"mappable": true
+			}
+		}
+	],
+	"outputs": []
+}

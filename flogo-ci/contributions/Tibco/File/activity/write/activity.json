@@ -1,0 +1,71 @@
+
+{
+    "name": "write",
+    "version": "1.0.0",
+    "type": "flogo:activity",
+    "title": "Write File",
+    "author": "Cloud Software Group Inc.",
+    "display": {
+        "category": "File",
+        "visible": true,
+        "description": "This activity writes the content to a file",
+        "smallIcon": "icons/file-write@2x.png",
+		"largeIcon": "icons/file-write@3x.png"
+    },
+    "ref": "github.com/tibco/flogo-files/src/app/File/activity/write",
+    "inputs": [
+        {
+            "name": "writeAs",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "Text",
+                "Binary"
+            ],
+            "value": "Text",
+            "display": {
+                "name": "Write as",
+                "description": "The type of the content in the file. With 'Text', input 'textContent' should hold the plain string. With 'Binary', input 'binaryContent' should hold the base64 encoded string",
+                "type": "dropdown",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "createNonExistingDir",
+            "type": "boolean",
+            "required": true,
+            "value": false,
+            "display": {
+                "name": "Create Non-Existing Directories",
+                "description": "When set to true, the activity creates all directories in the specified path, if they do not already exist",
+                "visible": true
+            }
+        },
+        {
+            "name": "compress",
+            "type": "string",
+            "required": true,
+            "allowed": [
+                "None",
+                "GZip"
+            ],
+            "value": "None",
+            "display": {
+                "name": "Compress",
+                "description": "Specify None for no compression, and GZip for a compressed output file",
+                "type": "dropdown",
+                "selection": "single"
+            }
+        },
+        {
+            "name": "input",
+            "type": "object"
+        }
+    ],
+    "outputs": [
+        {
+           "name": "output",
+           "type": "object"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+  "fields": [
+    "x"
+  ],
+  "exclude_fields": [
+    "x"
+  ],
+  "count": 11,
+  "offset": 23,
+  "type": "xxx",
+  "status": "x",
+  "before_send_time": "",
+  "since_send_time": "",
+  "before_create_time": "",
+  "since_create_time": "",
+  "list_id": "",
+  "folder_id":"",
+  "sort_field": "",
+   "sort_dir": ""
+}
