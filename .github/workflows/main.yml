@@ -54,7 +54,15 @@ jobs:
       - name: Build Flogo app
         run: ./flogo-ci/flogo-vscode-cli app build -f oracle-demo.flogo -c ./flogo-ci/contributions/ -b ./flogo-ci/flogo-runtime -n Oracle_Demo -p linux/amd64 -o build
 
-      # Step 7: Upload the build artifact (optional)
+      # Step 7: Commit build directory to the repository
+      # This action commits the generated binary and any other files in the 'build' directory.
+      - name: Commit build files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: Add build artifacts"
+          file_pattern: build/**
+
+      # Step 8: Upload the build artifact (optional)
       # This step uploads the 'build' directory as an artifact, which you can
       # download from the GitHub Actions run summary page.
       - name: Upload Build Artifact
