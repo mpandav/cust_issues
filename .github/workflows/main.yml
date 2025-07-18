@@ -40,7 +40,7 @@ jobs:
       # Step 4: Verify the CLI is working
       # This is an optional but recommended step to ensure the CLI is correctly set up.
       - name: Verify Flogo CLI
-        run: ./flogo-ci/flogo-vscode-cli --version
+        run: ./flogo-ci/flogo-vscode-cli -h
 
       # Step 5: Create the build directory
       # This creates a '/build' directory to store the compiled application binary.
