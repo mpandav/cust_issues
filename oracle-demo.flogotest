@@ -1,0 +1,17 @@
+{
+  "suites": {},
+  "tests": {
+    "New_flow:T": {
+      "name": "T",
+      "flowId": "flow:New_flow",
+      "flowName": "New_flow",
+      "disabled": false
+    }
+  },
+  "type": "flogo:unittest",
+  "model": "1.1.1",
+  "app": {
+    "name": "oracle-demo",
+    "version": "1.0.0"
+  }
+}

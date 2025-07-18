@@ -1,0 +1,192 @@
+name: Build and deploy flogo app
+
+permissions:
+  actions: read
+  pull-requests: read
+  contents: read
+  id-token: write
+
+on:
+  workflow_call:
+    inputs:
+      golang-version:
+        type: string
+        required: false
+        default: "1.21.x"
+        description: 'The version of golang'
+      flogo-filepath:
+        type: string
+        required: true
+        description: 'The path to the flogo file to build'
+      flogo-test-filepath:
+        type: string
+        required: true
+        description: 'The path to the flogo test file'
+      pre-install:
+        type: string
+        required: false
+        description: 'which components to pre install'
+      application-name:
+        type: string
+        required: false
+        default: "flogo-app"
+        description: 'The name of the application binary'
+      base-docker-image:
+        type: string
+        required: false
+        default: "087264746030.dkr.ecr.eu-central-1.amazonaws.com/operations/alpine:3.21"
+        description: 'The base image to use'
+      target-ecr-repo:
+        type: string
+        required: true
+        description: 'The repo to which we should push the image'
+      target-dataplane:
+        type: string
+        required: true
+        description: 'The dataplane to which to deploy'
+        default: 'dev'
+        #options: dev, agile, staging, prod
+      version:
+        type: string
+        required: true
+        description: 'The version of the application and docker image'         
+jobs:      
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.ODIDO_AUTOMATION_CLIENT_ID }}
+          private-key: ${{ secrets.ODIDO_AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+        
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          repository: 'ODIDO-Enterprise-Integration/flogo-ci'
+          ref: 'main'
+          path: 'flogo-ci'
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Setup Go ${{inputs.golang-version}}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{inputs.golang-version}}
+          cache-dependency-path: |
+            ./flogo-ci/build/media/flogo-runtime/go.sum
+            ./flogo-ci/build/media/flogo-runtime/wi-contrib/go.sum
+      
+      - name: Set up Oracle Instant Client
+        uses: iamazeem/setup-oracle-instant-client-action@v2
+      
+      - name: pre-install
+        if: ${{inputs.pre-install}}
+        run:
+          ./flogo-ci/build/preinstall/scripts/vscode-preinstall-linux.sh ${{inputs.pre-install}}
+      
+      - name: build
+        run: ./flogo-ci/build/bin/flogo-vscode-cli app build --use-stderr -f ${{ inputs.flogo-filepath }} -c ./flogo-ci/build/media/flogo-contributions/wistudio/v1/contributions/ -b ./flogo-ci/build/media/flogo-runtime -n ${{ inputs.application-name }} -p linux/amd64 -o build
+        
+      - name: Run UnitTests
+        run: |
+          chmod +x ./build/${{ inputs.application-name }} && ./build/${{ inputs.application-name }} test --test-file ${{ inputs.flogo-test-filepath }} --collect-coverage --test-preserve-io
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: 'eu-central-1'
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+      
+      - name: Build, tag, and push Docker image to AWS ECR
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./flogo-ci/Dockerfile
+          build-args: |
+            BASE_IMAGE=${{ inputs.base-docker-image }}
+            APP_NAME=${{ inputs.application-name }}
+            PORT=${{ inputs.application-port }}
+          tags: ${{ inputs.target-ecr-repo }}:${{ inputs.version }}
+          push: true
+      
+  scan:       
+    name: aquascan
+    needs: [ build-and-publish ]
+    uses: Odido-AWS-Platform/aqua-scanning/.github/workflows/aqua-scan.yaml@main
+    with:
+      image_uri: ${{ inputs.target-ecr-repo }}:${{ inputs.version }}
+    secrets: inherit
+          
+  publish-helm:
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+            
+      - name: Generate GitHub App Token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.ODIDO_AUTOMATION_CLIENT_ID }}
+          private-key: ${{ secrets.ODIDO_AUTOMATION_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+        
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          repository: 'ODIDO-Enterprise-Integration/flogo-ci'
+          ref: 'main'
+          path: 'flogo-ci'
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+        
+      - uses: actions/checkout@v4
+        with:
+          repository: ODIDO-Enterprise-Integration/ei-apps-helm
+          ref: main
+          token: ${{ steps.app-token.outputs.token  }}
+          path: 'ei-helm'
+          
+      - name: Copy helm template
+        run: rm -r ./ei-apps-helm/flogo-data-plane/${{inputs.target-dataplane}}/charts/${{ inputs.application-name }} && mkdir -p ./ei-apps-helm/flogo-data-plane/${{inputs.target-dataplane}}/charts/${{ inputs.application-name }} &&  cp -r ./flogo-ci/helm/. ./ei-apps-helm/flogo-data-plane/${{inputs.target-dataplane}}/charts/${{ inputs.application-name }} 
+        
+      - name: Create values.yaml
+        run: |
+          echo "service:
+            name: ${{ inputs.application-name }}
+            image:  ${{ inputs.target-ecr-repo }}:${{ inputs.version }}
+            cluster: integration-nonprod
+            env: agile
+            otelendpoint: ike-nonprod-opentelemetry-collector-admin.opentelemetry-collector.svc.cluster.local:4317
+          " > ./ei-helm/${{inputs.target-dataplane}}/charts/${{ inputs.application-name }}/values.yaml
+      
+      - name: Create Chart.yaml
+        run: |
+          echo "apiVersion: v2
+          name: ${{ inputs.application-name }}
+          description: Helm chart for Flogo application
+          type: application
+          version: 1.0.0
+          appVersion: '${{ inputs.version }}'
+          " > ./ei-helm/${{inputs.target-dataplane}}/charts/${{ inputs.application-name }}/Chart.yaml
+          
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          create_branch: true
+          repository: ./ei-helm
+          branch: feature-${{ inputs.application-name }}-${{ github.run_number }}
+      - name: Create Pull Request
+        run: cd ./ei-helm && gh pr create -H feature-${{ inputs.application-name }}-${{ github.run_number }} -B internal-nonprod --title 'Auto PR for flogo app ${{ inputs.application-name }}' --body 'Created by Github action' || true
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token  }}    

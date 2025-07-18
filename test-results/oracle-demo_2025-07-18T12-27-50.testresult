@@ -1,0 +1,125 @@
+{
+    "report": {
+        "suites": [
+            {
+                "suiteName": "Selected Test Cases",
+                "testCases": [
+                    {
+                        "testName": "T",
+                        "flowName": "New_flow",
+                        "activities": [
+                            {
+                                "name": "StartActivity",
+                                "output": null
+                            },
+                            {
+                                "name": "OracleDatabaseQuery",
+                                "input": {
+                                    "Fields": [
+                                        {
+                                            "FieldName": "ID#",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "FLOAT",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "CODE_GROUP",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "VARCHAR",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "CODE",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "VARCHAR",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "VERSION",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "FLOAT",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "CREATED_BY",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "VARCHAR",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "CREATE_DATE",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "TIMESTAMP",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "UPDATED_BY",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "VARCHAR",
+                                            "isEditable": false
+                                        },
+                                        {
+                                            "FieldName": "UPDATE_DATE",
+                                            "Parameter": false,
+                                            "Selected": true,
+                                            "Type": "TIMESTAMP",
+                                            "isEditable": false
+                                        }
+                                    ],
+                                    "Query": "SELECT \"ID#\", CODE_GROUP, CODE, VERSION, CREATED_BY, CREATE_DATE, UPDATED_BY, UPDATE_DATE\nFROM DVSYS.\"CODE$\";",
+                                    "Schema": "DVSYS",
+                                    "State": "e2eefc54-bd84-4189-90e1-43bbcaf5f41bSELECT \"ID#\", CODE_GROUP, CODE, VERSION, CREATED_BY, CREATE_DATE, UPDATED_BY, UPDATE_DATE\nFROM DVSYS.\"CODE$\";",
+                                    "manualmode": false
+                                },
+                                "output": null,
+                                "error": {
+                                    "activity": "OracleDatabaseQuery",
+                                    "code": "OracleDatabase-query-ྶ",
+                                    "data": null,
+                                    "message": "Failed to get Input object from context. Error: [unable to create connection from '\u003cnil\u003e']",
+                                    "type": "activity"
+                                }
+                            }
+                        ],
+                        "links": [
+                            {
+                                "linkName": "StartActivity to OracleDatabaseQuery",
+                                "from": "StartActivity",
+                                "to": "OracleDatabaseQuery"
+                            }
+                        ],
+                        "errorHandler": {
+                            "activities": []
+                        },
+                        "testResult": {
+                            "totalAssertions": 0,
+                            "executedAssertions": 0,
+                            "failedAssertions": 0,
+                            "skippedAssertions": 0,
+                            "successAssertions": 0,
+                            "flowExecuted": false
+                        },
+                        "testStatus": "Testcase failed to execute with error: Failed to get Input object from context. Error: [unable to create connection from '\u003cnil\u003e']"
+                    }
+                ],
+                "suiteResult": {
+                    "totalTests": 1,
+                    "failedTests": 1,
+                    "errorFailed": 1,
+                    "assertionFailed": 0
+                }
+            }
+        ]
+    },
+    "result": {
+        "totalSuites": 1,
+        "failedSuites": 1
+    }
+}
