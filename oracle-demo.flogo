@@ -2,67 +2,208 @@
   "imports": [
     "github.com/project-flogo/flow",
     "github.com/project-flogo/contrib/activity/noop",
-    "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/query",
     "github.com/tibco/flogo-general/src/app/General/activity/log",
-    "github.com/tibco/flogo-general/src/app/General/trigger/timer",
+    "github.com/project-flogo/flow/activity/subflow",
+    "github.com/project-flogo/contrib/activity/actreturn",
+    "github.com/tibco/flogo-general/src/app/General/activity/mapper",
+    "github.com/tibco/wi-oracledb/src/app/OracleDatabase/activity/callprocedure",
+    "github.com/tibco/flogo-general/src/app/General/trigger/rest",
+    "github.com/project-flogo/contrib/function/string",
     "github.com/project-flogo/contrib/function/coerce",
+    "github.com/project-flogo/contrib/function/array",
     "github.com/tibco/wi-oracledb/src/app/OracleDatabase/connector/oracledb"
   ],
-  "name": "oracle-demo",
-  "description": "Add description",
+  "name": "POCOracleDBCall",
+  "description": "POC (Proof Of Concept) for flogo app to create a REST API that invokes an Oracle Stored Procedure and returns a JSON response.",
   "version": "1.0.0",
   "type": "flogo:app",
   "appModel": "1.1.1",
   "tags": [],
   "triggers": [
     {
-      "ref": "#timer",
-      "name": "tibco-wi-timer",
-      "description": "Simple Timer trigger",
-      "settings": {},
-      "id": "TimerTrigger",
+      "ref": "#rest",
+      "name": "tibco-wi-rest",
+      "description": "Simple REST Trigger",
+      "settings": {
+        "port": 9876,
+        "APISpecUpdate": true,
+        "swagger": "spec://437ae668",
+        "swaggerVersion": "v3",
+        "apiVersion": "1.0.0",
+        "secureConnection": false,
+        "serverKey": "",
+        "caCertificate": ""
+      },
+      "id": "ReceiveHTTPMessage",
       "handlers": [
         {
           "description": "",
           "settings": {
-            "Scheduler Options": "Timer",
-            "Repeating": false,
-            "Delayed Start": false,
-            "Time Interval": 1,
-            "Interval Unit": "Second",
-            "Cron Expression": "CRON_TZ=Europe/Berlin * * * * *"
+            "APISpecPath": "/contract/charges",
+            "Method": "GET",
+            "reqType": "application/json",
+            "Path": "/contract/charges",
+            "OutputValidation": true
           },
           "action": {
             "ref": "github.com/project-flogo/flow",
             "settings": {
-              "flowURI": "res://flow:New_flow"
+              "flowURI": "res://flow:GET_ContractCharges"
+            },
+            "input": {
+              "headers": "=$.headers",
+              "queryParams": {
+                "mapping": {
+                  "msisdn": "=$.queryParams.msisdn",
+                  "customerCode": "=$.queryParams.customerCode"
+                }
+              },
+              "requestURI": "=$.requestURI",
+              "method": "=$.method"
+            },
+            "output": {
+              "code": "=$.code",
+              "responseBody": "=$.responseBody"
             }
           },
-          "name": "New_flow"
+          "reply": {
+            "code": 200,
+            "configureResponseCodes": true,
+            "message": {}
+          },
+          "schemas": {
+            "reply": {
+              "data": {
+                "type": "json",
+                "value": "{\r\n    \"properties\": {\r\n        \"charges\": {\r\n            \"items\": {\r\n                \"properties\": {\r\n                    \"amount\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"description\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"entryDate\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"feeType\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"period\": {\r\n                        \"type\": \"integer\"\r\n                    },\r\n                    \"validFromDate\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"VATIncludingIndicator\": {\r\n                        \"type\": \"boolean\"\r\n                    }\r\n                },\r\n                \"type\": \"object\"\r\n            },\r\n            \"type\": \"array\"\r\n        }\r\n    },\r\n    \"title\": \"Reply\",\r\n    \"type\": \"object\"\r\n}",
+                "fe_metadata": "{\r\n    \"properties\": {\r\n        \"charges\": {\r\n            \"items\": {\r\n                \"properties\": {\r\n                    \"amount\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"description\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"entryDate\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"feeType\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"period\": {\r\n                        \"type\": \"integer\"\r\n                    },\r\n                    \"validFromDate\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                    \"VATIncludingIndicator\": {\r\n                        \"type\": \"boolean\"\r\n                    }\r\n                },\r\n                \"type\": \"object\"\r\n            },\r\n            \"type\": \"array\"\r\n        }\r\n    },\r\n    \"title\": \"Reply\",\r\n    \"type\": \"object\"\r\n}"
+              },
+              "responseBody": {
+                "type": "json",
+                "value": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}",
+                "fe_metadata": "{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}"
+              },
+              "responseCodesSchema": {
+                "type": "json",
+                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"number\"},\"responseType\":{\"type\":\"string\"},\"responseSchema\":{\"type\":\"string\"}},\"required\":[\"code\",\"responseType\"]}}",
+                "fe_metadata": "[{\"code\":200,\"responseType\":\"object\",\"responseSchema\":\"{\\\"type\\\":\\\"array\\\",\\\"items\\\":{\\\"type\\\":\\\"object\\\",\\\"properties\\\":{\\\"amount\\\":{\\\"type\\\":\\\"number\\\",\\\"format\\\":\\\"float\\\",\\\"description\\\":\\\"Charge amount\\\"},\\\"description\\\":{\\\"type\\\":\\\"string\\\",\\\"description\\\":\\\"Description of the charge\\\"},\\\"feeType\\\":{\\\"type\\\":\\\"string\\\",\\\"description\\\":\\\"Type of fee\\\"},\\\"entryDate\\\":{\\\"type\\\":\\\"string\\\",\\\"format\\\":\\\"date-time\\\",\\\"description\\\":\\\"Date when the charge was entered\\\"},\\\"validFromDate\\\":{\\\"type\\\":\\\"string\\\",\\\"format\\\":\\\"date-time\\\",\\\"description\\\":\\\"Date from which the charge is valid\\\"},\\\"period\\\":{\\\"type\\\":\\\"integer\\\",\\\"description\\\":\\\"Billing period or duration for the charge\\\"}},\\\"required\\\":[\\\"amount\\\",\\\"description\\\",\\\"feeType\\\",\\\"entryDate\\\",\\\"validFromDate\\\",\\\"period\\\"]}}\"},{\"code\":400,\"responseType\":\"string\"},{\"code\":404,\"responseType\":\"string\"}]"
+              }
+            },
+            "output": {
+              "queryParams": {
+                "type": "json",
+                "value": "{\"type\":\"object\",\"properties\":{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}},\"required\":[\"msisdn\",\"customerCode\"]}",
+                "fe_metadata": "[{\"parameterName\":\"msisdn\",\"repeating\":\"false\",\"type\":\"string\",\"required\":\"true\"},{\"parameterName\":\"customerCode\",\"repeating\":\"false\",\"type\":\"string\",\"required\":\"true\"}]"
+              },
+              "headers": {
+                "type": "json",
+                "value": "{\"type\":\"object\",\"properties\":{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"}},\"required\":[\"xAPI-correlationID\",\"xAPI-businessComponent\",\"xAPI-timestamp\"]}",
+                "fe_metadata": "[{\"parameterName\":\"xAPI-correlationID\",\"repeating\":\"false\",\"type\":\"string\",\"required\":\"true\"},{\"parameterName\":\"xAPI-businessComponent\",\"repeating\":\"false\",\"type\":\"string\",\"required\":\"true\"},{\"parameterName\":\"xAPI-timestamp\",\"repeating\":\"false\",\"type\":\"string\",\"required\":\"true\"}]"
+              },
+              "multipartFormData": {
+                "type": "json",
+                "value": "{\"type\":\"object\",\"properties\":{}}",
+                "fe_metadata": "{\"type\":\"object\",\"properties\":{}}"
+              },
+              "multipartForm": {
+                "type": "json",
+                "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"array\",\"items\":{}}",
+                "fe_metadata": "[]"
+              }
+            }
+          },
+          "name": "GET_ContractCharges"
         }
       ]
     }
   ],
   "resources": [
     {
-      "id": "flow:New_flow",
+      "id": "flow:GET_ContractCharges",
       "data": {
-        "name": "New_flow",
+        "note": {
+          "author": {
+            "name": "VS code user",
+            "userId": "vscode"
+          },
+          "content": "Configuration of App Propreties for Connections in Flogo is different from configuration of global variables for Connections in BW.\n\nhttps://docs.tibco.com/pub/flogo-vscode/latest/doc/html/flogo-vscode-user-guide/app-properties/using-app-properties4.htm\n\nhttps://docs.tibco.com/pub/flogo-vscode/latest/doc/html/flogo-vscode-user-guide/app-properties/changing-the-default.htm",
+          "createAt": 1751371582877,
+          "lastUpdatedAt": 1751371666346,
+          "title": "Flow Note"
+        },
+        "name": "GET_ContractCharges",
         "description": "",
         "links": [
           {
             "id": 1,
             "from": "StartActivity",
-            "to": "OracleDatabaseQuery",
+            "to": "Log_Input",
             "type": "label",
-            "label": "StartActivity to OracleDatabaseQuery"
+            "label": "StartActivity to Log_Input"
           },
           {
             "id": 2,
-            "from": "OracleDatabaseQuery",
-            "to": "LogMessage",
+            "from": "Log_Input",
+            "to": "SubFlow_Map_Contract_Charges",
             "type": "label",
-            "label": "OracleDatabaseQuery to LogMessage"
+            "label": "Log_Input to SubFlow_Map_Contract_Charges"
+          },
+          {
+            "id": 3,
+            "from": "SubFlow_Map_Contract_Charges",
+            "to": "Log_Success",
+            "type": "expression",
+            "label": "Success",
+            "value": "$activity[SubFlow_Map_Contract_Charges].code == 200"
+          },
+          {
+            "id": 4,
+            "from": "Log_Success",
+            "to": "Return",
+            "type": "label",
+            "label": "Log_Output to Return"
+          },
+          {
+            "id": 5,
+            "from": "SubFlow_Map_Contract_Charges",
+            "to": "Log_Exception",
+            "type": "error",
+            "label": "Exception"
+          },
+          {
+            "id": 6,
+            "from": "Log_Exception",
+            "to": "Map_HTTP_500",
+            "type": "label",
+            "label": "Log_Error to Map_HTTP_500"
+          },
+          {
+            "id": 7,
+            "from": "Map_HTTP_500",
+            "to": "Return",
+            "type": "label",
+            "label": "Map_HTTP_500 to Return"
+          },
+          {
+            "id": 8,
+            "from": "SubFlow_Map_Contract_Charges",
+            "to": "Log_Error",
+            "type": "exprOtherwise",
+            "label": "Error"
+          },
+          {
+            "id": 9,
+            "from": "Log_Error",
+            "to": "Map_HTTP_Error",
+            "type": "label",
+            "label": "Log_Error to Map_HTTP_Error"
+          },
+          {
+            "id": 10,
+            "from": "Map_HTTP_Error",
+            "to": "Return",
+            "type": "label",
+            "label": "Map_HTTP_Error to Return"
           }
         ],
         "tasks": [
@@ -75,89 +216,54 @@
             }
           },
           {
-            "id": "OracleDatabaseQuery",
-            "name": "OracleDatabaseQuery",
-            "description": "This activity executes query statement on Oracle Database",
+            "id": "Log_Input",
+            "name": "Log_Input",
+            "description": "Simple Log Message Activity",
             "activity": {
-              "ref": "#query",
+              "ref": "#log",
               "input": {
-                "Oracle Database Connection": "conn://b6e4bef4-9bfb-4980-97ed-9c285c03d5cc",
-                "Schema": "DVSYS",
-                "Query": "SELECT \"ID#\", CODE_GROUP, CODE, VERSION, CREATED_BY, CREATE_DATE, UPDATED_BY, UPDATE_DATE\nFROM DVSYS.\"CODE$\";",
-                "manualmode": false,
-                "Fields": [
-                  {
-                    "FieldName": "ID#",
-                    "Type": "FLOAT",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "CODE_GROUP",
-                    "Type": "VARCHAR",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "CODE",
-                    "Type": "VARCHAR",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "VERSION",
-                    "Type": "FLOAT",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "CREATED_BY",
-                    "Type": "VARCHAR",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "CREATE_DATE",
-                    "Type": "TIMESTAMP",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "UPDATED_BY",
-                    "Type": "VARCHAR",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  },
-                  {
-                    "FieldName": "UPDATE_DATE",
-                    "Type": "TIMESTAMP",
-                    "Selected": true,
-                    "Parameter": false,
-                    "isEditable": false
-                  }
-                ],
-                "State": "e2eefc54-bd84-4189-90e1-43bbcaf5f41bSELECT \"ID#\", CODE_GROUP, CODE, VERSION, CREATED_BY, CREATE_DATE, UPDATED_BY, UPDATE_DATE\nFROM DVSYS.\"CODE$\";"
+                "Log Level": "INFO",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" Flow started : \", $flow.method, \" \", $flow.requestURI)",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "SubFlow_Map_Contract_Charges",
+            "name": "SubFlow_Map_Contract_Charges",
+            "description": "Simple SubFlow Activity",
+            "settings": {
+              "retryOnError": {
+                "count": 0,
+                "interval": 0
+              }
+            },
+            "activity": {
+              "ref": "#subflow",
+              "settings": {
+                "flowURI": "res://flow:Map_ContractCharges",
+                "detached": false
+              },
+              "input": {
+                "queryParams": "=$flow.queryParams",
+                "headers": "=$flow.headers",
+                "requestURI": "=$flow.requestURI",
+                "method": "=$flow.method"
               },
               "schemas": {
                 "input": {
                   "input": {
                     "type": "json",
-                    "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{}}}}",
-                    "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{}}}}"
+                    "value": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}},\"required\":[\"msisdn\",\"customerCode\"]},\"headers\":{\"type\":\"object\",\"properties\":{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"xAPI-correlationID\",\"xAPI-businessComponent\",\"xAPI-timestamp\"]},\"requestURI\":{\"type\":\"string\",\"required\":false},\"method\":{\"type\":\"string\",\"required\":false}}}",
+                    "fe_metadata": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}},\"required\":[\"msisdn\",\"customerCode\"]},\"headers\":{\"type\":\"object\",\"properties\":{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"xAPI-correlationID\",\"xAPI-businessComponent\",\"xAPI-timestamp\"]},\"requestURI\":{\"type\":\"string\",\"required\":false},\"method\":{\"type\":\"string\",\"required\":false}}}"
                   }
                 },
                 "output": {
-                  "Output": {
+                  "output": {
                     "type": "json",
-                    "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"records\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"ID#\":{\"type\":\"number\"},\"CODE_GROUP\":{\"type\":\"string\"},\"CODE\":{\"type\":\"string\"},\"VERSION\":{\"type\":\"number\"},\"CREATED_BY\":{\"type\":\"string\"},\"CREATE_DATE\":{\"type\":\"string\",\"format\":\"date-time\"},\"UPDATED_BY\":{\"type\":\"string\"},\"UPDATE_DATE\":{\"type\":\"string\",\"format\":\"date-time\"}}}}}}",
-                    "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"records\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"properties\":{\"ID#\":{\"type\":\"number\"},\"CODE_GROUP\":{\"type\":\"string\"},\"CODE\":{\"type\":\"string\"},\"VERSION\":{\"type\":\"number\"},\"CREATED_BY\":{\"type\":\"string\"},\"CREATE_DATE\":{\"type\":\"string\",\"format\":\"date-time\"},\"UPDATED_BY\":{\"type\":\"string\"},\"UPDATE_DATE\":{\"type\":\"string\",\"format\":\"date-time\"}}}}}}"
+                    "value": "{\"type\":\"object\",\"title\":\"Output\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}",
+                    "fe_metadata": "{\"type\":\"object\",\"title\":\"Output\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
                   }
                 }
               },
@@ -165,95 +271,1134 @@
             }
           },
           {
-            "id": "LogMessage",
-            "name": "LogMessage",
+            "id": "Log_Success",
+            "name": "Log_Success",
             "description": "Simple Log Message Activity",
             "activity": {
               "ref": "#log",
               "input": {
                 "Log Level": "INFO",
-                "flowInfo": false,
-                "message": "=coerce.toString($activity[OracleDatabaseQuery].Output.records)",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" Flow ended : \", $flow.method, \" \", $flow.requestURI, \" Output : \",\r\ncoerce.toString($activity[SubFlow_Map_Contract_Charges].code), \" \", coerce.toString($activity[SubFlow_Map_Contract_Charges].responseBody))",
                 "logLevel": ""
               }
             }
+          },
+          {
+            "id": "Return",
+            "name": "Return",
+            "description": "Simple Return Activity",
+            "activity": {
+              "ref": "#actreturn",
+              "settings": {
+                "mappings": {
+                  "code": {
+                    "@conditional": [
+                      {
+                        "isDefined($activity[SubFlow_Map_Contract_Charges].code)": "=$activity[SubFlow_Map_Contract_Charges].code"
+                      },
+                      {
+                        "isDefined($activity[Map_HTTP_Error].output.code)": "=$activity[Map_HTTP_Error].output.code"
+                      },
+                      {
+                        "@otherwise": "=$activity[Map_HTTP_500].output.code"
+                      }
+                    ]
+                  },
+                  "responseBody": {
+                    "@conditional": [
+                      {
+                        "isDefined($activity[SubFlow_Map_Contract_Charges].responseBody)": "=$activity[SubFlow_Map_Contract_Charges].responseBody"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "id": "Log_Exception",
+            "name": "Log_Exception",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "ERROR",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" Flow error : \", $flow.method, \" \", $flow.requestURI, \" Error : \", coerce.toString($error.SubFlow_Map_Contract_Charges))",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "Map_HTTP_500",
+            "name": "Map_HTTP_500",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "code": 500
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Log_Error",
+            "name": "Log_Error",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "ERROR",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" Flow ended : \", $flow.method, \" \", $flow.requestURI, \" Output : \",\r\ncoerce.toString($activity[SubFlow_Map_Contract_Charges].code))",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "Map_HTTP_Error",
+            "name": "Map_HTTP_Error",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "code": "=$activity[SubFlow_Map_Contract_Charges].code"
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
           }
         ],
-        "fe_metadata": "eyJTdGFydEFjdGl2aXR5Ijp7IngiOjEwMCwieSI6MTAwfSwiT3JhY2xlRGF0YWJhc2VRdWVyeSI6eyJ4IjozODksInkiOjkwfSwiTG9nTWVzc2FnZSI6eyJ4Ijo3MDYsInkiOjkwfX0=",
+        "fe_metadata": "eyJTdGFydEFjdGl2aXR5Ijp7IngiOjAsInkiOjIwNH0sIkxvZ19JbnB1dCI6eyJ4IjoxMTUsInkiOjE5NX0sIlN1YkZsb3dfTWFwX0NvbnRyYWN0X0NoYXJnZXMiOnsieCI6MzM3LCJ5IjoxOTF9LCJMb2dfU3VjY2VzcyI6eyJ4Ijo2MTIsInkiOjE5MX0sIlJldHVybiI6eyJ4IjoxMDYxLCJ5IjoxOTF9LCJMb2dfRXhjZXB0aW9uIjp7IngiOjYxNCwieSI6MzE0fSwiTWFwX0hUVFBfNTAwIjp7IngiOjg0NSwieSI6MzE1fSwiTG9nX0Vycm9yIjp7IngiOjYxNSwieSI6NjZ9LCJNYXBfSFRUUF9FcnJvciI6eyJ4Ijo4NDYsInkiOjY0fX0=",
         "metadata": {
-          "input": [],
-          "output": [],
-          "fe_metadata": {}
+          "input": [
+            {
+              "name": "queryParams",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}}"
+              }
+            },
+            {
+              "name": "headers",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}}"
+              }
+            },
+            {
+              "name": "requestURI",
+              "type": "string"
+            },
+            {
+              "name": "method",
+              "type": "string"
+            }
+          ],
+          "output": [
+            {
+              "name": "code",
+              "type": "integer"
+            },
+            {
+              "name": "responseBody",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+              }
+            }
+          ],
+          "fe_metadata": {
+            "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}},\"required\":[\"msisdn\",\"customerCode\"]},\"headers\":{\"type\":\"object\",\"properties\":{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"xAPI-correlationID\",\"xAPI-businessComponent\",\"xAPI-timestamp\"]},\"requestURI\":{\"type\":\"string\",\"required\":false},\"method\":{\"type\":\"string\",\"required\":false}}}",
+            "output": "{\"type\":\"object\",\"title\":\"Inputs\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":true},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[\"code\"]}"
+          }
+        },
+        "explicitReply": true
+      }
+    },
+    {
+      "id": "flow:Map_ContractCharges",
+      "data": {
+        "note": {
+          "author": {
+            "name": "VS code user",
+            "userId": "vscode"
+          },
+          "content": "Configuration of App Propreties for Connections in Flogo is different from configuration of global variables for Connections in BW.\n\nhttps://docs.tibco.com/pub/flogo-vscode/latest/doc/html/flogo-vscode-user-guide/app-properties/using-app-properties4.htm\n\nhttps://docs.tibco.com/pub/flogo-vscode/latest/doc/html/flogo-vscode-user-guide/app-properties/changing-the-default.htm",
+          "createAt": 1751371582877,
+          "lastUpdatedAt": 1751371666346,
+          "title": "Flow Note"
+        },
+        "name": "Map_ContractCharges",
+        "description": "",
+        "links": [
+          {
+            "id": 1,
+            "from": "StartActivity",
+            "to": "Log_Input",
+            "type": "label",
+            "label": "StartActivity to Log_Input"
+          },
+          {
+            "id": 2,
+            "from": "Log_Input",
+            "to": "Map_DB_Input",
+            "type": "expression",
+            "label": "Log_Input to Map_DB_Input",
+            "value": "isDefined($flow.queryParams.msisdn)\r\n&&\r\nisDefined($flow.queryParams.customerCode)"
+          },
+          {
+            "id": 3,
+            "from": "Map_DB_Input",
+            "to": "Log_DB_Input",
+            "type": "label",
+            "label": "Map_DB_Input to Log_DB_Input"
+          },
+          {
+            "id": 4,
+            "from": "Log_DB_Input",
+            "to": "CallP_ACC_GET_HIST_ONETIMECHARGES",
+            "type": "label",
+            "label": "Log_DB_Input to CallP_ACC_GET_HIST_ONETIMECHARGES"
+          },
+          {
+            "id": 5,
+            "from": "CallP_ACC_GET_HIST_ONETIMECHARGES",
+            "to": "Log_DB_Output",
+            "type": "label",
+            "label": "DB Output Exists"
+          },
+          {
+            "id": 6,
+            "from": "Log_DB_Output",
+            "to": "Map_SP_Output_records",
+            "type": "expression",
+            "label": "LogOutput to Mapper",
+            "value": "isDefined($activity[CallP_ACC_GET_HIST_ONETIMECHARGES].Output.P_ONE_TIME_CHARGE_TAB)\r\n&&\r\n$activity[CallP_ACC_GET_HIST_ONETIMECHARGES].Output.P_ONE_TIME_CHARGE_TAB != \"\"\r\n&&\r\narray.count(coerce.toArray($activity[CallP_ACC_GET_HIST_ONETIMECHARGES].Output.P_ONE_TIME_CHARGE_TAB)) > 0"
+          },
+          {
+            "id": 7,
+            "from": "Map_SP_Output_records",
+            "to": "Map_formatted_charges",
+            "type": "label",
+            "label": "Map_SP_Output_records to Map_formatted_charges"
+          },
+          {
+            "id": 8,
+            "from": "Map_formatted_charges",
+            "to": "Map_charges",
+            "type": "label",
+            "label": "Map_formatted_charges to Map_Output"
+          },
+          {
+            "id": 9,
+            "from": "Map_charges",
+            "to": "Map_HTTP_200",
+            "type": "label",
+            "label": "Map_charges to CopyOfMap_HTTP_404"
+          },
+          {
+            "id": 10,
+            "from": "Map_HTTP_200",
+            "to": "Map_Output",
+            "type": "label",
+            "label": "CopyOfMap_HTTP_404 to Map_Output"
+          },
+          {
+            "id": 11,
+            "from": "Map_Output",
+            "to": "Log_Output",
+            "type": "label",
+            "label": "Map_Output to Log_Output"
+          },
+          {
+            "id": 12,
+            "from": "Log_Output",
+            "to": "Return",
+            "type": "label",
+            "label": "Log_Output to Return"
+          },
+          {
+            "id": 13,
+            "from": "Log_DB_Output",
+            "to": "Map_HTTP_404",
+            "type": "exprOtherwise",
+            "label": "Otherwise"
+          },
+          {
+            "id": 14,
+            "from": "Map_HTTP_404",
+            "to": "Map_Output",
+            "type": "label",
+            "label": "Map_HTTP_404 to Map_Output"
+          },
+          {
+            "id": 15,
+            "from": "CallP_ACC_GET_HIST_ONETIMECHARGES",
+            "to": "Map_HTTP_500",
+            "type": "error",
+            "label": "CallP_ACC_GET_HIST_ONETIMECHARGES to Map_HTTP_500"
+          },
+          {
+            "id": 16,
+            "from": "Map_HTTP_500",
+            "to": "NoOp1",
+            "type": "label",
+            "label": "Map_HTTP_500 to NoOp1"
+          },
+          {
+            "id": 17,
+            "from": "NoOp1",
+            "to": "Map_Output",
+            "type": "label",
+            "label": "NoOp1 to Map_Output"
+          },
+          {
+            "id": 18,
+            "from": "Log_Input",
+            "to": "Map_HTTP_400",
+            "type": "exprOtherwise",
+            "label": "Otherwise"
+          },
+          {
+            "id": 19,
+            "from": "Map_HTTP_400",
+            "to": "Map_Output",
+            "type": "label",
+            "label": "Map_HTTP_400 to Map_Output"
+          }
+        ],
+        "tasks": [
+          {
+            "id": "StartActivity",
+            "name": "StartActivity",
+            "description": "NoOp Activity",
+            "activity": {
+              "ref": "#noop"
+            }
+          },
+          {
+            "id": "Log_Input",
+            "name": "Log_Input",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "INFO",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" Flow started : \", $flowctx[\"FlowName\"])",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "Map_DB_Input",
+            "name": "Map_DB_Input",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "parameters": {
+                      "P_MSISDN": "=$flow.queryParams.msisdn",
+                      "P_CUSTOMER_CODE": "=$flow.queryParams.customerCode"
+                    }
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\r\n    \"properties\": {\r\n        \"parameters\": {\r\n            \"type\": \"object\",\r\n\t\t\t\"properties\": {\r\n\t\t\t\t\"P_CUSTOMER_CODE\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                \"P_MSISDN\": {\r\n                        \"type\": \"string\"\r\n                    } \r\n\t\t\t},\r\n\t\t\t\"required\": [\r\n\t\t\t\t\"P_CUSTCODE\",\r\n\t\t\t\t\"P_MSISDN\"\r\n\t\t\t]\r\n        }\r\n    },\r\n    \"required\": [\r\n        \"parameters\"\r\n    ],\r\n    \"title\": \"SP_Input\",\r\n    \"type\": \"object\"\r\n}",
+                    "fe_metadata": "{\r\n    \"properties\": {\r\n        \"parameters\": {\r\n            \"type\": \"object\",\r\n\t\t\t\"properties\": {\r\n\t\t\t\t\"P_CUSTOMER_CODE\": {\r\n                        \"type\": \"string\"\r\n                    },\r\n                \"P_MSISDN\": {\r\n                        \"type\": \"string\"\r\n                    } \r\n\t\t\t},\r\n\t\t\t\"required\": [\r\n\t\t\t\t\"P_CUSTCODE\",\r\n\t\t\t\t\"P_MSISDN\"\r\n\t\t\t]\r\n        }\r\n    },\r\n    \"required\": [\r\n        \"parameters\"\r\n    ],\r\n    \"title\": \"SP_Input\",\r\n    \"type\": \"object\"\r\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"properties\": {\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"P_CUSTOMER_CODE\": {\n          \"type\": \"string\"\n        },\n        \"P_MSISDN\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"P_CUSTCODE\",\n        \"P_MSISDN\"\n      ]\n    }\n  },\n  \"required\": [\n    \"parameters\"\n  ],\n  \"title\": \"SP_Input\",\n  \"type\": \"object\"\n}",
+                    "fe_metadata": "{\n  \"properties\": {\n    \"parameters\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"P_CUSTOMER_CODE\": {\n          \"type\": \"string\"\n        },\n        \"P_MSISDN\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"P_CUSTCODE\",\n        \"P_MSISDN\"\n      ]\n    }\n  },\n  \"required\": [\n    \"parameters\"\n  ],\n  \"title\": \"SP_Input\",\n  \"type\": \"object\"\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Log_DB_Input",
+            "name": "Log_DB_Input",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "INFO",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" DB Input : \",\r\ncoerce.toString($activity[Map_DB_Input].output))",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "CallP_ACC_GET_HIST_ONETIMECHARGES",
+            "name": "CallP_ACC_GET_HIST_ONETIMECHARGES",
+            "description": "This activity executes call procedure statement on Oracle Database",
+            "activity": {
+              "ref": "#callprocedure",
+              "input": {
+                "Oracle Database Connection": "conn://38014573-3c48-4660-b5ec-08c0dc499b9e",
+                "CallProcedure": "CALL\nPKG_ORM_S_TIB.P_ACC_GET_HIST_ONETIMECHARGES(?P_CUSTOMER_CODE,?P_MSISDN,?P_ONE_TIME_CHARGE_TAB);",
+                "manualmode": true,
+                "Fields": [
+                  {
+                    "FieldName": "P_CUSTOMER_CODE",
+                    "Type": "VARCHAR",
+                    "Direction": "IN",
+                    "isEditable": true
+                  },
+                  {
+                    "FieldName": "P_MSISDN",
+                    "Type": "VARCHAR",
+                    "Direction": "IN",
+                    "isEditable": true
+                  },
+                  {
+                    "FieldName": "P_ONE_TIME_CHARGE_TAB",
+                    "Type": "REFCURSOR",
+                    "Direction": "OUT",
+                    "isEditable": true
+                  }
+                ],
+                "FieldsInfo": {
+                  "ok": true,
+                  "query": "",
+                  "fields": [
+                    {
+                      "FieldName": "P_CUSTOMER_CODE",
+                      "Type": "VARCHAR",
+                      "Direction": "IN",
+                      "isEditable": true
+                    },
+                    {
+                      "FieldName": "P_MSISDN",
+                      "Type": "VARCHAR",
+                      "Direction": "IN",
+                      "isEditable": true
+                    },
+                    {
+                      "FieldName": "P_ONE_TIME_CHARGE_TAB",
+                      "Type": "REFCURSOR",
+                      "Direction": "OUT",
+                      "isEditable": true
+                    }
+                  ]
+                },
+                "State": "183a0a83-dee7-42df-9f3e-08fe4ebeef04CALL\nPKG_ORM_S_TIB.P_ACC_GET_HIST_ONETIMECHARGES(?P_CUSTOMER_CODE,?P_MSISDN,?P_ONE_TIME_CHARGE_TAB);",
+                "input": {
+                  "mapping": {
+                    "parameters": "=$activity[Map_DB_Input].output.parameters"
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{\"P_CUSTOMER_CODE\":{\"type\":\"string\"},\"P_MSISDN\":{\"type\":\"string\"}}}}}",
+                    "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"parameters\":{\"type\":\"object\",\"properties\":{\"P_CUSTOMER_CODE\":{\"type\":\"string\"},\"P_MSISDN\":{\"type\":\"string\"}}}}}"
+                  }
+                },
+                "output": {
+                  "Output": {
+                    "type": "json",
+                    "value": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"P_ONE_TIME_CHARGE_TAB\":{\"type\":\"string\"}}}",
+                    "fe_metadata": "{\"$schema\":\"http://json-schema.org/draft-04/schema#\",\"type\":\"object\",\"definitions\":{},\"properties\":{\"P_ONE_TIME_CHARGE_TAB\":{\"type\":\"string\"}}}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Log_DB_Output",
+            "name": "Log_DB_Output",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "INFO",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" DB Output : \",\r\ncoerce.toString($activity[CallP_ACC_GET_HIST_ONETIMECHARGES].Output))",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "Map_SP_Output_records",
+            "name": "Map_SP_Output_records",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "charges": {
+                      "@conditional": [
+                        {
+                          "array.count(coerce.toArray($activity[CallP_ACC_GET_HIST_ONETIMECHARGES].Output.P_ONE_TIME_CHARGE_TAB)) > 0": "=coerce.toArray($activity[CallP_ACC_GET_HIST_ONETIMECHARGES].Output.P_ONE_TIME_CHARGE_TAB)"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\r\n    \"properties\": {\r\n        \"charges\": {\r\n            \"type\": \"array\"\r\n        }\r\n    },\r\n    \"title\": \"SP_Output_records\",\r\n    \"type\": \"object\"\r\n}",
+                    "fe_metadata": "{\r\n    \"properties\": {\r\n        \"charges\": {\r\n            \"type\": \"array\"\r\n        }\r\n    },\r\n    \"title\": \"SP_Output_records\",\r\n    \"type\": \"object\"\r\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"properties\": {\n    \"charges\": {\n      \"type\": \"array\"\n    }\n  },\n  \"title\": \"SP_Output_records\",\n  \"type\": \"object\"\n}",
+                    "fe_metadata": "{\n  \"properties\": {\n    \"charges\": {\n      \"type\": \"array\"\n    }\n  },\n  \"title\": \"SP_Output_records\",\n  \"type\": \"object\"\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Map_formatted_charges",
+            "name": "Map_formatted_charges",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "charges": {
+                      "@conditional": [
+                        {
+                          "array.count($activity[Map_SP_Output_records].output.charges) > 0": {
+                            "@foreach($activity[Map_SP_Output_records].output.charges,iter)": {
+                              "charge": "=string.replaceAll(string.tostring($loop[iter]),'\\\"',\"$\")"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\r\n    \"properties\": {\r\n        \"charges\": {\r\n            \"items\": {\r\n                \"properties\": {\r\n                    \"charge\": {\r\n                        \"type\": \"string\"\r\n                    }\r\n                },\r\n                \"required\": [\r\n                    \"charge\"\r\n                ],\r\n                \"type\": \"object\"\r\n            },\r\n            \"type\": \"array\"\r\n        }\r\n    },\r\n    \"required\": [\r\n        \"charges\"\r\n    ],\r\n    \"title\": \"formatted_charges\",\r\n    \"type\": \"object\"\r\n}",
+                    "fe_metadata": "{\r\n    \"properties\": {\r\n        \"charges\": {\r\n            \"items\": {\r\n                \"properties\": {\r\n                    \"charge\": {\r\n                        \"type\": \"string\"\r\n                    }\r\n                },\r\n                \"required\": [\r\n                    \"charge\"\r\n                ],\r\n                \"type\": \"object\"\r\n            },\r\n            \"type\": \"array\"\r\n        }\r\n    },\r\n    \"required\": [\r\n        \"charges\"\r\n    ],\r\n    \"title\": \"formatted_charges\",\r\n    \"type\": \"object\"\r\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"properties\": {\n    \"charges\": {\n      \"items\": {\n        \"properties\": {\n          \"charge\": {\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"charge\"\n        ],\n        \"type\": \"object\"\n      },\n      \"type\": \"array\"\n    }\n  },\n  \"required\": [\n    \"charges\"\n  ],\n  \"title\": \"formatted_charges\",\n  \"type\": \"object\"\n}",
+                    "fe_metadata": "{\n  \"properties\": {\n    \"charges\": {\n      \"items\": {\n        \"properties\": {\n          \"charge\": {\n            \"type\": \"string\"\n          }\n        },\n        \"required\": [\n          \"charge\"\n        ],\n        \"type\": \"object\"\n      },\n      \"type\": \"array\"\n    }\n  },\n  \"required\": [\n    \"charges\"\n  ],\n  \"title\": \"formatted_charges\",\n  \"type\": \"object\"\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Map_charges",
+            "name": "Map_charges",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "charges": {
+                      "@conditional": [
+                        {
+                          "array.count($activity[Map_formatted_charges].output.charges) > 0": {
+                            "@foreach($activity[Map_formatted_charges].output.charges,idx)": {
+                              "description": "=array.get(string.split(string.tostring($loop[idx]),\"$,$\"), 3)",
+                              "feeType": "=array.get(string.split(string.tostring($loop[idx]),\"$,$\"), 2)",
+                              "entryDate": "=array.get(string.split(string.tostring($loop[idx]),\"$,$\"), 5)",
+                              "validFromDate": "=array.get(string.split(string.tostring($loop[idx]),\"$,$\"), 6)",
+                              "period": "=coerce.toInt(string.substringBefore(array.get(string.split(string.tostring($loop[idx]),\"$,$\"), 7),\"$\"))",
+                              "amount": "=coerce.toFloat32(array.get(string.split(string.tostring($loop[idx]),\"$,$\"), 4))"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"properties\": {\n        \"charges\": {\n            \"items\": {\n                \"properties\": {\n                    \"amount\": {\n                        \"type\": \"number\",\n                        \"format\": \"float\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"feeType\": {\n                        \"type\": \"string\"\n                    },\n                    \"entryDate\": {\n                        \"type\": \"string\",\n                        \"format\": \"date-time\"\n                    },\n                    \"validFromDate\": {\n                        \"type\": \"string\",\n                        \"format\": \"date-time\"\n                    },\n                    \"period\": {\n                        \"type\": \"integer\"\n                    }\n                },\n                \"type\": \"object\"\n            },\n            \"type\": \"array\"\n        }\n    },\n    \"title\": \"Output\",\n    \"type\": \"object\"\n}",
+                    "fe_metadata": "{\n    \"properties\": {\n        \"charges\": {\n            \"items\": {\n                \"properties\": {\n                    \"amount\": {\n                        \"type\": \"number\",\n                        \"format\": \"float\"\n                    },\n                    \"description\": {\n                        \"type\": \"string\"\n                    },\n                    \"feeType\": {\n                        \"type\": \"string\"\n                    },\n                    \"entryDate\": {\n                        \"type\": \"string\",\n                        \"format\": \"date-time\"\n                    },\n                    \"validFromDate\": {\n                        \"type\": \"string\",\n                        \"format\": \"date-time\"\n                    },\n                    \"period\": {\n                        \"type\": \"integer\"\n                    }\n                },\n                \"type\": \"object\"\n            },\n            \"type\": \"array\"\n        }\n    },\n    \"title\": \"Output\",\n    \"type\": \"object\"\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"properties\": {\n    \"charges\": {\n      \"items\": {\n        \"properties\": {\n          \"amount\": {\n            \"type\": \"number\",\n            \"format\": \"float\"\n          },\n          \"description\": {\n            \"type\": \"string\"\n          },\n          \"feeType\": {\n            \"type\": \"string\"\n          },\n          \"entryDate\": {\n            \"type\": \"string\",\n            \"format\": \"date-time\"\n          },\n          \"validFromDate\": {\n            \"type\": \"string\",\n            \"format\": \"date-time\"\n          },\n          \"period\": {\n            \"type\": \"integer\"\n          }\n        },\n        \"type\": \"object\"\n      },\n      \"type\": \"array\"\n    }\n  },\n  \"title\": \"Output\",\n  \"type\": \"object\"\n}",
+                    "fe_metadata": "{\n  \"properties\": {\n    \"charges\": {\n      \"items\": {\n        \"properties\": {\n          \"amount\": {\n            \"type\": \"number\",\n            \"format\": \"float\"\n          },\n          \"description\": {\n            \"type\": \"string\"\n          },\n          \"feeType\": {\n            \"type\": \"string\"\n          },\n          \"entryDate\": {\n            \"type\": \"string\",\n            \"format\": \"date-time\"\n          },\n          \"validFromDate\": {\n            \"type\": \"string\",\n            \"format\": \"date-time\"\n          },\n          \"period\": {\n            \"type\": \"integer\"\n          }\n        },\n        \"type\": \"object\"\n      },\n      \"type\": \"array\"\n    }\n  },\n  \"title\": \"Output\",\n  \"type\": \"object\"\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Map_HTTP_200",
+            "name": "Map_HTTP_200",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "code": 200,
+                    "responseBody": "=$activity[Map_charges].output"
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Map_Output",
+            "name": "Map_Output",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "@conditional": [
+                    {
+                      "isDefined($activity[Map_HTTP_500].output.code)": {
+                        "code": "=$activity[Map_HTTP_500].output.code"
+                      }
+                    },
+                    {
+                      "isDefined($activity[Map_HTTP_404].output.code)": {
+                        "code": "=$activity[Map_HTTP_404].output.code"
+                      }
+                    },
+                    {
+                      "isDefined($activity[Map_HTTP_400].output.code)": {
+                        "code": "=$activity[Map_HTTP_400].output.code"
+                      }
+                    },
+                    {
+                      "@otherwise": {
+                        "code": "=$activity[Map_HTTP_200].output.code",
+                        "responseBody": "=$activity[Map_HTTP_200].output.responseBody"
+                      }
+                    }
+                  ]
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Log_Output",
+            "name": "Log_Output",
+            "description": "Simple Log Message Activity",
+            "activity": {
+              "ref": "#log",
+              "input": {
+                "Log Level": "INFO",
+                "flowInfo": true,
+                "message": "=string.concat($flow.headers[\"xAPI-correlationID\"], \" Flow ended : \", $flowctx[\"FlowName\"], \" Output : \", coerce.toString($activity[Map_Output].output))",
+                "logLevel": ""
+              }
+            }
+          },
+          {
+            "id": "Return",
+            "name": "Return",
+            "description": "Simple Return Activity",
+            "activity": {
+              "ref": "#actreturn",
+              "settings": {
+                "mappings": {
+                  "code": "=$activity[Map_Output].output.code",
+                  "responseBody": "=$activity[Map_Output].output.responseBody"
+                }
+              }
+            }
+          },
+          {
+            "id": "Map_HTTP_404",
+            "name": "Map_HTTP_404",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "code": 404
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "Map_HTTP_500",
+            "name": "Map_HTTP_500",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "code": 500
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          },
+          {
+            "id": "NoOp1",
+            "name": "NoOp1",
+            "description": "NoOp Activity",
+            "activity": {
+              "ref": "#noop"
+            }
+          },
+          {
+            "id": "Map_HTTP_400",
+            "name": "Map_HTTP_400",
+            "description": "Mapper Activity",
+            "activity": {
+              "ref": "#mapper",
+              "input": {
+                "input": {
+                  "mapping": {
+                    "code": 400
+                  }
+                }
+              },
+              "schemas": {
+                "input": {
+                  "input": {
+                    "type": "json",
+                    "value": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}",
+                    "fe_metadata": "{\n    \"type\": \"object\",\n    \"title\": \"Output\",\n    \"properties\": {\n        \"code\": {\n            \"type\": \"integer\",\n            \"required\": false\n        },\n        \"responseBody\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"body\": {\n                    \"type\": \"any\"\n                },\n                \"headers\": {\n                    \"type\": \"object\"\n                }\n            }\n        }\n    },\n    \"required\": []\n}"
+                  }
+                },
+                "output": {
+                  "output": {
+                    "type": "json",
+                    "value": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}",
+                    "fe_metadata": "{\n  \"type\": \"object\",\n  \"title\": \"Output\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"integer\",\n      \"required\": false\n    },\n    \"responseBody\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"body\": {\n          \"type\": \"any\"\n        },\n        \"headers\": {\n          \"type\": \"object\"\n        }\n      }\n    }\n  },\n  \"required\": []\n}"
+                  }
+                }
+              },
+              "feSchemaMap": {}
+            }
+          }
+        ],
+        "fe_metadata": "eyJTdGFydEFjdGl2aXR5Ijp7IngiOjAsInkiOjEwOH0sIkxvZ19JbnB1dCI6eyJ4IjoyMCwieSI6MjY4fSwiTWFwX0RCX0lucHV0Ijp7IngiOjk2LCJ5IjoxMjh9LCJMb2dfREJfSW5wdXQiOnsieCI6MTg5LCJ5IjoyNjJ9LCJDYWxsUF9BQ0NfR0VUX0hJU1RfT05FVElNRUNIQVJHRVMiOnsieCI6MjY2LCJ5IjoxMjR9LCJMb2dfREJfT3V0cHV0Ijp7IngiOjM3MiwieSI6MjYzfSwiTWFwX1NQX091dHB1dF9yZWNvcmRzIjp7IngiOjQ0NiwieSI6MTI3fSwiTWFwX2Zvcm1hdHRlZF9jaGFyZ2VzIjp7IngiOjY0NCwieSI6MTI4fSwiTWFwX2NoYXJnZXMiOnsieCI6NTYzLCJ5IjoyNTl9LCJNYXBfSFRUUF8yMDAiOnsieCI6NTg4LCJ5IjozNjd9LCJNYXBfT3V0cHV0Ijp7IngiOjkwOCwieSI6NDM5fSwiTG9nX091dHB1dCI6eyJ4Ijo5MDAsInkiOjI4OH0sIlJldHVybiI6eyJ4Ijo5MDgsInkiOjE0NH0sIk1hcF9IVFRQXzQwNCI6eyJ4IjoyMjcsInkiOjQzMn0sIk1hcF9IVFRQXzUwMCI6eyJ4IjozMjcsInkiOjE3fSwiTm9PcDEiOnsieCI6NjQyLCJ5IjoxNn0sIk1hcF9IVFRQXzQwMCI6eyJ4IjoxODEsInkiOjUzN319",
+        "metadata": {
+          "input": [
+            {
+              "name": "queryParams",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}}"
+              }
+            },
+            {
+              "name": "headers",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}}"
+              }
+            },
+            {
+              "name": "requestURI",
+              "type": "string"
+            },
+            {
+              "name": "method",
+              "type": "string"
+            }
+          ],
+          "output": [
+            {
+              "name": "code",
+              "type": "integer"
+            },
+            {
+              "name": "responseBody",
+              "type": "object",
+              "schema": {
+                "type": "json",
+                "value": "{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}"
+              }
+            }
+          ],
+          "fe_metadata": {
+            "input": "{\"type\":\"object\",\"title\":\"ReceiveHTTPMessage\",\"properties\":{\"queryParams\":{\"type\":\"object\",\"properties\":{\"msisdn\":{\"type\":\"string\"},\"customerCode\":{\"type\":\"string\"}},\"required\":[\"msisdn\",\"customerCode\"]},\"headers\":{\"type\":\"object\",\"properties\":{\"xAPI-correlationID\":{\"type\":\"string\"},\"xAPI-businessComponent\":{\"type\":\"string\"},\"xAPI-timestamp\":{\"type\":\"string\"},\"Accept\":{\"type\":\"string\",\"visible\":false},\"Accept-Charset\":{\"type\":\"string\",\"visible\":false},\"Accept-Encoding\":{\"type\":\"string\",\"visible\":false},\"Content-Type\":{\"type\":\"string\",\"visible\":false},\"Content-Length\":{\"type\":\"string\",\"visible\":false},\"Connection\":{\"type\":\"string\",\"visible\":false},\"Cookie\":{\"type\":\"string\",\"visible\":false},\"Pragma\":{\"type\":\"string\",\"visible\":false}},\"required\":[\"xAPI-correlationID\",\"xAPI-businessComponent\",\"xAPI-timestamp\"]},\"requestURI\":{\"type\":\"string\",\"required\":false},\"method\":{\"type\":\"string\",\"required\":false}}}",
+            "output": "{\"type\":\"object\",\"title\":\"Output\",\"properties\":{\"code\":{\"type\":\"integer\",\"required\":false},\"responseBody\":{\"type\":\"object\",\"properties\":{\"body\":{\"type\":\"any\"},\"headers\":{\"type\":\"object\"}}}},\"required\":[]}"
+          }
         }
       }
     }
   ],
   "properties": [
     {
-      "name": "OracleDatabase.Oracle.Host",
+      "name": "OracleDatabase.ORM.Host",
       "type": "string",
-      "value": "localhost"
+      "value": "aoclormards01.aws-tmnl.local"
     },
     {
-      "name": "OracleDatabase.Oracle.Port",
+      "name": "OracleDatabase.ORM.Port",
       "type": "float64",
       "value": 1521
     },
     {
-      "name": "OracleDatabase.Oracle.User",
+      "name": "OracleDatabase.ORM.User",
       "type": "string",
-      "value": "system"
+      "value": "ORM_TIBCO_USER"
     },
     {
-      "name": "OracleDatabase.Oracle.Password",
+      "name": "OracleDatabase.ORM.Password",
       "type": "string",
-      "value": "SECRET:3B6DmjcCAKmo44p7//yhensTxPM9"
+      "value": "SECRET:CY2gszXMlUQesCb9J+nUpAcHkjyYxvtIixV3+pYQmw=="
     },
     {
-      "name": "OracleDatabase.Oracle.Database_Instance_value",
+      "name": "OracleDatabase.ORM.Database_Instance_value",
       "type": "string",
-      "value": "orcl"
+      "value": "ORMA"
     },
     {
-      "name": "OracleDatabase.Oracle.Max_Open_Connections",
+      "name": "OracleDatabase.ORM.Max_Open_Connections",
       "type": "float64",
-      "value": 50
+      "value": 5
     },
     {
-      "name": "OracleDatabase.Oracle.Max_Idle_Connections",
+      "name": "OracleDatabase.ORM.Max_Idle_Connections",
       "type": "float64",
-      "value": 10
+      "value": 1
     },
     {
-      "name": "OracleDatabase.Oracle.Connection_Max_Lifetime",
+      "name": "OracleDatabase.ORM.Connection_Max_Lifetime",
       "type": "string",
       "value": "180s"
     }
   ],
+  "specs": {
+    "437ae668": {
+      "id": "437ae668",
+      "name": "ODS_OAS",
+      "type": "OpenAPI",
+      "content": "ew0KICAib3BlbmFwaSI6ICIzLjAuMyIsDQogICJpbmZvIjogew0KICAgICJ0aXRsZSI6ICJDb250cmFjdCBDaGFyZ2VzIEFQSSIsDQogICAgInZlcnNpb24iOiAiMS4wLjAiLA0KICAgICJkZXNjcmlwdGlvbiI6ICJBUEkgdG8gcmV0cmlldmUgY29udHJhY3QgY2hhcmdlcyBiYXNlZCBvbiBtc2lzZG4gYW5kIGN1c3RvbWVyIGNvZGUiDQogIH0sDQogICJwYXRocyI6IHsNCiAgICAiL2NvbnRyYWN0L2NoYXJnZXMiOiB7DQogICAgICAiZ2V0Ijogew0KICAgICAgICAic3VtbWFyeSI6ICJSZXRyaWV2ZSBjb250cmFjdCBjaGFyZ2VzIiwNCiAgICAgICAgImRlc2NyaXB0aW9uIjogIlJldHVybnMgYW4gYXJyYXkgb2YgY2hhcmdlcyBmb3IgdGhlIHNwZWNpZmllZCBtc2lzZG4gYW5kIGN1c3RvbWVyIGNvZGUuIiwNCiAgICAgICAgInBhcmFtZXRlcnMiOiBbDQogICAgICAgICAgew0KICAgICAgICAgICAgIm5hbWUiOiAibXNpc2RuIiwNCiAgICAgICAgICAgICJpbiI6ICJxdWVyeSIsDQogICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiTW9iaWxlIFN0YXRpb24gSW50ZXJuYXRpb25hbCBTdWJzY3JpYmVyIERpcmVjdG9yeSBOdW1iZXIiLA0KICAgICAgICAgICAgInJlcXVpcmVkIjogdHJ1ZSwNCiAgICAgICAgICAgICJzY2hlbWEiOiB7DQogICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyINCiAgICAgICAgICAgIH0NCiAgICAgICAgICB9LA0KICAgICAgICAgIHsNCiAgICAgICAgICAgICJuYW1lIjogImN1c3RvbWVyQ29kZSIsDQogICAgICAgICAgICAiaW4iOiAicXVlcnkiLA0KICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIkN1c3RvbWVyIGNvZGUgaWRlbnRpZmllciIsDQogICAgICAgICAgICAicmVxdWlyZWQiOiB0cnVlLA0KICAgICAgICAgICAgInNjaGVtYSI6IHsNCiAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIg0KICAgICAgICAgICAgfQ0KICAgICAgICAgIH0sDQogICAgICAgICAgew0KICAgICAgICAgICAgIm5hbWUiOiAieEFQSS1jb3JyZWxhdGlvbklEIiwNCiAgICAgICAgICAgICJpbiI6ICJoZWFkZXIiLA0KICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIlVuaXF1ZSBpZGVudGlmaWVyIHRvIGNvcnJlbGF0ZSBBUEkgcmVxdWVzdHMgYW5kIHJlc3BvbnNlcyIsDQogICAgICAgICAgICAicmVxdWlyZWQiOiB0cnVlLA0KICAgICAgICAgICAgInNjaGVtYSI6IHsNCiAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwNCiAgICAgICAgICAgICAgImZvcm1hdCI6ICJ1dWlkIg0KICAgICAgICAgICAgfQ0KICAgICAgICAgIH0sDQogICAgICAgICAgew0KICAgICAgICAgICAgIm5hbWUiOiAieEFQSS1idXNpbmVzc0NvbXBvbmVudCIsDQogICAgICAgICAgICAiaW4iOiAiaGVhZGVyIiwNCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJJZGVudGlmaWVyIG9mIHRoZSBidXNpbmVzcyBjb21wb25lbnQgbWFraW5nIHRoZSBjYWxsIiwNCiAgICAgICAgICAgICJyZXF1aXJlZCI6IHRydWUsDQogICAgICAgICAgICAic2NoZW1hIjogew0KICAgICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciDQogICAgICAgICAgICB9DQogICAgICAgICAgfSwNCiAgICAgICAgICB7DQogICAgICAgICAgICAibmFtZSI6ICJ4QVBJLXRpbWVzdGFtcCIsDQogICAgICAgICAgICAiaW4iOiAiaGVhZGVyIiwNCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJJU08gODYwMSB0aW1lc3RhbXAgb2YgdGhlIHJlcXVlc3QiLA0KICAgICAgICAgICAgInJlcXVpcmVkIjogdHJ1ZSwNCiAgICAgICAgICAgICJzY2hlbWEiOiB7DQogICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIsDQogICAgICAgICAgICAgICJmb3JtYXQiOiAiZGF0ZS10aW1lIg0KICAgICAgICAgICAgfQ0KICAgICAgICAgIH0NCiAgICAgICAgXSwNCiAgICAgICAgInJlc3BvbnNlcyI6IHsNCiAgICAgICAgICAiMjAwIjogew0KICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIkxpc3Qgb2YgY2hhcmdlcyIsDQogICAgICAgICAgICAiY29udGVudCI6IHsNCiAgICAgICAgICAgICAgImFwcGxpY2F0aW9uL2pzb24iOiB7DQogICAgICAgICAgICAgICAgInNjaGVtYSI6IHsNCiAgICAgICAgICAgICAgICAgICJ0eXBlIjogImFycmF5IiwNCiAgICAgICAgICAgICAgICAgICJpdGVtcyI6IHsNCiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAib2JqZWN0IiwNCiAgICAgICAgICAgICAgICAgICAgInByb3BlcnRpZXMiOiB7DQogICAgICAgICAgICAgICAgICAgICAgImFtb3VudCI6IHsNCiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogIm51bWJlciIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZm9ybWF0IjogImZsb2F0IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJDaGFyZ2UgYW1vdW50Ig0KICAgICAgICAgICAgICAgICAgICAgIH0sDQogICAgICAgICAgICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogew0KICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAic3RyaW5nIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJEZXNjcmlwdGlvbiBvZiB0aGUgY2hhcmdlIg0KICAgICAgICAgICAgICAgICAgICAgIH0sDQogICAgICAgICAgICAgICAgICAgICAgImZlZVR5cGUiOiB7DQogICAgICAgICAgICAgICAgICAgICAgICAidHlwZSI6ICJzdHJpbmciLA0KICAgICAgICAgICAgICAgICAgICAgICAgImRlc2NyaXB0aW9uIjogIlR5cGUgb2YgZmVlIg0KICAgICAgICAgICAgICAgICAgICAgIH0sDQogICAgICAgICAgICAgICAgICAgICAgImVudHJ5RGF0ZSI6IHsNCiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZm9ybWF0IjogImRhdGUtdGltZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiRGF0ZSB3aGVuIHRoZSBjaGFyZ2Ugd2FzIGVudGVyZWQiDQogICAgICAgICAgICAgICAgICAgICAgfSwNCiAgICAgICAgICAgICAgICAgICAgICAidmFsaWRGcm9tRGF0ZSI6IHsNCiAgICAgICAgICAgICAgICAgICAgICAgICJ0eXBlIjogInN0cmluZyIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZm9ybWF0IjogImRhdGUtdGltZSIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiRGF0ZSBmcm9tIHdoaWNoIHRoZSBjaGFyZ2UgaXMgdmFsaWQiDQogICAgICAgICAgICAgICAgICAgICAgfSwNCiAgICAgICAgICAgICAgICAgICAgICAicGVyaW9kIjogew0KICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAiaW50ZWdlciIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiQmlsbGluZyBwZXJpb2Qgb3IgZHVyYXRpb24gZm9yIHRoZSBjaGFyZ2UiDQogICAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgICB9LA0KICAgICAgICAgICAgICAgICAgICAicmVxdWlyZWQiOiBbDQogICAgICAgICAgICAgICAgICAgICAgImFtb3VudCIsDQogICAgICAgICAgICAgICAgICAgICAgImRlc2NyaXB0aW9uIiwNCiAgICAgICAgICAgICAgICAgICAgICAiZmVlVHlwZSIsDQogICAgICAgICAgICAgICAgICAgICAgImVudHJ5RGF0ZSIsDQogICAgICAgICAgICAgICAgICAgICAgInZhbGlkRnJvbURhdGUiLA0KICAgICAgICAgICAgICAgICAgICAgICJwZXJpb2QiDQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9LA0KICAgICAgICAgICAgICAgICJleGFtcGxlcyI6IHsNCiAgICAgICAgICAgICAgICAgICJzYW1wbGUiOiB7DQogICAgICAgICAgICAgICAgICAgICJzdW1tYXJ5IjogIlNhbXBsZSBsaXN0IG9mIGNoYXJnZXMiLA0KICAgICAgICAgICAgICAgICAgICAidmFsdWUiOiBbDQogICAgICAgICAgICAgICAgICAgICAgew0KICAgICAgICAgICAgICAgICAgICAgICAgImFtb3VudCI6IDI1LjUsDQogICAgICAgICAgICAgICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiTW9udGhseSBzdWJzY3JpcHRpb24gZmVlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJmZWVUeXBlIjogInN1YnNjcmlwdGlvbiIsDQogICAgICAgICAgICAgICAgICAgICAgICAiZW50cnlEYXRlIjogIjIwMjUtMDctMDFUMTI6MDA6MDBaIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJ2YWxpZEZyb21EYXRlIjogIjIwMjUtMDctMDFUMDA6MDA6MDBaIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJwZXJpb2QiOiAwDQogICAgICAgICAgICAgICAgICAgICAgfSwNCiAgICAgICAgICAgICAgICAgICAgICB7DQogICAgICAgICAgICAgICAgICAgICAgICAiYW1vdW50IjogNSwNCiAgICAgICAgICAgICAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJEYXRhIG92ZXJhZ2UgZmVlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJmZWVUeXBlIjogInVzYWdlIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICJlbnRyeURhdGUiOiAiMjAyNS0wNy0xNVQwODozMDowMFoiLA0KICAgICAgICAgICAgICAgICAgICAgICAgInZhbGlkRnJvbURhdGUiOiAiMjAyNS0wNy0xNVQwMDowMDowMFoiLA0KICAgICAgICAgICAgICAgICAgICAgICAgInBlcmlvZCI6IDENCiAgICAgICAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgICAgICAgIF0NCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgICB9LA0KICAgICAgICAgICI0MDAiOiB7DQogICAgICAgICAgICAiZGVzY3JpcHRpb24iOiAiSW52YWxpZCByZXF1ZXN0IHBhcmFtZXRlcnMiLA0KICAgICAgICAgICAgImNvbnRlbnQiOiB7DQogICAgICAgICAgICAgICJhcHBsaWNhdGlvbi9qc29uIjogew0KICAgICAgICAgICAgICAgICJleGFtcGxlcyI6IHsNCiAgICAgICAgICAgICAgICAgICJpbnZhbGlkUGFyYW1zIjogew0KICAgICAgICAgICAgICAgICAgICAic3VtbWFyeSI6ICJFeGFtcGxlIGludmFsaWQgcGFyYW1ldGVycyByZXNwb25zZSIsDQogICAgICAgICAgICAgICAgICAgICJ2YWx1ZSI6IHsNCiAgICAgICAgICAgICAgICAgICAgICAiZXJyb3IiOiAiSW52YWxpZCBtc2lzZG4gb3IgY3VzdG9tZXJDb2RlIHByb3ZpZGVkLiINCiAgICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICAgIH0sDQogICAgICAgICAgIjQwNCI6IHsNCiAgICAgICAgICAgICJkZXNjcmlwdGlvbiI6ICJObyBjaGFyZ2VzIGZvdW5kIGZvciB0aGUgZ2l2ZW4gbXNpc2RuIGFuZCBjdXN0b21lckNvZGUiLA0KICAgICAgICAgICAgImNvbnRlbnQiOiB7DQogICAgICAgICAgICAgICJhcHBsaWNhdGlvbi9qc29uIjogew0KICAgICAgICAgICAgICAgICJleGFtcGxlcyI6IHsNCiAgICAgICAgICAgICAgICAgICJub3RGb3VuZCI6IHsNCiAgICAgICAgICAgICAgICAgICAgInN1bW1hcnkiOiAiRXhhbXBsZSBubyBjaGFyZ2VzIGZvdW5kIHJlc3BvbnNlIiwNCiAgICAgICAgICAgICAgICAgICAgInZhbHVlIjogew0KICAgICAgICAgICAgICAgICAgICAgICJtZXNzYWdlIjogIk5vIGNoYXJnZXMgZm91bmQgZm9yIHRoZSBwcm92aWRlZCBtc2lzZG4gYW5kIGN1c3RvbWVyQ29kZS4iDQogICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgICB9DQogICAgICAgIH0NCiAgICAgIH0NCiAgICB9DQogIH0sDQogICJjb21wb25lbnRzIjogew0KICAgICJzZWN1cml0eVNjaGVtZXMiOiB7DQogICAgICAibXRsc0F1dGgiOiB7DQogICAgICAgICJ0eXBlIjogIm11dHVhbFRMUyIsDQogICAgICAgICJkZXNjcmlwdGlvbiI6ICJNdXR1YWwgVExTIGF1dGhlbnRpY2F0aW9uIg0KICAgICAgfQ0KICAgIH0NCiAgfSwNCiAgInNlY3VyaXR5IjogWw0KICAgIHsNCiAgICAgICJtdGxzQXV0aCI6IFtdDQogICAgfQ0KICBdDQp9DQo=",
+      "version": "1.0.0"
+    }
+  },
   "connections": {
-    "b6e4bef4-9bfb-4980-97ed-9c285c03d5cc": {
-      "id": "b6e4bef4-9bfb-4980-97ed-9c285c03d5cc",
-      "name": "Oracle",
+    "38014573-3c48-4660-b5ec-08c0dc499b9e": {
+      "id": "38014573-3c48-4660-b5ec-08c0dc499b9e",
+      "name": "ORM",
       "ref": "#oracledb",
       "isGlobal": false,
       "settings": {
-        "name": "Oracle",
-        "description": "",
-        "host": "=$property[\"OracleDatabase.Oracle.Host\"]",
-        "port": "=$property[\"OracleDatabase.Oracle.Port\"]",
-        "user": "=$property[\"OracleDatabase.Oracle.User\"]",
-        "password": "=$property[\"OracleDatabase.Oracle.Password\"]",
-        "database": "SID",
-        "SID": "=$property[\"OracleDatabase.Oracle.Database_Instance_value\"]",
-        "SetMaxOpenConns": "=$property[\"OracleDatabase.Oracle.Max_Open_Connections\"]",
-        "SetMaxIdleConns": "=$property[\"OracleDatabase.Oracle.Max_Idle_Connections\"]",
-        "SetConnMaxLifetime": "=$property[\"OracleDatabase.Oracle.Connection_Max_Lifetime\"]"
+        "name": "ORM",
+        "description": "ORM - Oracle DB Connector",
+        "host": "=$property[\"OracleDatabase.ORM.Host\"]",
+        "port": "=$property[\"OracleDatabase.ORM.Port\"]",
+        "user": "=$property[\"OracleDatabase.ORM.User\"]",
+        "password": "=$property[\"OracleDatabase.ORM.Password\"]",
+        "database": "Service Name",
+        "SID": "=$property[\"OracleDatabase.ORM.Database_Instance_value\"]",
+        "SetMaxOpenConns": "=$property[\"OracleDatabase.ORM.Max_Open_Connections\"]",
+        "SetMaxIdleConns": "=$property[\"OracleDatabase.ORM.Max_Idle_Connections\"]",
+        "SetConnMaxLifetime": "=$property[\"OracleDatabase.ORM.Connection_Max_Lifetime\"]"
       }
     }
   },
-  "contrib": "W3sicmVmIjoiZ2l0aHViLmNvbS90aWJjby9mbG9nby1nZW5lcmFsL3NyYy9hcHAvR2VuZXJhbCIsImlkIjoiR2VuZXJhbCIsInZlcnNpb24iOiIxLjYuNiIsInRhZyI6IjEuNi42LWIxMCIsIm5hbWUiOiJHZW5lcmFsIiwiczNsb2NhdGlvbiI6IlRpYmNvL0dlbmVyYWwiLCJpc1VzZXJFeHRlbnNpb24iOmZhbHNlfSx7InJlZiI6ImdpdGh1Yi5jb20vdGliY28vd2ktb3JhY2xlZGIvc3JjL2FwcC9PcmFjbGVEYXRhYmFzZSIsImlkIjoiT3JhY2xlRGF0YWJhc2UiLCJ2ZXJzaW9uIjoiMS4yLjIiLCJ0YWciOiIxLjIuMi1iMDMiLCJuYW1lIjoiT3JhY2xlIERhdGFiYXNlIiwiczNsb2NhdGlvbiI6IlRpYmNvL09yYWNsZURhdGFiYXNlIiwiaXNVc2VyRXh0ZW5zaW9uIjpmYWxzZX1d",
+  "contrib": "W3sicmVmIjoiZ2l0aHViLmNvbS90aWJjby9mbG9nby1nZW5lcmFsL3NyYy9hcHAvR2VuZXJhbCIsImlkIjoiR2VuZXJhbCIsInZlcnNpb24iOiIxLjYuNCIsInRhZyI6IjEuNi40LWIwMiIsIm5hbWUiOiJHZW5lcmFsIiwiczNsb2NhdGlvbiI6IlRpYmNvL0dlbmVyYWwiLCJpc1VzZXJFeHRlbnNpb24iOmZhbHNlfSx7InJlZiI6ImdpdGh1Yi5jb20vdGliY28vd2ktb3JhY2xlZGIvc3JjL2FwcC9PcmFjbGVEYXRhYmFzZSIsImlkIjoiT3JhY2xlRGF0YWJhc2UiLCJ2ZXJzaW9uIjoiMS4yLjIiLCJ0YWciOiIxLjIuMi1iMDMiLCJuYW1lIjoiT3JhY2xlIERhdGFiYXNlIiwiczNsb2NhdGlvbiI6IlRpYmNvL09yYWNsZURhdGFiYXNlIiwiaXNVc2VyRXh0ZW5zaW9uIjpmYWxzZX1d",
   "metadata": {
-    "endpoints": [],
-    "flogoVersion": "2.25.6"
+    "endpoints": [
+      {
+        "protocol": "http",
+        "port": "9876",
+        "spec": {
+          "name": "POCOracleDBCall",
+          "version": "1.0.0"
+        },
+        "title": "ReceiveHTTPMessage",
+        "swagger": {
+          "openapi": "3.0.0",
+          "info": {
+            "title": "POCOracleDBCall",
+            "version": "1.0.0",
+            "description": "Simple REST Trigger"
+          },
+          "paths": {
+            "/contract/charges": {
+              "get": {
+                "summary": "GET_ContractCharges",
+                "operationId": "get_contract_charges",
+                "parameters": [
+                  {
+                    "name": "msisdn",
+                    "in": "query",
+                    "description": "Request parameter",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "customerCode",
+                    "in": "query",
+                    "description": "Request parameter",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "xAPI-correlationID",
+                    "in": "header",
+                    "description": "Request parameter",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "xAPI-businessComponent",
+                    "in": "header",
+                    "description": "Request parameter",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  },
+                  {
+                    "name": "xAPI-timestamp",
+                    "in": "header",
+                    "description": "Request parameter",
+                    "required": true,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "",
+                    "content": {
+                      "application/json": {
+                        "schema": {
+                          "$ref": "#/components/schemas/schema1"
+                        }
+                      }
+                    }
+                  },
+                  "400": {
+                    "description": "",
+                    "content": {
+                      "text/plain": {
+                        "schema": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "404": {
+                    "description": "",
+                    "content": {
+                      "text/plain": {
+                        "schema": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "components": {
+            "schemas": {
+              "schema1": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "number",
+                      "format": "float",
+                      "description": "Charge amount"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Description of the charge"
+                    },
+                    "feeType": {
+                      "type": "string",
+                      "description": "Type of fee"
+                    },
+                    "entryDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Date when the charge was entered"
+                    },
+                    "validFromDate": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Date from which the charge is valid"
+                    },
+                    "period": {
+                      "type": "integer",
+                      "description": "Billing period or duration for the charge"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "description",
+                    "feeType",
+                    "entryDate",
+                    "validFromDate",
+                    "period"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "flogoVersion": "2.25.3"
   }
 }
